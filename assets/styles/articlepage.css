@@ -25,7 +25,8 @@
     height: 100%;
     width: 80%;
     object-fit: cover;
-    object-position: bottom;
+    object-position: center;
+
 }
 
 .artcielSeparatorHeaderBody{
@@ -135,7 +136,7 @@
 }
 .articleBody3Section1{
 height: 20%;
-    background: var(--darkBlue);
+    background: var(--beige);
     padding: 2vh 1vw;
     position: relative;
 }

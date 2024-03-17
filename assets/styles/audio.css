@@ -1,21 +1,38 @@
-.audioAudio{
-    border-bottom: 1px solid black;
-    padding-bottom: 3vh;
+.podcastContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.audioAudio {
+
+     
     display: flex;
     flex-direction: column;
     gap: 2vh;
-    width: 100%;
+    width: 47%;
     position: relative;
-}
-.audioAudio span{
+    background: var(--beige);
+    padding: 2vh 2vw;
+    border-radius: 10px;
 
-    color: grey;}
-audio{
-    width: 100% !important;
 }
-.audioOption{
+.audioAudio h2{
+    color: var(--darkBeige) !important;
+}
+.audioOption {
     position: absolute;
     right: 4%;
     top: 4%;
     padding: 0;
 }
+.audioAudio span {
+
+    color: grey;
+}
+
+audio {
+    width: 100% !important;
+}
+

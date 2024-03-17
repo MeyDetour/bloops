@@ -3,24 +3,23 @@
 {% block title %}Hello VideoController!{% endblock %}
 
 {% block body %}
-<div class="d-felx flex-row flex-wrap">
+<div class="podcastContainer">
 
-            <div class="row">
-                {% for audio in audios %}
-                    <div class="audioAudio col-5">
-                        <a class="btn btn1 audioOption " href="{{ path('delete_audio',{'id':audio.id}) }}">  <i class="btn bi bi-sliders"></i></a>
-                        <h2>{{ audio.titre }}</h2>
-                        <span>{{ audio.description }}</span>
+    {% for audio in audios %}
+        <div class="audioAudio ">
+            <a class="btn btn1 audioOption " href="{{ path('delete_audio',{'id':audio.id}) }}">  <i class="btn bi bi-sliders"></i></a>
+            <h2>{{ audio.titre }}</h2>
+            <span>{{ audio.description }}</span>
 
-                        {% include 'audio.html.twig' with  {
-                            'route_name':'',
-                            'audioClass':'audio',
-                            'audio':audio,
-                            'param':null,
-                            'aClass':''} %}
-                      </div>
-                {% endfor %}
-            </div>
+            {% include 'audio.html.twig' with  {
+                'route_name':'',
+                'audioClass':'audio',
+                'audio':audio,
+                'param':null,
+                'aClass':''} %}
+        </div>
+    {% endfor %}
+
 
 
 

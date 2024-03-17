@@ -12,6 +12,8 @@
 :root {
     --grey: #ABB2CB;
     --darkBlue: #346E96;
+    --beige : #E2DCD7;
+    --darkBeige : #594e45;
     --lighBleu: #bed5ff;
     --atchoum: #ffffff;
     --dash: #171717;
@@ -51,7 +53,7 @@ body {
     height: 8vh;
 margin-inline: 2vw;
     padding-inline: 1vw;
-    box-shadow: 0px 1px var(--dash),0px 4px var(--grey);
+    box-shadow: 0px 1px var(--dash),0px 4px var(--beige);
 }
 
 .art {
@@ -144,7 +146,7 @@ fieldset{
 }
 .navbar-brand {
     font-weight: 800;
-    color : var(--darkBlue)
+    color : var(--darkBeige)
 }.separator {
      height: 80%;
      width: 1px;
@@ -168,4 +170,5 @@ fieldset{
 .landingPage h1{
    font-size : 3em;
     font-weight: 800;
+    color: var(--darkBeige);
 }
