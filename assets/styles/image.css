@@ -1,0 +1,32 @@
+
+
+
+.imageAdded {
+width: 100%;
+height: 100%;
+
+
+}
+.fullImageBand{
+    position: absolute;
+    top: 8vh;
+    left: 0%;
+z-index: -1;
+    width: 100vw;
+    height: 44%;
+}
+.imageAdded img {
+    width: inherit;
+    height: inherit;
+    object-fit: cover;
+    object-position: center;
+}
+.imgPdp{
+    border-radius: 50%;
+}
+.articleImage{
+
+}
+.carousel{
+
+}

@@ -1,0 +1,225 @@
+
+/*===============HEADER ==================*/
+
+.headerArticle {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    height: 38vh;
+    padding: 0;
+    background: transparent;
+}
+
+.rightHeaderArticle {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-top: 4vh;
+}
+.rightHeaderArticle h1{
+    font-size: 1.8em;
+}
+.imageFondArticle {
+    height: 100%;
+    width: 80%;
+    object-fit: cover;
+    object-position: bottom;
+}
+
+.artcielSeparatorHeaderBody{
+    margin-block: 7vh;
+}
+/*===============CATEGORY ==================*/
+
+.articleCategory{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1vw;
+    margin-block: 5vh;
+}
+.articleCategoryName{
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 0.5em;
+}
+/*===============ARTICLE ==================*/
+
+.articleContainer {
+    background-color: var(--lighBleu);
+    padding: 2em;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+.articleBodyContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 2vw;
+    height: 100vh;
+}
+/*===============BODY GENERAL ==================*/
+
+
+.articleBodySubtitle{
+    margin-block: 2.5vh;
+}
+.articleBodyParagraphe {
+    font-weight: 400;
+}
+.articleBody2Img img, .articleBody1Img img ,.articleBody3Img img {
+    height: 100% !important;
+}
+
+/*===============BODY1==================*/
+.articleBody1 {
+    width: 25%;
+
+}
+
+.articleBody1Section1 {
+    height: 70%;
+}
+
+.articleBody1Section2 {
+    height: 30%;
+}
+
+.articleBody1Img {
+    height: 55%;
+}
+
+
+
+.articleBodyAuthor {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.articleBodyAuthor div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1vh;
+}
+.articleBodyAuthor div p {
+    color: var(--dahsWrite);
+    margin: 0;
+}
+
+.articleBodyAuthor div span {
+    color: var(--greyWrite);
+    font-size: 0.8em;
+}
+
+
+/*===============BODY2==================*/
+
+.articleBody2 {
+    width: 50%;
+}
+.articleBody2Img{
+    height: 70% !important;
+}
+
+/*===============BODY3==================*/
+.articleBody3 {
+    width: 25%;
+
+}
+.articleBody3Section1{
+height: 20%;
+    background: var(--darkBlue);
+    padding: 2vh 1vw;
+    position: relative;
+}
+.articleBody3Section2{
+    height: 80%;
+}
+.articleBody3Img {
+    height: 25%;
+}
+.articleBody3Section1Line{
+    width: 70%;
+    height: 2px;
+    background: black;
+    position: absolute;
+    right: 0%;
+    top: 14%;
+}
+/*===============AUTRE==================*/
+
+.articleContainer p {
+    font-size: .9em;
+    color: gray;
+}
+
+.backArrow {
+    position: absolute;
+    left: 2%;
+    font-size: 1em;
+    font-weight: 800;
+    top: 12vh;
+}
+
+.articleBody {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.articleContent {
+    width: 70%;
+    padding: 3em 1em;
+}
+
+.commentContainer {
+    width: 30%;
+}
+
+
+/* FILE PAGE  */
+.fileContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.fileFormContainer {
+    width: 40%;
+}
+
+.fileTypeContainer {
+    width: 54%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.videoTypeContainer, .audioTypeContainer, .imageTypeContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.audioType {
+
+    display: flex;
+    gap: 2vh;
+    flex-direction: column;
+}
+
+.deleteFileType {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--grey);
+    border-radius: 30px;
+    padding: 0;
+    margin: 1vh;
+}

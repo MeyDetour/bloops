@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello NemController!{% endblock %}
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{% block body %}
+    <div class="addImageContainer">
+        <div class="imageAddedContainer">
+            {% for image in comment.images %}
+                {% include 'image.html.twig' with  {
+                    'route_name':'delete_image',
+                    'imgClass':'imageAdded',
+                    'image':image,
+                    'param':{'id':image.id},
+                    'aClass':''} %}
+            {% endfor %}
+        </div>
+
+
+        {{ form_start(form,{'action':path('add_image_comment',{'id': comment.id})}) }}
+        {{ form_end(form) }}
+        <a href="{{ path('show_article',{'id':comment.article.id}) }}" class="btn btn-primary">Retour</a>
+    </div>
+
+{% endblock %}

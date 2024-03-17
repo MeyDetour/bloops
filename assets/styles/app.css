@@ -1,3 +1,171 @@
+/*
+! tailwindcss v3.4.1 | MIT License | https://tailwindcss.com
+*/
+
+/*
+1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
+2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --grey: #ABB2CB;
+    --darkBlue: #346E96;
+    --lighBleu: #bed5ff;
+    --atchoum: #ffffff;
+    --dash: #171717;
+    --dashhover: #000000;
+    --dahsWrite : #404040;
+    --greyWrite : #797979;
+}
+
+
 body {
-    background-color: skyblue;
+    margin: 0;
+    /* 1 */
+    background: #FFFFFF;
+    line-height: inherit;
+    /* 2 */
+    overflow-x: hidden;
+    color: #171717;
+    font-family: "Exo 2", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+
+}
+
+
+.containerMade {
+
+   padding: 5vw;
+}
+.articlesContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.navbar {
+    height: 8vh;
+margin-inline: 2vw;
+    padding-inline: 1vw;
+    box-shadow: 0px 1px var(--dash),0px 4px var(--grey);
+}
+
+.art {
+    border-radius: 0;
+    margin: 1vw;
+    width: 20vw;
+    height: 24vh;
+    background: var(--atchoum);
+    border: 2px solid var(--dash);
+    padding: 3vh 2vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    overflow-wrap: break-word;
+}
+.art h3{
+    font-weight: 600;
+    font-style: italic;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+.btn1{
+    border: 1px solid var(--dash);
+    border-radius: 0;
+    color : var(--dash);
+}
+.btn2 {
+    background: var(--dash);
+    border: 0;
+    border-radius: 0;
+    color: var(--atchoum);
+}
+
+.btnBleu {
+    background: var(--lighBleu) !important;
+    border: 0;
+    color: var(--darkBlue) !important;
+}
+
+.btn2:hover {
+    background: var(--dashhover);
+
+}
+.btn1:hover {
+    border: 1px solid var(--dashhover);
+
+}
+.boutonHeader {
+    border: 2px solid var(--darkBlue);
+}
+
+header {
+
+    z-index: -1;
+    width: 90vw;
+    height: 24%;
+      display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 2vh 4vw;
+    gap: 4vw;
+    align-items: center;
+    box-shadow: 0px 4px 5px #0000001c;
+}
+
+.warningContainer {
+    padding: 2vh 3vw;
+    border-radius: 15px;
+    border: 3px solid;
+}
+
+.loginOrSignup {
+    display: flex;
+    flex-direction: row;
+   padding: 0;
+    margin: 0;
+    gap: 1vw;
+}
+
+.loginOrSignup li {
+
+}
+fieldset{
+    border: 1px solid;
+    padding: 1vw;
+    border-radius: 10px;
+    margin: 1vw;
+}
+.navbar-brand {
+    font-weight: 800;
+    color : var(--darkBlue)
+}.separator {
+     height: 80%;
+     width: 1px;
+     background: #171717;
+ }
+ /*=================LANDING PAGE============================*/
+.landingPage{
+    display: flex;
+    /* width: 100vw; */
+    height: 100vh;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.landingPage img{
+    position: absolute;
+    top: 8vh;
+    left: 0%;
+    width: 46vw;
+    z-index: -1;
+}
+.landingPage h1{
+   font-size : 3em;
+    font-weight: 800;
 }

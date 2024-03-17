@@ -1,0 +1,12 @@
+
+<a
+      {% if route_name!= '' %}
+        href="{{ path(route_name,param) }}"
+        {% endif %}
+        class="{{ aClass }}">
+    <div class="{{ audioClass }}">
+        <audio controls src="{{ vich_uploader_asset(audio)}}"></audio>
+    </div>
+</a>
+
+

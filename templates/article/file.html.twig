@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello NemController!{% endblock %}
+{% form_theme formImage 'bootstrap_5_layout.html.twig' %}
+{% form_theme formAudio 'bootstrap_5_layout.html.twig' %}
+{% form_theme formVideo 'bootstrap_5_layout.html.twig' %}
+
+{% block body %}
+    <header>
+        <h1>Les fichiers trop gros ne sont pas pris en charge</h1>
+        {% for image in article.images %}
+            {% include 'imageFilter.html.twig' with  {
+                'route_name':'delete_image',
+                'imgClass':'imageAdded',
+                'image':image,
+                'param':{'id':image.id},
+                'aClass':'',
+            'filter':'apercu_image'} %}
+        {% endfor %}
+
+
+    </header>
+    <div class="fileContainer">
+        <div class="fileFormContainer">
+            {{ form_errors(formAudio) }}
+            <div class="addImageContainer">
+                {{ form_start(formImage,{'action':path('add_image_article',{'id': article.id})}) }}
+                {{ form_end(formImage) }}
+
+                {{ form_start(formAudio,{'action':path('add_audio_article',{'id': article.id})}) }}
+                {{ form_row(formAudio.audioFile) }}
+                <button type="submit" class="btn btn-success">Ajouter l'audio</button>
+                {{ form_end(formAudio) }}
+
+                {{ form_start(formVideo,{'action':path('add_video_article',{'id': article.id})}) }}
+                {{ form_row(formVideo.videoFile) }}
+                <button type="submit" class="btn btn-success">Ajouter la vidéo</button>
+                {{ form_end(formVideo) }}
+
+            </div>
+            <button class="btn nextButton btn-success"><a href="{{ path('show_article',{'id':article.id}) }}">Voir
+                    l'article</a>
+            </button>
+        </div>
+
+        <div class="fileTypeContainer">
+            <div class="imageTypeContainer">
+                {% if article.videos is not empty %}
+                    <h1>Aperçu des images dans l'article :</h1>
+                    <div class="carouselContainer">
+                        <button id="left-btn"><i class="arrow"></i></button>
+                        <img id="carousel" src="" alt="">
+                        <button id="right-btn"><i class="arrow"></i></button>
+                    </div>
+
+                {% endif %}
+            </div>
+            <div class="audioTypeContainer">
+                {% if article.audio is not empty %}
+                    <h1>Audios de l'article :</h1>
+                    <div class="row">
+                        {% for audio in article.audio %}
+                            <div class="deleteFileType col-5">
+                                {% include 'audio.html.twig' with  {
+                                    'route_name':'',
+                                    'audioClass':'imageAdded',
+                                    'audio':audio,
+                                    'param':null,
+                                    'aClass':''} %}
+                                <a href="{{ path('delete_audio',{'id':audio.id}) }}">Supprimer l'audio</a>
+
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="videoTypeContainer">
+                {% if article.videos is not empty %}
+                    <h1>Videos de l'article :</h1>
+                    <div class="row">
+                        {% for video in article.videos %}
+                            <div class="deleteFileType col-5">
+                                {% include 'video.html.twig' with  {
+                                    'route_name':'',
+                                    'videoClass':'imageAdded ',
+                                    'video':video,
+                                    'param':'',
+                                    'aClass':''} %}
+
+                                <a href="{{ path('delete_video',{'id':video.id}) }}">Supprimer la vidéo</a>
+
+                            </div>
+
+                        {% endfor %}
+                    </div>
+
+                {% endif %}
+            </div>
+
+
+        </div>
+    </div>
+    {% if app.user %}
+        <script src="{{ asset('js/carousel.js') }}"></script>
+    {% endif %}
+
+{% endblock %}

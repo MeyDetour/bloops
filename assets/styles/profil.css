@@ -1,0 +1,62 @@
+.informationsContainer, .informationProfil, .labelInformationProfil,
+.profilSettingsContainer {
+    display: flex;
+    align-items: center;
+}
+
+.profilSettingsContainer {
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.imgPdpSetting {
+    width: 33%;
+    border-radius: 50%;
+    border: var(--grey) 4px solid;
+    box-shadow: 0px 0px 25px #b9b5b5;
+}
+
+.informationsContainer {
+    width: 67%;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-around;
+
+}
+
+.informationProfil {
+font-size: 1.4em;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.informationProfil .bi{
+
+}
+.labelInformationProfil {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1vw;
+}
+.focus{
+    color: red;
+    font-weight: 900;
+
+}
+#inputUsernameProfil{
+    pointer-events: none;
+}
+#inputUsernameProfil:focus-visible {
+    outline: 1px solid var(--grey);
+    border-radius: 11px;
+}
+.line {
+    height: 1px;
+    width: 100%;
+    background: var(--dash);
+}
+#saveChanges{
+    display: none;
+}
+#updateProfil{
+    display: block;
+}

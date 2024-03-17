@@ -1,0 +1,75 @@
+<nav class="navbar navbar-expand-lg ">
+    <a class="navbar-brand" href="/">
+        {# <img src="{{ asset('images/logo.png') | imagine_filter('petite_vignette') }}"
+                                              alt="Logo blog">
+        #}
+
+        <span> Foolish Endeavours</span>
+    </a>
+    <div class="separator"></div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-2">
+            {#  nav news weeklyEndeavours about us -user -category   #}
+
+            <li class="nav-item">
+                <a class="nav-link  active" aria-current="page" href="{{ path('app_article') }}">News</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link  " aria-current="page" href="{{ path('app_audio') }}">Weekly Endeavour</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link  " aria-current="page" href="{{ path('app_video') }}">Videos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link  " aria-current="page" href="{{ path('about_us') }}">About us</a>
+            </li>
+            {% if app.user %}
+                {% if 'ROLE_ADMIN'in app.user.roles %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_user') }}">users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_category') }}">category</a>
+                    </li>
+                {% endif %}
+            {% endif %}
+
+
+        </ul>
+
+        {#  Image de profil  #}
+        {% if app.user %}
+            <a href="{{ path('user_account') }}">
+                {% if app.user.image %}
+                    <img class="imgPdp"
+                         src="{{ vich_uploader_asset(app.user.image) | imagine_filter('ma_vignette') }}"
+                         alt="">
+                {% else %}
+
+                    <img class="imgPdp"
+                         src="{{ asset('images/imgProfil.png') | imagine_filter('ma_vignette') }}" alt="">
+                {% endif %}
+            </a>
+
+        {% else %}
+            <ul class="loginOrSignup">
+                <li class="nav-item btn btn1">
+                    <a class="nav-link  " href="{{ path('app_register') }}">Sign up</a>
+
+                </li>
+                <li class="nav-item btn btn2">
+                    <a class="nav-link  " href="{{ path('app_login') }}">Log in</a>
+                </li>
+
+            </ul>
+
+
+        {% endif %}
+
+    </div>
+
+</nav>

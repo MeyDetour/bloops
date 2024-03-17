@@ -1,4 +1,6 @@
 import { Controller } from '@hotwired/stimulus';
+console.log('%c Bonjour!! ', 'font-weight: bold; font-size: 50px;color: #d6bcf8; text-shadow: 3px 3px 0  #7B3DC7FF  ');
+console.log("%c🌟 Développeuse passionnée, amatrice de café et codeuse nocturne. 💻\n🚀 Sur GitHub :  https://github.com/MeyDetour\n🌐 Connectons-nous sur LinkedIn : https://www.linkedin.com/in/mey-detour/\n🎨 Créative, curieuse et toujours prête pour de nouveaux défis !\n🌈 Let's code the world brighter together! 🌟✨", "color: #d6bcf8; font-family: serif; font-size: 17px");
 
 /*
  * This is an example Stimulus controller!
