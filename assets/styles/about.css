@@ -1,0 +1,44 @@
+.aboutUsPage{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 90vh;
+
+}
+.aboutProjectContainer , .aboutAuthorContainer{
+    display: flex;
+    flex-direction: column;
+
+    width: 35%;
+    justify-content: space-around;
+}
+/*===========================ABOUT US================*/
+.aboutAuthorContainer{
+    height: 50vh;
+    width: 40%;
+}
+.aboutProjectContainer h1{
+    color : var(--beigeMd);
+    margin-bottom: 3vh;
+    font-weight: 700;
+    font-size: 4.5rem;
+}
+
+
+
+
+
+
+/*===========================ABOUT AUTHOR================*/
+.aboutAuthor{
+    display: flex;
+    flex-direction: row;
+}
+.aboutAuthor img{
+    width: 5vw;
+    margin-right: 2vw;
+}
+.aboutAuthor h3{
+    color : var(--beigeMd)
+}
