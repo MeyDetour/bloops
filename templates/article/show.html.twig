@@ -192,9 +192,9 @@
 
         <div class="articleBodyAuthorMobil">
             <div class="articleBodyAuthor">
-                {% if app.user.image %}
+                {% if article.author.image %}
                     <img class="imgPdp"
-                         src="{{ vich_uploader_asset(app.user.image) | imagine_filter('petite_vignette') }}"
+                         src="{{ vich_uploader_asset(article.author.image) | imagine_filter('petite_vignette') }}"
                          alt="">
                 {% else %}
 
