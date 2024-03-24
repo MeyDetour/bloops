@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Image;
 use App\Entity\User;
+use App\Form\ImageType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -17,7 +20,7 @@ class SecurityController extends AbstractController
     #[Route('/user', name: 'app_user')]
     public function index(UserRepository $userRepository): Response
     {
-        if (!$this->getUser() || in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
+        if (!$this->getUser() || !in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
             return $this->redirectToRoute('app_login');
         }
         return $this->render('user/index.html.twig', [
@@ -34,6 +37,24 @@ class SecurityController extends AbstractController
         return $this->render('user/show.html.twig', [
 
         ]);
+    }
+
+    #[Route('/user/image', name: 'add_user_image')]
+    public function addUserImage(Request $request, EntityManagerInterface $manager): Response
+    {   if (!$this->getUser()) {
+        return $this->redirectToRoute('app_login');
+    }
+        $image = new Image();
+        $formImage = $this->createForm(ImageType::class, $image);
+        $formImage->handleRequest($request);
+        if($formImage->isSubmitted() && $formImage->isValid()){
+            $image->setOwner($this->getUser());
+            $manager->persist($image);
+            $manager->flush();
+            return $this->redirectToRoute('user_account');
+        }
+        return $this->render('image/create.html.twig',
+            ['formImage' => $formImage->createView()]);
     }
 
     #[Route('/user/update/username/{id}/{username}', name: 'user_update')]

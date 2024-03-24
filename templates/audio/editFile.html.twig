@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{% block body %}
+<div class="containerMade">
+    <header>
+        Changez l'audio
+    </header>
+   <div>
+       {{ form_start(form)}}
+
+       {{ form_row(form.audioFile) }}
+       <button class="btn btn1"><a href="{{ path('app_audio') }}">Retour</a></button>
+       <button type="submit" class="btn btn2">Ajouter le son</button>
+       {{ form_end(form , {'render_rest': false}) }}
+   </div>
+</div>
+
+{% endblock %}

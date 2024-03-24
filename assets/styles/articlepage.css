@@ -62,7 +62,10 @@
     display: flex;
     flex-direction: row;
     gap: 2vw;
+    padding: 5vh;
     height: 100vh;
+    border-radius: 50px;
+    background: var(--beige);
 }
 /*===============BODY GENERAL ==================*/
 
@@ -84,7 +87,7 @@
 }
 
 .articleBody1Section1 {
-    height: 70%;
+    height: fit-content;
 }
 
 .articleBody1Section2 {

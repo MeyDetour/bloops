@@ -3,23 +3,26 @@
 {% block title %}Articles{% endblock %}
 
 {% block body %}
-    <div class="articlesContainer ">
-        {% if articles is not empty %}
-            {% for article in articles %}
-                {% if article.status == 'ACTIVE' %}
-                    <div class="art   ">
-                        <a href="{{ path('show_article',{"id":article.id}) }}">
-                            <h3>{{ article.title }}</h3>
-                            {{ article.chapo }}
-                        </a>
+    <div class="containerMade">
+        <div class="articlesContainer ">
+            {% if articles is not empty %}
+                {% for article in articles %}
+                    {% if article.status == 'ACTIVE' %}
+                        <div class="art   ">
+                            <a href="{{ path('show_article',{"id":article.id}) }}">
+                                <h3>{{ article.title }}</h3>
+                                {{ article.chapo }}
+                            </a>
 
-                    </div>
+                        </div>
 
 
 
-                {% endif %}
-            {% endfor %}
-        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
     </div>
+
 {% endblock %}
 

@@ -3,19 +3,20 @@
 {% block title %}Articles{% endblock %}
 
 {% block body %}
-    <div class="articleContainer">
+    <div class="containerMade">
         {% for user in users %}
-            <div class="art art{{ loop.index  }}">
-                <a href="{{ path('delete_user',{"id":user.id}) }}">
-                    <h3>{{ user.email }}</h3>
-                    <h3>{{ user.username }}</h3>
-                    <p>{{ user.roles[0] }}</p>
+            <div class="art">
 
-                </a>
+                <h4>{{ user.username }}</h4>
+                <span>{{ user.email }}</span>
+                <p>{{ user.roles[0] }}</p>
+                <button class="btn btn2"><a href="{{ path('delete_user',{"id":user.id}) }}">SUPPRIMER</a></button>
+
 
             </div>
 
         {% endfor %}
+
     </div>
 {% endblock %}
 

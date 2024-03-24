@@ -1,27 +1,36 @@
 {% extends 'base.html.twig' %}
 
+{% form_theme formCategory 'bootstrap_5_layout.html.twig' %}
 {% block title %}Hello CategoryController!{% endblock %}
 
 {% block body %}
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">name</th>
+    <div class="containerMade">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">name</th>
+                <th scope="col">Action</th>
 
 
-        </tr>
-        </thead>
-        <tbody>
-        {% for cat in cats %}
-        <tr>
-            <th scope="row">{{ loop.index }}</th>
-            <td><a href="{{ path('filter_category',{'id':cat.id}) }}">{{ cat.name }}</a></td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for cat in cats %}
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td><a href="{{ path('filter_category',{'id':cat.id}) }}">{{ cat.name }}</a></td>
+                    <td><a href="{{ path('delete_category',{'id':cat.id}) }}" class="btn btn1">SUPPRIMER</a></td>
 
+                </tr>
+            {% endfor %}
 
-        </tr>
-        {% endfor %}
+            </tbody>
+        </table>
+        {{ form_start(formCategory,{'action': path('app_category')}) }}
+        {{ form_row(formCategory.name) }}
 
-        </tbody>
-    </table>
+        <button type="submit" class="btn btnBleu btnQuiRechargePasLAPAge ">Ajouter la catégorie</button>
+        {{ form_end(formCategory) }}
+    </div>
 {% endblock %}

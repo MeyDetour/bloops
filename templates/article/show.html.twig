@@ -3,6 +3,7 @@
 {% block title %}Articles{% endblock %}
 {% form_theme form 'bootstrap_5_layout.html.twig' %}
 {% block body %}
+<div class="containerMade">
 
 
     {#  HEADER  #}
@@ -188,6 +189,7 @@
     {% endif %}
 
 
-    <script src="{{ asset('js/like.js') }}"></script>
+</div>
+    <script src="{{ asset('js/like.js') }}" defer></script>
 
 {% endblock %}

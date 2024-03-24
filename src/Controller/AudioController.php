@@ -67,8 +67,50 @@ class AudioController extends AbstractController
         return $this->redirectToRoute('article_file', ['id'=>$article->getId()]);
 
     }
+    #[Route('/audio/article/{id}/editAudio', name: 'edit_audio')]
+    public function editPodcastAudio( Request $request, Audio $audio, EntityManagerInterface $manager): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $form = $this->createForm(PodcastType::class, $audio);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($audio);
+            $manager->flush();
+            return $this->redirectToRoute('app_audio');
+        };
+
+
+        return $this->render('audio/editFile.html.twig', ['form'=>$form->createView(),'audio'=>$audio]);
+
+    }
+    #[Route('/audio/article/{id}/editTitleDescription', name: 'edit_titleDescription')]
+    public function editPodcastTitleDescription( Request $request, Audio $audio, EntityManagerInterface $manager): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $form = $this->createForm(PodcastType::class, $audio);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($audio);
+            $manager->flush();
+            return $this->redirectToRoute('app_audio');
+        };
+
+
+        return $this->render('audio/editTitleDescription.html.twig', ['form'=>$form->createView(),'audio'=>$audio]);
+
+    }
     #[Route('/audio/new', name: 'add_audio')]
-    public function addAudio(Request $request, EntityManagerInterface $manager): Response
+    public function addPodcast(Request $request, EntityManagerInterface $manager): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
