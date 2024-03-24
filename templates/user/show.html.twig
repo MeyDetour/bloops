@@ -32,15 +32,22 @@
 
                         <div class="line"></div>
                     </div>
-                    <div class="informationProfil">
-                        <button id="saveChanges" class="btn">Changer le nom d'utilisateur</button>
+                    <div class="gestionOptions">
+                        <button id="saveChanges" class="btn boutonHeader">Changer le nom d'utilisateur</button>
                         <button class="btn boutonHeader" id="updateProfil">Modifier le profil</button>
-                        <a href="{{ path('app_logout') }}" class="btn boutonHeader">Se déconnecter</a>
-                        <a class="btn boutonHeader" href="{{ path('new_article') }}">Creer</a>
-                        <a class="btn boutonHeader" href="{{ path('add_video') }}">ajouter une video</a>
-                        <a class="btn boutonHeader" href="{{ path('add_audio') }}">ajouter un podcast</a>
-                        <a class="btn boutonHeader" href="{{ path('new_article') }}">ajouter un article</a>
-                        <a class="btn boutonHeader" href="{{ path('add_user_image') }}">ajouter une pdp</a>
+                        <button  class="btn boutonHeader">
+                            <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                        </button>
+
+                            <button class="btn boutonHeader"><a class="" href="{{ path('new_article') }}">Creer</a></button>
+                            <button class="btn boutonHeader"><a class="" href="{{ path('add_video') }}">ajouter une video</a>
+                            </button>
+                            <button class="btn boutonHeader"><a class="" href="{{ path('add_audio') }}">ajouter un podcast</a>
+                            </button>
+                            <button class="btn boutonHeader"><a class="" href="{{ path('new_article') }}">ajouter un article</a>
+                            </button>
+                            <button class="btn boutonHeader"><a class="" href="{{ path('add_user_image') }}">ajouter une pdp</a>
+                            </button>
 
                     </div>
                 </div>

@@ -8,10 +8,12 @@
     flex-direction: row;
     align-items: flex-start;
 }
-.profilSettingsContainer img{
+
+.profilSettingsContainer img {
     width: 18%;
     margin: 13vh;
 }
+
 .imgPdpSetting {
     width: 33%;
     border-radius: 50%;
@@ -28,39 +30,86 @@
 }
 
 .informationProfil {
-font-size: 1.4em;
+    font-size: 1.4em;
     flex-direction: column;
     align-items: flex-start;
 }
-.informationProfil .bi{
+
+.informationProfil .bi {
 
 }
+
 .labelInformationProfil {
     flex-direction: row;
     justify-content: space-between;
     gap: 1vw;
 }
-.focus{
+
+.focus {
     color: red;
     font-weight: 900;
 
 }
-#inputUsernameProfil{
+
+#inputUsernameProfil {
     pointer-events: none;
     border: 0;
 }
+
 #inputUsernameProfil:focus-visible {
     outline: 1px solid var(--grey);
     border-radius: 11px;
 }
+
 .line {
     height: 1px;
     width: 100%;
     background: var(--dash);
 }
-#saveChanges{
+
+#saveChanges {
     display: none;
 }
-#updateProfil{
+
+#updateProfil {
     display: block;
+}
+.gestionOptions{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.gestionOptions button {
+    outline: 0;
+    width: 44%;
+    margin: 1vh;
+}
+@media only screen and (max-width: 500px) {
+    .profilSettingsContainer {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .informationsContainer {
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+    }
+.informationProfil{
+    margin-block: 3vh;
+    width: 73%;
+}
+    #inputUsernameProfil, .informationProfil {
+        font-size: 18px;
+
+    }
+
+    .profilSettingsContainer img {
+        width: 50%;
+        margin: 0;
+        box-shadow: none;
+    }
+
 }

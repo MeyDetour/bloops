@@ -38,3 +38,30 @@
 .aboutAuthor h3{
     color : var(--beigeMd)
 }
+
+
+@media only screen and (max-width: 500px) {
+    .aboutUsPage {
+        flex-direction: column;
+height: auto;
+        width: 100%;
+    }
+    .aboutProjectContainer, .aboutAuthorContainer {
+        margin-bottom: 3vh;
+        width: 100%;
+    }
+    .aboutAuthor {
+        height: 10vh;
+        margin-bottom:  6vh ;
+
+    }
+    .aboutAuthorContainer{
+        height: fit-content;
+        width: 100%;
+    }
+    .aboutAuthor img {
+        height: 100%;
+        width: auto;
+    }
+
+}

@@ -19,16 +19,20 @@
             {#  nav news weeklyEndeavours about us -user -category   #}
 
             <li class="nav-item">
-                <a class="nav-link {% if currentPath == '/article'%} active {% endif%} " aria-current="page" href="{{ path('app_article') }}">News</a>
+                <a class="nav-link {% if currentPath == '/article' %} active {% endif %} " aria-current="page"
+                   href="{{ path('app_article') }}">News</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {% if currentPath == '/audio'%} active {% endif%}  " aria-current="page" href="{{ path('app_audio') }}">Weekly Endeavour</a>
+                <a class="nav-link {% if currentPath == '/audio' %} active {% endif %}  " aria-current="page"
+                   href="{{ path('app_audio') }}">Weekly Endeavour</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {% if currentPath == '/video'%} active {% endif%}  " aria-current="page" href="{{ path('app_video') }}">Videos</a>
+                <a class="nav-link {% if currentPath == '/video' %} active {% endif %}  " aria-current="page"
+                   href="{{ path('app_video') }}">Videos</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {% if currentPath == '/about'%} active {% endif%}  " aria-current="page" href="{{ path('about_us') }}">About us</a>
+                <a class="nav-link {% if currentPath == '/about' %} active {% endif %}  " aria-current="page"
+                   href="{{ path('about_us') }}">About us</a>
             </li>
             {% if app.user %}
                 {% if 'ROLE_ADMIN'in app.user.roles %}
@@ -44,34 +48,42 @@
 
         </ul>
 
-        {#  Image de profil  #}
-        {% if app.user %}
-            <a href="{{ path('user_account') }}">
-                {% if app.user.image %}
-                    <img class="imgPdp"
-                         src="{{ vich_uploader_asset(app.user.image) | imagine_filter('ma_vignette') }}"
-                         alt="">
-                {% else %}
+            {#  Image de profil  #}
+            {% if app.user %}
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-2 rightNavbarOptions">
+                    <li class="nav-item">
+                        <a href="{{ path('user_account') }}" class="link navbarLienProfil">
+                            {% if app.user.image %}
+                                <img class="imgPdp"
+                                     src="{{ vich_uploader_asset(app.user.image) | imagine_filter('ma_vignette') }}"
+                                     alt="">
+                            {% else %}
 
-                    <img class="imgPdp"
-                         src="{{ asset('images/imgProfil.png') | imagine_filter('ma_vignette') }}" alt="">
-                {% endif %}
-            </a>
+                                <img class="imgPdp"
+                                     src="{{ asset('images/imgProfil.png') | imagine_filter('ma_vignette') }}" alt="">
+                            {% endif %}
+                            <span> Profil </span>
+                        </a>
+                    </li>
 
-        {% else %}
-            <ul class="loginOrSignup">
-                <li class="nav-item btn btn1">
-                    <a class="nav-link  " href="{{ path('app_register') }}">Sign up</a>
+                </ul>
 
-                </li>
-                <li class="nav-item btn btn2">
-                    <a class="nav-link  " href="{{ path('app_login') }}">Log in</a>
-                </li>
+            {% else %}
+                <ul class="loginOrSignup navbar-nav me-auto mb-2 mb-lg-0 ms-lg-2 rightNavbarOptions">
+                    <li class="nav-item btn btn1">
+                        <a class="nav-link  " href="{{ path('app_register') }}">Sign up</a>
 
-            </ul>
+                    </li>
+                    <li class="nav-item btn btn2">
+                        <a class="nav-link  " href="{{ path('app_login') }}">Log in</a>
+                    </li>
+
+                </ul>
 
 
-        {% endif %}
+            {% endif %}
+
+
 
     </div>
 
