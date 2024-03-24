@@ -12,16 +12,16 @@
 :root {
     --grey: #ABB2CB;
     --darkBlue: #346E96;
-    --beige : #E2DCD7;
-    --LightBeige: #e0cdbd ;
-    --beigeMd : #d79b6a;
-    --darkBeige : #594e45;
+    --beige: #E2DCD7;
+    --LightBeige: #e0cdbd;
+    --beigeMd: #d79b6a;
+    --darkBeige: #594e45;
     --lighBleu: #bed5ff;
     --atchoum: #ffffff;
     --dash: #171717;
     --dashhover: #000000;
-    --dahsWrite : #404040;
-    --greyWrite : #797979;
+    --dahsWrite: #404040;
+    --greyWrite: #797979;
 }
 
 
@@ -43,19 +43,13 @@ body {
 
 .containerMade {
 
-   padding: 5vw;
+    padding: 5vw;
 }
-.articlesContainer{
+
+.articlesContainer {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-}
-
-.navbar {
-    height: 8vh;
-margin-inline: 2vw;
-    padding-inline: 1vw;
-    box-shadow: 0px 1px var(--dash),0px 4px var(--beige);
 }
 
 .art {
@@ -70,29 +64,35 @@ margin-inline: 2vw;
     text-overflow: ellipsis;
     overflow-wrap: break-word;
 }
-.art h3{
+
+.art h3 {
     font-weight: 600;
     font-style: italic;
 }
+
 a {
     text-decoration: none;
     color: black;
 }
-.btn1{
+
+.btn1 {
     border: 1px solid var(--dash);
     border-radius: 0;
-    color : var(--dash) !important;
+    color: var(--dash) !important;
 }
-.btn1 a{
-    color : var(--dash) !important;
+
+.btn1 a {
+    color: var(--dash) !important;
 }
+
 .btn2 {
     background: var(--dash);
     border: 0;
     border-radius: 0;
     color: var(--atchoum) !important;
 }
-.btn2 a{
+
+.btn2 a {
     color: var(--atchoum) !important;
 }
 
@@ -106,20 +106,22 @@ a {
     background: var(--dashhover);
 
 }
+
 .btn1:hover {
     border: 1px solid var(--dashhover);
 
 }
+
 .boutonHeader {
     border: 2px solid var(--darkBlue);
 }
 
 header {
-background: var(--LightBeige);
+    background: var(--LightBeige);
     z-index: -1;
     width: 90vw;
     height: 24%;
-      display: flex;
+    display: flex;
     flex-direction: row;
     justify-content: center;
     padding: 2vh 4vw;
@@ -137,7 +139,7 @@ background: var(--LightBeige);
 .loginOrSignup {
     display: flex;
     flex-direction: row;
-   padding: 0;
+    padding: 0;
     margin: 0;
     gap: 1vw;
 }
@@ -145,22 +147,16 @@ background: var(--LightBeige);
 .loginOrSignup li {
 
 }
-fieldset{
+
+fieldset {
     border: 1px solid;
     padding: 1vw;
     border-radius: 10px;
     margin: 1vw;
 }
-.navbar-brand {
-    font-weight: 800;
-    color : var(--darkBeige)
-}.separator {
-     height: 80%;
-     width: 1px;
-     background: #171717;
- }
- /*=================LANDING PAGE============================*/
-.landingPage{
+
+/*=================LANDING PAGE============================*/
+.landingPage {
     display: flex;
     /* width: 100vw; */
     height: 90vh;
@@ -168,331 +164,35 @@ fieldset{
 
     align-items: center;
 }
-.landingPage img{
-width: 50%;
-height: 100%;
+
+.landingPage img {
+    width: 50%;
+    height: 100%;
     z-index: -1;
 }
-.landingPage > div{
+
+.landingPage > div {
     width: 50%;
     height: 50%;
-display: flex;
+    display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
 }
-.landingPage div h1{
 
-   font-size : 3em;
+.landingPage div h1 {
+
+    font-size: 3em;
     font-weight: 800;
     color: var(--darkBeige);
 }
 
-/*=====================coeur============*/
-.cssload-main {
 
-    content: '';
-
-    transform: translate(-100%, -240%);
-    -o-transform: translate(-100%, -240%);
-    -ms-transform: translate(-100%, -240%);
-    -webkit-transform: translate(-100%, -240%);
-    -moz-transform: translate(-100%, -240%);
-}
-
-.cssload-main * {
-    font-size: 62px;
-}
-
-.cssload-heart {
-    animation: cssload-heart 2.88s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
-    -o-animation: cssload-heart 2.88s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
-    -ms-animation: cssload-heart 2.88s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
-    -webkit-animation: cssload-heart 2.88s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
-    -moz-animation: cssload-heart 2.88s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
-    top: 50%;
-    content: '';
-    left: 50%;
-    position: absolute;
-}
-
-.cssload-heartL {
-    width: 1em;
-    height: 1em;
-    border: 1px solid rgb(252, 0, 101);
-    background-color: rgb(252, 0, 101);
-    content: '';
-    position: absolute;
-    display: block;
-    border-radius: 100%;
-    animation: cssload-heartL 2.88s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
-    -o-animation: cssload-heartL 2.88s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
-    -ms-animation: cssload-heartL 2.88s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
-    -webkit-animation: cssload-heartL 2.88s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
-    -moz-animation: cssload-heartL 2.88s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
-    transform: translate(-28px, -27px);
-    -o-transform: translate(-28px, -27px);
-    -ms-transform: translate(-28px, -27px);
-    -webkit-transform: translate(-28px, -27px);
-    -moz-transform: translate(-28px, -27px);
-}
-
-.cssload-heartR {
-    width: 1em;
-    height: 1em;
-    border: 1px solid rgb(252, 0, 101);
-    background-color: rgb(252, 0, 101);
-    content: '';
-    position: absolute;
-    display: block;
-    border-radius: 100%;
-    transform: translate(28px, -27px);
-    -o-transform: translate(28px, -27px);
-    -ms-transform: translate(28px, -27px);
-    -webkit-transform: translate(28px, -27px);
-    -moz-transform: translate(28px, -27px);
-    animation: cssload-heartR 2.88s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
-    -o-animation: cssload-heartR 2.88s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
-    -ms-animation: cssload-heartR 2.88s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
-    -webkit-animation: cssload-heartR 2.88s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
-    -moz-animation: cssload-heartR 2.88s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
-}
-
-.cssload-square {
-    width: 1em;
-    height: 1em;
-    border: 1px solid rgb(252, 0, 101);
-    background-color: rgb(252, 0, 101);
-    position: relative;
-    display: block;
-    content: '';
-    transform: scale(1) rotate(-45deg);
-    -o-transform: scale(1) rotate(-45deg);
-    -ms-transform: scale(1) rotate(-45deg);
-    -webkit-transform: scale(1) rotate(-45deg);
-    -moz-transform: scale(1) rotate(-45deg);
-    animation: cssload-square 2.88s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
-    -o-animation: cssload-square 2.88s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
-    -ms-animation: cssload-square 2.88s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
-    -webkit-animation: cssload-square 2.88s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
-    -moz-animation: cssload-square 2.88s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
-}
-
-.cssload-shadow {
-    top: 97px;
-    left: 50%;
-    content: '';
-    position: relative;
-    display: block;
-    bottom: -.5em;
-    width: 1em;
-    height: .24em;
-    background-color: rgb(215,215,215);
-    border: 1px solid rgb(215,215,215);
-    border-radius: 50%;
-    animation: cssload-shadow 2.88s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
-    -o-animation: cssload-shadow 2.88s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
-    -ms-animation: cssload-shadow 2.88s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
-    -webkit-animation: cssload-shadow 2.88s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
-    -moz-animation: cssload-shadow 2.88s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
-}
-
-@keyframes cssload-square {
-    50% {
-        border-radius: 100%;
-        transform: scale(0.5) rotate(-45deg);
+@media only screen and (max-width: 500px) {
+    .containerMade {
+        padding: 10vh 5vw;
     }
-
-    100% {
-        transform: scale(1) rotate(-45deg);
-    }
-}
-
-@-o-keyframes cssload-square {
-    50% {
-        border-radius: 100%;
-        -o-transform: scale(0.5) rotate(-45deg);
-    }
-
-    100% {
-        -o-transform: scale(1) rotate(-45deg);
-    }
-}
-
-@-ms-keyframes cssload-square {
-    50% {
-        border-radius: 100%;
-        -ms-transform: scale(0.5) rotate(-45deg);
-    }
-
-    100% {
-        -ms-transform: scale(1) rotate(-45deg);
-    }
-}
-
-@-webkit-keyframes cssload-square {
-    50% {
-        border-radius: 100%;
-        -webkit-transform: scale(0.5) rotate(-45deg);
-    }
-
-    100% {
-        -webkit-transform: scale(1) rotate(-45deg);
-    }
-}
-
-@-moz-keyframes cssload-square {
-    50% {
-        border-radius: 100%;
-        -moz-transform: scale(0.5) rotate(-45deg);
-    }
-
-    100% {
-        -moz-transform: scale(1) rotate(-45deg);
-    }
-}
-
-@keyframes cssload-heart {
-    50% {
-        transform: rotate(360deg);
-    }
-
-    100% {
-        transform: rotate(720deg);
-    }
-}
-
-@-o-keyframes cssload-heart {
-    50% {
-        -o-transform: rotate(360deg);
-    }
-
-    100% {
-        -o-transform: rotate(720deg);
-    }
-}
-
-@-ms-keyframes cssload-heart {
-    50% {
-        -ms-transform: rotate(360deg);
-    }
-
-    100% {
-        -ms-transform: rotate(720deg);
-    }
-}
-
-@-webkit-keyframes cssload-heart {
-    50% {
-        -webkit-transform: rotate(360deg);
-    }
-
-    100% {
-        -webkit-transform: rotate(720deg);
-    }
-}
-
-@-moz-keyframes cssload-heart {
-    50% {
-        -moz-transform: rotate(360deg);
-    }
-
-    100% {
-        -moz-transform: rotate(720deg);
-    }
-}
-
-@keyframes cssload-heartL {
-    60% {
-        transform: scale(0.4);
-    }
-}
-
-@-o-keyframes cssload-heartL {
-    60% {
-        -o-transform: scale(0.4);
-    }
-}
-
-@-ms-keyframes cssload-heartL {
-    60% {
-        -ms-transform: scale(0.4);
-    }
-}
-
-@-webkit-keyframes cssload-heartL {
-    60% {
-        -webkit-transform: scale(0.4);
-    }
-}
-
-@-moz-keyframes cssload-heartL {
-    60% {
-        -moz-transform: scale(0.4);
-    }
-}
-
-@keyframes cssload-heartR {
-    40% {
-        transform: scale(0.4);
-    }
-}
-
-@-o-keyframes cssload-heartR {
-    40% {
-        -o-transform: scale(0.4);
-    }
-}
-
-@-ms-keyframes cssload-heartR {
-    40% {
-        -ms-transform: scale(0.4);
-    }
-}
-
-@-webkit-keyframes cssload-heartR {
-    40% {
-        -webkit-transform: scale(0.4);
-    }
-}
-
-@-moz-keyframes cssload-heartR {
-    40% {
-        -moz-transform: scale(0.4);
-    }
-}
-
-@keyframes cssload-shadow {
-    50% {
-        transform: scale(0.5);
-        border-color: rgb(228,228,228);
-    }
-}
-
-@-o-keyframes cssload-shadow {
-    50% {
-        -o-transform: scale(0.5);
-        border-color: rgb(228,228,228);
-    }
-}
-
-@-ms-keyframes cssload-shadow {
-    50% {
-        -ms-transform: scale(0.5);
-        border-color: rgb(228,228,228);
-    }
-}
-
-@-webkit-keyframes cssload-shadow {
-    50% {
-        -webkit-transform: scale(0.5);
-        border-color: rgb(228,228,228);
-    }
-}
-
-@-moz-keyframes cssload-shadow {
-    50% {
-        -moz-transform: scale(0.5);
-        border-color: rgb(228,228,228);
+    .art{
+        width: 100%;
     }
 }
