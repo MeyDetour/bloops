@@ -3,6 +3,7 @@
 {% block title %}Hello NemController!{% endblock %}
 {% form_theme formArticle 'bootstrap_5_layout.html.twig' %}
 {% block body %}
+<div class="containerMade">
     <header>
         <div class="">
             <p>Si vous souhaitez que votre article apparaisse parmi les autres articles disponibles, veuillez ajouter
@@ -50,6 +51,6 @@
         <button type="submit" class="btn nextButton btn-success">Suivant</button>
         {{ form_end(formArticle) }}
 
-
+</div>
     <script src="{{ asset('js/addCategory.js') }}"></script>
 {% endblock %}

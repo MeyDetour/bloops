@@ -4,6 +4,7 @@
 {% form_theme formCategory 'bootstrap_5_layout.html.twig' %}
 {% form_theme formCategoryForArticles 'bootstrap_5_layout.html.twig' %}
 {% block body %}
+<div class="containerMade">
     <header>
         <div class="">
             <p>Si vous souhaitez que votre article apparaisse parmi les autres articles disponibles, veuillez ajouter
@@ -36,6 +37,6 @@
 
     </div>
 
-
-    <script src="{{ asset('js/addCategory.js') }}"></script>
+</div>
+    <script src="{{ asset('js/addCategory.js') }}"defer></script>
 {% endblock %}

@@ -13,6 +13,7 @@
     --grey: #ABB2CB;
     --darkBlue: #346E96;
     --beige : #E2DCD7;
+    --LightBeige: #e0cdbd ;
     --beigeMd : #d79b6a;
     --darkBeige : #594e45;
     --lighBleu: #bed5ff;
@@ -109,7 +110,7 @@ a {
 }
 
 header {
-
+background: var(--LightBeige);
     z-index: -1;
     width: 90vw;
     height: 24%;

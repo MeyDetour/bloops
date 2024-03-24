@@ -4,6 +4,7 @@
 {% form_theme form 'bootstrap_5_layout.html.twig' %}
 
 {% block body %}
+<div class="containerMade">
     <div>
         {{ form_start(form) }}
         {{ form_row(form.name) }}
@@ -12,5 +13,5 @@
         {{ form_end(form) }}
 
     </div>
-
+</div>
 {% endblock %}

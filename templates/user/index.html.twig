@@ -3,6 +3,7 @@
 {% block title %}Articles{% endblock %}
 
 {% block body %}
+<div class="containerMade">
     <div class="articleContainer">
         {% for user in users %}
             <div class="art art{{ loop.index  }}">
@@ -17,5 +18,6 @@
 
         {% endfor %}
     </div>
+</div>
 {% endblock %}
 

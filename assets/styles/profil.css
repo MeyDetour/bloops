@@ -8,7 +8,10 @@
     flex-direction: row;
     align-items: flex-start;
 }
-
+.profilSettingsContainer img{
+    width: 18%;
+    margin: 13vh;
+}
 .imgPdpSetting {
     width: 33%;
     border-radius: 50%;
@@ -44,6 +47,7 @@ font-size: 1.4em;
 }
 #inputUsernameProfil{
     pointer-events: none;
+    border: 0;
 }
 #inputUsernameProfil:focus-visible {
     outline: 1px solid var(--grey);

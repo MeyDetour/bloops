@@ -84,7 +84,7 @@
 }
 
 .articleBody1Section1 {
-    height: 70%;
+    height: fit-content;
 }
 
 .articleBody1Section2 {

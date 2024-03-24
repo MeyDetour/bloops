@@ -3,51 +3,54 @@
 {% block title %}Articles{% endblock %}
 
 {% block body %}
-    <header>
+    <div class="containerMade">
 
-    </header>
-    {% if app.user %}
-        <div class="profilSettingsContainer">
-            {% if app.user.image %}
-                <img class="imgPdpSetting" src="{{ vich_uploader_asset(app.user.image) }}" alt="">
-            {% else %}
-                <img class="imgPdpSetting" src="{{ asset('images/imgProfil.png') }}" alt="">
-            {% endif %}
-            <div class="informationsContainer">
-                <div class="informationProfil">
-                    <div class="labelInformationProfil">
-                        <i class="bi bi-person-lines-fill"></i>
-                        <input type="text" id="inputUsernameProfil" readonly name="username" value="{{ app.user.username }}">
-                        <input type="hidden" id="userIdProfil" readonly name="id" value="{{ app.user.id }}">
+        {% if app.user %}
+            <div class="profilSettingsContainer">
+                {% if app.user.image %}
+                    <img class="imgPdpSetting" src="{{ vich_uploader_asset(app.user.image) }}" alt="">
+                {% else %}
+                    <img class="imgPdpSetting" src="{{ asset('images/imgProfil.png') }}" alt="">
+                {% endif %}
+                <div class="informationsContainer">
+                    <div class="informationProfil">
+                        <div class="labelInformationProfil">
+                            <i class="bi bi-person-lines-fill"></i>
+                            <input type="text" id="inputUsernameProfil" readonly name="username"
+                                   value="{{ app.user.username }}">
+                            <input type="hidden" id="userIdProfil" readonly name="id" value="{{ app.user.id }}">
+                        </div>
+
+                        <div class="line"></div>
                     </div>
 
-                    <div class="line"></div>
-                </div>
+                    <div class="informationProfil">
+                        <div class="labelInformationProfil">
+                            <i class="bi bi-envelope"></i>
+                            <span> {{ app.user.email }}</span>
+                        </div>
 
-                <div class="informationProfil">
-                    <div class="labelInformationProfil">
-                        <i class="bi bi-envelope"></i>
-                        <span> {{ app.user.email }}</span>
+                        <div class="line"></div>
                     </div>
+                    <div class="informationProfil">
+                        <button id="saveChanges" class="btn">Changer le nom d'utilisateur</button>
+                        <button class="btn boutonHeader" id="updateProfil">Modifier le profil</button>
+                        <a href="{{ path('app_logout') }}" class="btn boutonHeader">Se déconnecter</a>
+                        <a class="btn boutonHeader" href="{{ path('new_article') }}">Creer</a>
+                        <a class="btn boutonHeader" href="{{ path('add_video') }}">ajouter une video</a>
+                        <a class="btn boutonHeader" href="{{ path('add_audio') }}">ajouter un podcast</a>
+                        <a class="btn boutonHeader" href="{{ path('new_article') }}">ajouter un article</a>
+                        <a class="btn boutonHeader" href="{{ path('add_user_image') }}">ajouter une pdp</a>
 
-                    <div class="line"></div>
+                    </div>
                 </div>
-                <div class="informationProfil">
-                  <button   id="saveChanges" class="btn">Changer le nom d'utilisateur</button>
-                    <button class="btn boutonHeader"  id="updateProfil">Modifier le profil</button>
-                    <a href="{{ path('app_logout') }}" class="btn boutonHeader">Se déconnecter</a>
-                            <a  class="btn boutonHeader" href="{{ path('new_article') }}">Creer</a>
-                            <a  class="btn boutonHeader" href="{{ path('add_video') }}">ajouter une video</a>
-                            <a  class="btn boutonHeader" href="{{ path('add_audio') }}">ajouter un podcast</a>
-                            <a  class="btn boutonHeader" href="{{ path('new_article') }}">ajouter un article</a>
 
-                </div>
             </div>
 
-        </div>
+        {% endif %}
 
-    {% endif %}
+    </div>
     {% if app.user %}
-        <script src="{{ asset('js/changeUsername.js') }}"></script>
+        <script src="{{ asset('js/changeUsername.js') }}" defer></script>
     {% endif %}
 {% endblock %}
