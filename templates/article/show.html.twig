@@ -204,20 +204,22 @@
                 <div>
                     <p>Auteur : {{ article.author.username }}</p>
                     <span>Auteur de l'article</span>
+                    {{ article.createdAt | date('d-m-Y') }}
+                    {{ article.note }}
+                    <a href="{{ path("like_article", {id:article.id}) }}" class="likeButton btn btn1">
+                        Like
+                        <span class="nbrLikes">({{ article.likes|length }})</span>
+                        {% if app.user %}
+                            <i
+                                    class="bi bi-hand-thumbs-up{% if article.isLikedBy(app.user) %}-fill{% endif %}"
+                            ></i>
+                        {% endif %}
+                    </a>
                 </div>
             </div>
-            {{ article.createdAt | date('d-m-Y') }}
-            {{ article.note }}
 
-            <a href="{{ path("like_article", {id:article.id}) }}" class="likeButton btn btn1">
-                Like
-                <span class="nbrLikes">({{ article.likes|length }})</span>
-                {% if app.user %}
-                    <i
-                            class="bi bi-hand-thumbs-up{% if article.isLikedBy(app.user) %}-fill{% endif %}"
-                    ></i>
-                {% endif %}
-            </a>
+
+
 
         </div>
     </div>

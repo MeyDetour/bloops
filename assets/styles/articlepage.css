@@ -314,5 +314,8 @@
         display: flex;
         margin-block: 4vh;
     }
+    .articleBody3Section1{
+        display: none;
+    }
 }
 
