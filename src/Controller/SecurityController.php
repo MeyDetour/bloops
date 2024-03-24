@@ -20,7 +20,7 @@ class SecurityController extends AbstractController
     #[Route('/user', name: 'app_user')]
     public function index(UserRepository $userRepository): Response
     {
-        if (!$this->getUser() || in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
+        if (!$this->getUser() || !in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
             return $this->redirectToRoute('app_login');
         }
         return $this->render('user/index.html.twig', [

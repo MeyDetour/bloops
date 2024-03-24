@@ -10,19 +10,29 @@ use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 class CategoryController extends AbstractController
 {
     #[Route('/category', name: 'app_category')]
-    public function index(CategoryRepository $repository): Response
+    public function index(CategoryRepository $repository, Request $request, EntityManagerInterface $manager): Response
     {
-
+        $category = new Category();
+        $form = $this->createForm(CategoryType::class, $category);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($category);
+            $manager->flush();
+            return $this->redirectToRoute('app_category');
+        }
         return $this->render('category/index.html.twig', [
             'cats' => $repository->findAll(),
+            'formCategory'=>$form->createView()
         ]);
     }
+
     #[Route('/category/filter/{id}', name: 'filter_category')]
     public function filter(Category $category): Response
     {
@@ -30,24 +40,15 @@ class CategoryController extends AbstractController
             'category' => $category,
         ]);
     }
-    #[Route('/category/new', name: 'new_category')]
-    public function create(EntityManagerInterface $manager, \Symfony\Component\HttpFoundation\Request $request): Response
 
+    #[Route('/category/delete/{id}', name: 'delete_category')]
+    public function delete(Category $category, EntityManagerInterface $manager): Response
     {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('app_login');
-        }
-        $category = new Category();
-        $form = $this->createForm(CategoryType::class, $category);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-             $manager->persist($category);
 
-            $manager->flush();
-            return $this->redirectToRoute('app_category');
-        }
-        return $this->render('category/create.html.twig', [
-            'form' => $form,
-        ]);
+        $manager->remove($category);
+        $manager->flush();
+        return $this->redirectToRoute('app_category');
     }
+
+
 }

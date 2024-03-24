@@ -62,11 +62,10 @@ margin-inline: 2vw;
     border-radius: 0;
     margin: 1vw;
     width: 20vw;
-    height: 24vh;
+
     background: var(--atchoum);
     border: 2px solid var(--dash);
     padding: 3vh 2vw;
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     overflow-wrap: break-word;
@@ -82,13 +81,19 @@ a {
 .btn1{
     border: 1px solid var(--dash);
     border-radius: 0;
-    color : var(--dash);
+    color : var(--dash) !important;
+}
+.btn1 a{
+    color : var(--dash) !important;
 }
 .btn2 {
     background: var(--dash);
     border: 0;
     border-radius: 0;
-    color: var(--atchoum);
+    color: var(--atchoum) !important;
+}
+.btn2 a{
+    color: var(--atchoum) !important;
 }
 
 .btnBleu {
