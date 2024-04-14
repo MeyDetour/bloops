@@ -1,0 +1,20 @@
+{% extends '../client/base.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+
+{% block body %}
+
+            {% if articles is not empty %}
+                {% for article in articles %}
+                    {% if article.status == 'ACTIVE' %}
+
+                        {{ article.createdAt }}
+                        {{ article.title }}
+                        {{ article.author }}
+
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+
+{% endblock %}
+

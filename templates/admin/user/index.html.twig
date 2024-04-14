@@ -1,0 +1,23 @@
+{% extends '../client/base.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+
+{% block body %}
+    <div class="containerMade">
+        {% for user in users %}
+            <div class="art">
+
+                {{ user.id }}
+                {{ user.username }}
+                {{ user.email }}
+                {{ user.isVerified }}
+                {{ user.roles[0] }}
+
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+{% endblock %}
+
