@@ -3,10 +3,10 @@
 namespace App\Controller;
 
 
-use App\Entity\Article;
+use App\Entity\Bloop;
 use App\Entity\Comment;
 use App\Entity\Like;
-use App\Repository\ArticleRepository;
+use App\Repository\BloopRepository;
 use App\Repository\CommentRepository;
 use App\Repository\LikeRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,17 +17,17 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class LikeController extends AbstractController
 {
-    #[Route('/like/article/{id}', name: 'like_article')]
+    #[Route('/like/bloop/{id}', name: 'like_article')]
     #[Route('/like/comment/{id}', name: 'like_comment')]
-    public function like(Request $request,LikeRepository $likeRepository, EntityManagerInterface $manager, $id, CommentRepository $commentRepository,ArticleRepository $articleRepository): Response
+    public function like(Request $request, LikeRepository $likeRepository, EntityManagerInterface $manager, $id, CommentRepository $commentRepository, BloopRepository $bloopRepository): Response
     {
         $user = $this->getUser();
         if(!$user){return $this->json("no user connected", 400);}
 
         $route = $request->attributes->get("_route");
         if($route == "like_article"){
-            $article = $articleRepository->find($id);
-            $mode = "article";
+            $bloop = $bloopRepository->find($id);
+            $mode = "bloop";
         }
         if($route == "like_comment"){
             $comment =  $commentRepository->find($id);
@@ -36,8 +36,8 @@ class LikeController extends AbstractController
         $search = [
             "author"=>$user
         ];
-        if($mode == "article"){
-            $search["article"]=$article;
+        if($mode == "bloop"){
+            $search["bloop"]=$bloop;
         }
         if($mode == "comment"){
             $search["comment"]=$comment;
@@ -48,8 +48,8 @@ class LikeController extends AbstractController
         if(!$like){
             $like = new Like();
             $like->setAuthor($user);
-            if($mode=="article"){
-                $like->setArticle($article);
+            if($mode=="bloop"){
+                $like->setBloop($bloop);
             }
             if($mode=="comment"){
                 $like->setComment($comment);
@@ -64,10 +64,10 @@ class LikeController extends AbstractController
 
         $manager->flush();
 
-         if($mode=="article")
+         if($mode=="bloop")
         {
             $countSearch= [
-                "article"=>$article
+                "bloop"=>$bloop
             ];
         }
 

@@ -3,20 +3,14 @@
 {% block title %}Articles{% endblock %}
 
 {% block body %}
-    <div class="containerMade">
-        {% for user in users %}
-            <div class="art">
+    {% for user in users %}
 
-                <h4>{{ user.username }}</h4>
-                <span>{{ user.email }}</span>
-                <p>{{ user.roles[0] }}</p>
-                <button class="btn btn2"><a href="{{ path('delete_user',{"id":user.id}) }}">SUPPRIMER</a></button>
+            {{ user.username }}
+            {{ user.email }}
+            {{ user.isVerified }}
+            {{ user.image }}
+            {{ user.roles[0] }}
 
-
-            </div>
-
-        {% endfor %}
-
-    </div>
+    {% endfor %}
 {% endblock %}
 

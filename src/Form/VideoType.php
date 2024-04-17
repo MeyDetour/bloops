@@ -2,13 +2,14 @@
 
 namespace App\Form;
 
-use App\Entity\Article;
+use App\Entity\Bloop;
 use App\Entity\Video;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\UX\Dropzone\Form\DropzoneType;
 use Vich\UploaderBundle\Form\Type\VichFileType;
@@ -20,11 +21,21 @@ class VideoType extends AbstractType
         $builder
             ->add('videoFile', DropzoneType::class,
                 ['label' => 'Vidéo',
-                'constraints' => [
+                    'constraints' => [
                         new NotBlank([
-                            'message' => 'Veuillez sélectionner un fichier audio',
-                        ])
-                    ]
+                            'message' => 'Veuillez sélectionner un fichier podcast',
+                        ]),
+                        new File([
+                            'maxSize' => '10M',
+                            'mimeTypes' => [
+                                'video/mp4',
+                                'video/avi',
+                                'video/mpeg',
+                                'video/quicktime', // Ajoutez ou retirez les types selon les besoins
+                            ],
+                            'mimeTypesMessage' => 'Please upload a valid video file',
+                        ]),
+                    ],
                 ]);
     }
 

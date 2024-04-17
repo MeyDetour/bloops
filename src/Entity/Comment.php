@@ -20,7 +20,7 @@ class Comment
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
-    private ?Article $article = null;
+    private ?Bloop $bloop = null;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
@@ -32,7 +32,7 @@ class Comment
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
 
-    #[ORM\OneToMany(targetEntity: Like::class, mappedBy: 'comment')]
+    #[ORM\OneToMany(targetEntity: Like::class, mappedBy: 'comment' , orphanRemoval: true)]
     private Collection $likes;
 
     public function __construct()
@@ -60,14 +60,14 @@ class Comment
         return $this;
     }
 
-    public function getArticle(): ?Article
+    public function getBloop(): ?Bloop
     {
-        return $this->article;
+        return $this->bloop;
     }
 
-    public function setArticle(?Article $article): static
+    public function setBloop(?Bloop $bloop): static
     {
-        $this->article = $article;
+        $this->bloop = $bloop;
 
         return $this;
     }
@@ -76,12 +76,12 @@ class Comment
     {
         return $this->author;
     }
-    public function isLikedBy(User $user)
+    public function isLikedBy( $user)
     {
         $isLikedBy = false;
         foreach ($this->likes as $like){
-            if($like->getAuthor == $user){
-                return $isLikedBy;
+            if($like->getAuthor() == $user){
+                return true;
             }
         }
         return $isLikedBy;

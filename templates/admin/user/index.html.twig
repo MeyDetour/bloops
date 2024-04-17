@@ -1,23 +1,21 @@
-{% extends '../client/base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 {% block title %}Articles{% endblock %}
 
 {% block body %}
-    <div class="containerMade">
-        {% for user in users %}
-            <div class="art">
 
-                {{ user.id }}
-                {{ user.username }}
-                {{ user.email }}
-                {{ user.isVerified }}
-                {{ user.roles[0] }}
+    {% for user in users %}
+
+        {{ user.id }}
+        {{ user.username }}
+        {{ user.email }}
+        {{ user.isVerified }}
+        {{ user.password }}
+        {{ user.image }}
+        {{ user.roles[0] }}
 
 
-            </div>
+    {% endfor %}
 
-        {% endfor %}
-
-    </div>
 {% endblock %}
 

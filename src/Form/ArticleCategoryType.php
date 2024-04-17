@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Article;
+use App\Entity\Bloop;
 use App\Entity\Category;
 use App\Entity\User;
 use App\Repository\CategoryRepository;
@@ -37,7 +37,7 @@ class ArticleCategoryType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Article::class,
+            'data_class' => Bloop::class,
         ]);
     }
 }

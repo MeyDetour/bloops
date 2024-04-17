@@ -27,4 +27,7 @@ return [
     '@hotwired/turbo' => [
         'version' => '7.3.0',
     ],
+    'axios' => [
+        'version' => '1.6.8',
+    ],
 ];

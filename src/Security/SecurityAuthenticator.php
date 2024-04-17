@@ -48,7 +48,7 @@ class SecurityAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-         return new RedirectResponse($this->urlGenerator->generate('app_article'));
+         return new RedirectResponse($this->urlGenerator->generate('app_bloop'));
 
     }
 

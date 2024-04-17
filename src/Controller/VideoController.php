@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Article;
+use App\Entity\Bloop;
 use App\Entity\Audio;
 use App\Entity\Video;
 use App\Form\AudioType;
@@ -33,15 +33,15 @@ class VideoController extends AbstractController
         $cp = $video;
         $manager->remove($video);
         $manager->flush();
-        if ($cp->getArticle()) {
-            return $this->redirectToRoute('article_file', ['id' => $cp->getArticle()->getId()]);
+        if ($cp->getBloop()) {
+            return $this->redirectToRoute('bloop_file', ['id' => $cp->getBloop()->getId()]);
         } else {
-            return $this->redirectToRoute('app_article');
+            return $this->redirectToRoute('app_bloop');
         }
     }
 
-    #[Route('/video/article/{id}/new', name: 'add_video_article')]
-    public function create(Request $request, Article $article, EntityManagerInterface $manager): Response
+    #[Route('/video/bloop/{id}/new', name: 'add_video_bloop')]
+    public function create(Request $request, Bloop $bloop, EntityManagerInterface $manager): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
@@ -52,12 +52,12 @@ class VideoController extends AbstractController
         $form = $this->createForm(VideoType::class, $video);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $video->setArticle($article);
+            $video->setBloop($bloop);
             $manager->persist($video);
             $manager->flush();
         };
 
-        return $this->redirectToRoute('article_file', ['id' => $article->getId()]);
+        return $this->redirectToRoute('bloop_file', ['id' => $bloop->getId()]);
     }
     #[Route('/video/new', name: 'add_video')]
     public function addVideo(Request $request, EntityManagerInterface $manager): Response

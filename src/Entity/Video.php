@@ -33,7 +33,7 @@ class Video
 
     #[ORM\ManyToOne(inversedBy: 'videos')]
     #[ORM\JoinColumn(nullable: true)] // Rend la relation nullable
-    private ?Article $article = null;
+    private ?Bloop $bloop = null;
 
 
     /**
@@ -81,17 +81,24 @@ class Video
         return $this->videoSize;
     }
 
-    public function getArticle(): ?Article
+    public function getBloop(): ?Bloop
     {
-        return $this->article;
+        return $this->bloop;
     }
 
-    public function setArticle(?Article $article): static
+    public function setBloop(?Bloop $bloop): static
     {
-        $this->article = $article;
+        $this->bloop = $bloop;
 
         return $this;
     }
+    public function getVideoUrl(): ?string
+    {
+        if ($this->videoName) {
+            return 'videos/' . $this->videoName;
+        }
 
+        return null;
+    }
 
 }

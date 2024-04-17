@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const newUsername = inputUsername.value.trim();
         if (newUsername.length > 3) {
             changeUsername(userId,newUsername).then(response=>{
+                response=response.data
                 console.log(response)
                 inputUsername.setAttribute('readonly', true);
                 saveButton.style.display = 'none';

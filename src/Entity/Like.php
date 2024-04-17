@@ -15,7 +15,7 @@ class Like
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'likes')]
-    private ?Article $article = null;
+    private ?Bloop $bloop = null;
 
     #[ORM\ManyToOne(inversedBy: 'likes')]
     private ?Comment $comment = null;
@@ -29,14 +29,14 @@ class Like
         return $this->id;
     }
 
-    public function getArticle(): ?Article
+    public function getBloop(): ?Bloop
     {
-        return $this->article;
+        return $this->bloop;
     }
 
-    public function setArticle(?Article $article): static
+    public function setBloop(?Bloop $bloop): static
     {
-        $this->article = $article;
+        $this->bloop = $bloop;
 
         return $this;
     }

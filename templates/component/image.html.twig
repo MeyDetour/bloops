@@ -4,10 +4,25 @@
         href="{{ path(route_name,param) }}"
         {% endif %}
         class="{{ aClass }}">
-        <div class="{{ imgClass }}">
-            <img src="{{ vich_uploader_asset(image)}}" alt="{{ image.imageName }}">
 
-        </div>
+            <img src="{{ vich_uploader_asset(image)}}" class="{{ imgClass }}" alt="{{ image.imageName }}">
+
 </a>
 
+{#
 
+
+TO CALL IT USE :
+
+{% for image in bloop.images %}
+    {% include 'image.html.twig' with  {
+        'route_name':'delete_image',
+        'imgClass':'imageAdded',
+        'image':image,
+        'param':{'id':image.id},
+        'aClass':''} %}
+{% endfor %}
+
+
+
+}#}

@@ -21,16 +21,16 @@ class PodcastType extends AbstractType
     {
         $builder
             ->add('titre', TextType::class, [
-                'label' => "Titre de l'article"
+                'label' => "Titre de l'bloop"
             ])
             ->add('description', TextType::class, [
-                'label' => "Contenu de l'article",
+                'label' => "Contenu de l'bloop",
                 'required' => false, // Champ non requis
             ])
             ->add('audioFile', DropzoneType::class, [
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Veuillez sélectionner un fichier audio',
+                        'message' => 'Veuillez sélectionner un fichier podcast',
                     ]),
                 ]]
             );

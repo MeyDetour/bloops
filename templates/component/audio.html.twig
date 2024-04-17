@@ -10,3 +10,22 @@
 </a>
 
 
+{#
+
+
+TO CALL IT USE :
+
+   {% if bloop.audio is not empty %}
+        {% for audio in bloop.audio %}
+            {% include 'audio.html.twig' with  {
+                'route_name':'',
+                'audioClass':'imageAdded',
+                'audio':audio,
+                'param':null,
+                'aClass':''} %}
+        {% endfor %}
+    {% endif %}
+
+
+
+}#}

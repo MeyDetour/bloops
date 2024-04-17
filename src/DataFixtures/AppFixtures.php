@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Article;
+use App\Entity\Bloop;
 use App\Entity\Category;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;

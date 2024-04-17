@@ -22,7 +22,7 @@ class AudioType extends AbstractType
             ->add('audioFile', DropzoneType::class, [
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Veuillez sélectionner un fichier audio',
+                        'message' => 'Veuillez sélectionner un fichier podcast',
                     ]),
                 ]]
             );

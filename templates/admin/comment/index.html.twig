@@ -1,0 +1,26 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Hello NemController!{% endblock %}
+{% form_theme formImage 'bootstrap_5_layout.html.twig' %}
+{% form_theme formAudio 'bootstrap_5_layout.html.twig' %}
+{% form_theme formVideo 'bootstrap_5_layout.html.twig' %}
+
+{% block body %}
+    {% for comment in article.comments %}
+
+        {{ comment.author.email }}
+        {{ comment.content }}
+        {{ comment.createdAt | date('d-m-Y') }}
+        {{ article.title }}
+        {% for image in comment.images %}
+            {% include 'image.html.twig' with  {
+                'route_name':'',
+                'imgClass':'imageAdded',
+                'image':image,
+                'param':{},
+                'aClass':''} %}
+        {% endfor %}
+
+        <a class="btn btn-primary"  href="{{ path('delete_comment',{'id': comment.id}) }}">supprimer</a>
+    {% endfor %}
+{% endblock %}

@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Article;
+use App\Entity\Bloop;
 use App\Entity\Comment;
 use App\Entity\Image;
 use App\Entity\Nem;
@@ -10,6 +10,7 @@ use App\Form\ImageType;
 use App\Repository\ImageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -26,8 +27,9 @@ class ImageController extends AbstractController
             'controller_name' => 'ImageController',
         ]);
     }
+
     #[Route('/image/delete/{id}', name: 'delete_image')]
-    public function delete(EntityManagerInterface $manager  , Image $image): Response
+    public function delete(EntityManagerInterface $manager, Image $image): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
@@ -35,18 +37,17 @@ class ImageController extends AbstractController
         $cp = $image;
         $manager->remove($image);
         $manager->flush();
-        if($cp->getArticle()){
-            return $this->redirectToRoute('article_file',['id'=>$cp->getArticle()->getId()]);
-        }
-        elseif ($cp->getComment()){
-            return $this->redirectToRoute('comment_image',['id'=>$cp->getComment()->getId()]);
+        if ($cp->getBloop()) {
+            return $this->redirectToRoute('bloop_file', ['id' => $cp->getBloop()->getId()]);
+        } elseif ($cp->getComment()) {
+            return $this->redirectToRoute('comment_image', ['id' => $cp->getComment()->getId()]);
 
-        }
-        else{
+        } else {
             return $this->redirectToRoute('app_article');
         }
     }
-    #[Route('/image/article/{id}/new', name: 'add_image_article')]
+
+    #[Route('/image/bloop/{id}/new', name: 'add_image_bloop')]
     #[Route('/image/comment/{id}/new', name: 'add_image_comment')]
     public function create(ImageRepository $repository, Request $request, ImageRepository $imageRepository, $id, EntityManagerInterface $manager): Response
     {
@@ -55,18 +56,18 @@ class ImageController extends AbstractController
         }
         $route = $request->attributes->get('_route');
         switch ($route) {
-            case 'add_image_article' :
-                $entity = Article::class;
-                $setter = 'setArticle';
-                $routeRedirect = 'article_file';
-               $param = ['id' => $id];
+            case 'add_image_bloop' :
+                $entity = Bloop::class;
+                $setter = 'setBloop';
+                $routeRedirect = 'bloop_file';
+                $param = ['id' => $id];
                 break;
 
 
             case 'add_image_comment':
                 $entity = Comment::class;
                 $routeRedirect = 'comment_image';
-                  $setter = 'setComment';
+                $setter = 'setComment';
                 $param = ['id' => $id];
                 break;
         }
@@ -84,7 +85,14 @@ class ImageController extends AbstractController
 
         };
         //  return $this->redirectToRoute($routeRedirectFormSubmitted, $param);
-        return $this->redirectToRoute($routeRedirect,$param);
+        return $this->redirectToRoute($routeRedirect, $param);
 
+    }
+
+    #[Route('/image/{id}', name: 'image_show')]
+    public function showImage(Image $image)
+    {
+        $filePath = $this->getParameter('images_directory') . '/' . $image->getFileName();
+        return new BinaryFileResponse($filePath);
     }
 }

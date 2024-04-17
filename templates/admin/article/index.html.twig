@@ -1,4 +1,4 @@
-{% extends '../client/base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 {% block title %}Articles{% endblock %}
 
@@ -8,6 +8,7 @@
                 {% for article in articles %}
                     {% if article.status == 'ACTIVE' %}
 
+                        {{ article.id }}
                         {{ article.createdAt }}
                         {{ article.title }}
                         {{ article.author }}

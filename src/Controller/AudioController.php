@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Article;
+use App\Entity\Bloop;
 use App\Entity\Audio;
 use App\Entity\Comment;
 use App\Entity\Image;
@@ -22,14 +22,14 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class AudioController extends AbstractController
 {
-    #[Route('/audio', name: 'app_audio')]
+    #[Route('/podcast', name: 'app_audio')]
     public function index(AudioRepository $audioRepository): Response
     {
-        return $this->render('audio/index.html.twig', [
+        return $this->render('client/podcast/index.html.twig', [
             'audios' => $audioRepository->findAll(),
         ]);
     }
-    #[Route('/audio/delete/{id}', name: 'delete_audio')]
+    #[Route('/podcast/delete/{id}', name: 'delete_audio')]
     public function delete(EntityManagerInterface $manager, Audio $audio): Response
     {
         if (!$this->getUser()) {
@@ -45,8 +45,8 @@ class AudioController extends AbstractController
         }
     }
 
-    #[Route('/audio/article/{id}/new', name: 'add_audio_article')]
-    public function create( Request $request, Article $article, EntityManagerInterface $manager): Response
+    #[Route('/podcast/bloop/{id}/new', name: 'add_audio_article')]
+    public function create(Request $request, Bloop $article, EntityManagerInterface $manager): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
@@ -67,7 +67,7 @@ class AudioController extends AbstractController
         return $this->redirectToRoute('article_file', ['id'=>$article->getId()]);
 
     }
-    #[Route('/audio/article/{id}/editAudio', name: 'edit_audio')]
+    #[Route('/podcast/bloop/{id}/editAudio', name: 'edit_audio')]
     public function editPodcastAudio( Request $request, Audio $audio, EntityManagerInterface $manager): Response
     {
         if (!$this->getUser()) {
@@ -85,10 +85,10 @@ class AudioController extends AbstractController
         };
 
 
-        return $this->render('audio/editFile.html.twig', ['form'=>$form->createView(),'audio'=>$audio]);
+        return $this->render('client/podcast/editFile.html.twig', ['form'=>$form->createView(),'podcast'=>$audio]);
 
     }
-    #[Route('/audio/article/{id}/editTitleDescription', name: 'edit_titleDescription')]
+    #[Route('/podcast/bloop/{id}/editTitleDescription', name: 'edit_titleDescription')]
     public function editPodcastTitleDescription( Request $request, Audio $audio, EntityManagerInterface $manager): Response
     {
         if (!$this->getUser()) {
@@ -106,10 +106,10 @@ class AudioController extends AbstractController
         };
 
 
-        return $this->render('audio/editTitleDescription.html.twig', ['form'=>$form->createView(),'audio'=>$audio]);
+        return $this->render('client/podcast/editTitleDescription.html.twig', ['form'=>$form->createView(),'podcast'=>$audio]);
 
     }
-    #[Route('/audio/new', name: 'add_audio')]
+    #[Route('/podcast/new', name: 'add_audio')]
     public function addPodcast(Request $request, EntityManagerInterface $manager): Response
     {
         if (!$this->getUser()) {
@@ -124,6 +124,6 @@ class AudioController extends AbstractController
             return $this->redirectToRoute('user_account');
         };
 
-        return $this->render('audio/add.html.twig',['form'=>$form->createView()]);
+        return $this->render('client/podcast/add.html.twig',['form'=>$form->createView()]);
     }
 }

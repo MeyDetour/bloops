@@ -41,7 +41,7 @@ class Image
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'image')]
-    private ?Article $article = null;
+    private ?Bloop $bloop = null;
 
     #[ORM\ManyToOne(inversedBy: 'images')]
     private ?Comment $comment = null;
@@ -100,14 +100,14 @@ class Image
         return $this->imageSize;
     }
 
-    public function getArticle(): ?Article
+    public function getBloop(): ?Bloop
     {
-        return $this->article;
+        return $this->bloop;
     }
 
-    public function setArticle(?Article $article): static
+    public function setBloop(?Bloop $bloop): static
     {
-        $this->article = $article;
+        $this->bloop = $bloop;
 
         return $this;
     }
@@ -144,6 +144,14 @@ class Image
         $this->owner = $owner;
 
         return $this;
+    }
+    public function getImageUrl(): ?string
+    {
+        if ($this->imageName) {
+            return 'images/' . $this->imageName;
+        }
+
+        return null;
     }
 
 

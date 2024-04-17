@@ -1,0 +1,130 @@
+.mainContainer {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+/*=========================NAVBAR=========================*/
+.main-navbar .logoContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+}
+
+.main-navbar .imgNavbar {
+    width: 26%;
+    height: auto;
+    margin-right: 8%;
+
+}
+
+.main-navbar .bloopsTitle {
+    color: var(--simplet);
+    font-size: 50px;
+    font-weight: 700;
+}
+
+.main-navbar {
+    width: 22vw;
+    height: 100%;
+    padding: 7vh 0vw;
+    position: fixed;
+
+}
+
+.contentContainer {
+    padding-left: 25vw;
+    width: 100vw;
+}
+
+.main-navbar ul {
+    padding: 0;
+    margin: 0;
+}
+
+.main-navbar .active {
+    background: var(--dormeur) !important;
+    color: var(--roncheux) !important;
+}
+
+.nav-link {
+    width: 488px;
+    height: 70px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    border-radius: 0px 15px 15px 0px; /* Order: top-left, top-right, bottom-right, bottom-left */
+    background-color: #F9F9F9; /* Hex color for the element's background */
+    box-shadow: 4px 4px 5px 0 #0000000D, /* Drop shadow */ inset 4px 4px 5px 0 #FFFFFF; /* Inner shadow */
+    white-space: nowrap;
+    padding: 18px 25px;
+    color: var(--darkText); /* This sets the text color to near-black */
+    font-weight: 700; /* Corresponds to a bold weight in most font families */
+    font-size: 25px; /* The size of your text */
+    line-height: normal;
+    margin-top: 35px;
+    animation: come-left 0.5s ease-in forwards;
+}
+
+@keyframes come-left {
+    0% {
+        transform: translateX(-30px);
+    }
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+.nav-link:hover {
+    scale: 105%;
+}
+
+.nav-home {
+    width: 489px !important;
+}
+
+.nav-flow {
+    width: 438px !important;
+}
+
+.nav-podcast {
+    width: 335px !important;
+}
+
+.nav-account {
+    width: 286px !important;
+}
+
+.nav-new {
+    width: 186px !important;
+}
+
+
+/*========================DROPDOWN=======================*/
+
+.dropdown:hover, .dropdown:active {
+    outline: 0;
+    border: 0
+}
+
+
+/*=============BLOOP LIKE=============*/
+.bloopBallonLiked  .bloopBallonLikedSvg{
+    display: block;
+}
+.bloopBallonLiked  .bloopBallonSvg{
+    display: none;
+}
+.bloopBallon .bloopBallonLikedSvg{
+    display: none;
+}
+.bloopBallon .bloopBallonSvg{
+    display: block;
+}

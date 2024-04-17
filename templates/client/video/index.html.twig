@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello VideoController!{% endblock %}
+
+{% block body %}
+
+    {% for video in videos %}
+
+        {% include 'video.html.twig' with  {
+            'route_name':'',
+            'videoClass':'imageAdded ',
+            'video':video,
+            'param':'',
+            'aClass':''} %}
+
+
+
+    {% endfor %}
+
+
+
+{% endblock %}

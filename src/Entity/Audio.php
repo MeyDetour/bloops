@@ -33,15 +33,18 @@ class Audio
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\ManyToOne(inversedBy: 'audio')]
+    #[ORM\ManyToOne(inversedBy: 'podcast')]
     #[ORM\JoinColumn(nullable: true)] // Rend la relation nullable
-    private ?Article $article = null;
+    private ?Bloop $article = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $titre = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $createdAt = null;
 
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
@@ -88,12 +91,12 @@ class Audio
         return $this->audioSize;
     }
 
-    public function getArticle(): ?Article
+    public function getArticle(): ?Bloop
     {
         return $this->article;
     }
 
-    public function setArticle(?Article $article): static
+    public function setArticle(?Bloop $article): static
     {
         $this->article = $article;
 
@@ -123,4 +126,23 @@ class Audio
 
         return $this;
     }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }  public function getAudioUrl(): ?string
+{
+    if ($this->audioName) {
+        return 'videos/' . $this->audioName;
+    }
+
+    return null;
+}
 }

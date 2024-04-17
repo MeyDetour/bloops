@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Article;
+use App\Entity\Bloop;
 use App\Entity\Category;
-use App\Form\ArticleType;
+use App\Form\BloopType;
 use App\Form\CategoryType;
-use App\Repository\ArticleRepository;
+use App\Repository\BloopRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,9 +16,12 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class CategoryController extends AbstractController
 {
-    #[Route('/category', name: 'app_category')]
+    #[Route('/admin/category', name: 'admin_app_category')]
     public function index(CategoryRepository $repository, Request $request, EntityManagerInterface $manager): Response
     {
+        if (!$this->getUser() || !in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
+            return $this->redirectToRoute('app_login');
+        }
         $category = new Category();
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
@@ -35,8 +38,10 @@ class CategoryController extends AbstractController
 
     #[Route('/category/filter/{id}', name: 'filter_category')]
     public function filter(Category $category): Response
-    {
-        return $this->render('category/filterByCategory.html.twig', [
+    {    if (!$this->getUser() ) {
+        return $this->redirectToRoute('app_login');
+    }
+        return $this->render('client/bloop/filterByCategory.html.twig', [
             'category' => $category,
         ]);
     }
@@ -44,7 +49,9 @@ class CategoryController extends AbstractController
     #[Route('/category/delete/{id}', name: 'delete_category')]
     public function delete(Category $category, EntityManagerInterface $manager): Response
     {
-
+        if (!$this->getUser()  ) {
+            return $this->redirectToRoute('app_login');
+        }
         $manager->remove($category);
         $manager->flush();
         return $this->redirectToRoute('app_category');

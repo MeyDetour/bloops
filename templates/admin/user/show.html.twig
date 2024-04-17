@@ -1,63 +1,36 @@
-{% extends '../client/base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 {% block title %}Articles{% endblock %}
 
 {% block body %}
-    <div class="containerMade">
 
-        {% if app.user %}
-            <div class="profilSettingsContainer">
-                {% if app.user.image %}
-                    <img class="imgPdpSetting" src="{{ vich_uploader_asset(app.user.image) }}" alt="">
-                {% else %}
-                    <img class="imgPdpSetting" src="{{ asset('images/imgProfil.png') }}" alt="">
-                {% endif %}
-                <div class="informationsContainer">
-                    <div class="informationProfil">
-                        <div class="labelInformationProfil">
-                            <i class="bi bi-person-lines-fill"></i>
-                            <input type="text" id="inputUsernameProfil" readonly name="username"
-                                   value="{{ app.user.username }}">
-                            <input type="hidden" id="userIdProfil" readonly name="id" value="{{ app.user.id }}">
-                        </div>
 
-                        <div class="line"></div>
-                    </div>
+    {{ user.id }}
+    {{ user.username }}
+    {{ user.email }}
+    {{ user.isVerified }}
+    {{ user.password }}
+    {{ user.image }}
+    {{ user.roles[0] }}
 
-                    <div class="informationProfil">
-                        <div class="labelInformationProfil">
-                            <i class="bi bi-envelope"></i>
-                            <span> {{ app.user.email }}</span>
-                        </div>
+    {% for comment in user.comments %}
+        {{ comment.id }}
+        {{ comment.createdAt }}
+        {{ comment.author }}
+        {{ comment.content }}
+    {% endfor %}
 
-                        <div class="line"></div>
-                    </div>
-                    <div class="gestionOptions">
-                        <button id="saveChanges" class="btn boutonHeader">Changer le nom d'utilisateur</button>
-                        <button class="btn boutonHeader" id="updateProfil">Modifier le profil</button>
-                        <button  class="btn boutonHeader">
-                            <a href="{{ path('app_logout') }}">Se déconnecter</a>
-                        </button>
 
-                            <button class="btn boutonHeader"><a class="" href="{{ path('new_article') }}">Creer</a></button>
-                            <button class="btn boutonHeader"><a class="" href="{{ path('add_video') }}">ajouter une video</a>
-                            </button>
-                            <button class="btn boutonHeader"><a class="" href="{{ path('add_audio') }}">ajouter un podcast</a>
-                            </button>
-                            <button class="btn boutonHeader"><a class="" href="{{ path('new_article') }}">ajouter un article</a>
-                            </button>
-                            <button class="btn boutonHeader"><a class="" href="{{ path('add_user_image') }}">ajouter une pdp</a>
-                            </button>
 
-                    </div>
-                </div>
+    {% for article in user.articles %}
+        {{ article.id }}
+        {{ article.createdAt }}
+        {{ article.title }}
+        {{ article.author }}
+    {% endfor %}
 
-            </div>
 
-        {% endif %}
+    {{ user.likes|length }}
 
-    </div>
-    {% if app.user %}
-        <script src="{{ asset('js/changeUsername.js') }}" defer></script>
-    {% endif %}
+
 {% endblock %}

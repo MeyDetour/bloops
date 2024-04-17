@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{% block body %}
+    {#    CHANGER JUSTE LE TITRE ET LA DESCRIPTION #}
+            {{ form_start(form)}}
+            {{ form_row(form.titre) }}
+            {{ form_row(form.description) }}
+            <button class="btn "><a href="{{ path('app_audio') }}">Retour</a></button>
+
+            <button type="submit" class="btn ">Modifier</button>
+            {{ form_end(form , {'render_rest': false}) }}
+
+
+{% endblock %}

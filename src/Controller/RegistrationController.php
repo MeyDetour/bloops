@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Article;
+use App\Entity\Bloop;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
-use App\Repository\ArticleRepository;
+use App\Repository\BloopRepository;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
 use App\Security\SecurityAuthenticator;
@@ -23,12 +23,12 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
 {
-    private EmailVerifier $emailVerifier;
+  /*  private EmailVerifier $emailVerifier;
 
     public function __construct(EmailVerifier $emailVerifier)
     {
         $this->emailVerifier = $emailVerifier;
-    }
+    }*/
 
 
     #[Route('/delete/{id}', name: 'delete_user')]
@@ -46,6 +46,7 @@ class RegistrationController extends AbstractController
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, SecurityAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
+        dump($request);
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -63,14 +64,14 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
             // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+         /*   $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
-                    ->from(new Address('article-blog@article.com', 'articleblog'))
+                    ->from(new Address('bloop-blog@bloop.com', 'articleblog'))
                     ->to($user->getEmail())
                     ->subject('Please Confirm your Email')
-                    ->htmlTemplate('registration/confirmation_email.html.twig')
+                    ->htmlTemplate('client/registration/confirmation_email.html.twig')
             );
-            // do anything else you need here, like send an email
+            // do anything else you need here, like send an email*/
 
             return $userAuthenticator->authenticateUser(
                 $user,
@@ -79,7 +80,7 @@ class RegistrationController extends AbstractController
             );
         }
 
-        return $this->render('registration/register.html.twig', [
+        return $this->render('client/security/base.html.twig', [
             'registrationForm' => $form,
         ]);
     }

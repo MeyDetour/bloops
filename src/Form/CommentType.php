@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Article;
+use App\Entity\Bloop;
 use App\Entity\Comment;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
