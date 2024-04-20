@@ -459,35 +459,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Audio>
-     */
-    public function getAudio(): Collection
-    {
-        return $this->audio;
-    }
-
-    public function addAudio(Audio $audio): static
-    {
-        if (!$this->audio->contains($audio)) {
-            $this->audio->add($audio);
-            $audio->setAuthor($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAudio(Audio $audio): static
-    {
-        if ($this->audio->removeElement($audio)) {
-            // set the owning side to null (unless already changed)
-            if ($audio->getAuthor() === $this) {
-                $audio->setAuthor(null);
-            }
-        }
-
-        return $this;
-    }
     public function isFollowedBy(User $user)
     {
         $isFollowedBy = false;

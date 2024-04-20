@@ -32,7 +32,6 @@ class SecurityController extends AbstractController
     }
 
 
-
     #[Route('/user/image', name: 'add_user_image')]
     public function addUserImage(Request $request, EntityManagerInterface $manager): Response
     {
@@ -76,8 +75,8 @@ class SecurityController extends AbstractController
 //===========================API============================
 
 //CHANGE USERNAME CLIENT (html: templates/client/user/show.html.twig , JS : assets/js/client/user.js , CSS :assets/styles/client/user.css )
-    #[Route('/own/profil/update', name: 'user_update')]
-    public function updateUsername( EntityManagerInterface $manager, Request $request): Response
+    #[Route('/user/profil/update', name: 'user_update')]
+    public function updateUsername(EntityManagerInterface $manager, Request $request): Response
     {
 
         $user = $this->getUser();
@@ -86,13 +85,20 @@ class SecurityController extends AbstractController
         }
         $form = $this->createForm(\App\Form\UserType::class, $user);
         $form->handleRequest($request);
-if($form->isSubmitted() && $form->isValid()){
-    $manager->persist($user);
-    $manager->flush();
-    $this->redirectToRoute('show_user',['id'=>$user->getId()]);
-      return $this->render('client/user/edit.html.twig',['form'=>$form->createView()]);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $uploadedFile = $form->get('image')->getData(); // 'image' est le nom du champ de formulaire
+            if ($uploadedFile) {
+                $image = new Image($uploadedFile);
+                // Configurez l'entité Image comme nécessaire...
+                $user->setImage($image);
+            }
+            $manager->persist($user);
+            $manager->flush();
+            return $this->redirectToRoute('show_user', ['id' => $user->getId()]);
 
-}
+        }
+        return $this->render('client/user/edit.html.twig', ['form' => $form->createView()]);
+
     }
 
 //VERYFIYNG IS EMAIL OR USERNAME IS TAKEN CLIENT (html: templates/client/security/base.html.twig , JS : assets/js/client/register.js , CSS :assets/styles/client/form.css)
@@ -188,14 +194,14 @@ if($form->isSubmitted() && $form->isValid()){
     }
 
 
-
 //=> UPDATE PASSWORD IN   PROFIL CLIENT (HTMH : templates/client/user/show.html.twig , JS :  , css : assets/styles/client/profil.css )
     #[Route('user/last/password', name: 'verify_password')]
     public function isGoodPassword(UserRepository $repository, UserPasswordHasherInterface $userPasswordHasher, Request $request, ValidatorInterface $validator): Response
     {
         $user = $this->getUser();
-        if(!$user){ return $this->json(["message" => "No user connected"], Response::HTTP_UNAUTHORIZED);
-            }
+        if (!$user) {
+            return $this->json(["message" => "No user connected"], Response::HTTP_UNAUTHORIZED);
+        }
 
         // Récupérer les données JSON de la requête
         $data = json_decode($request->getContent(), true);
@@ -208,7 +214,7 @@ if($form->isSubmitted() && $form->isValid()){
             if ($isValidPassword) {
                 return $this->json(['message' => 'ok'], Response::HTTP_OK);
             } else {
-                return $this->json(['message' => 'Invalid password'] );
+                return $this->json(['message' => 'Invalid password']);
             }
 
         }
@@ -217,14 +223,17 @@ if($form->isSubmitted() && $form->isValid()){
 
         ]);
     }
+
     #[Route('user/profil/update/username/email', name: 'api_profil_update')]
-    public function updateProfil( EntityManagerInterface $manager, Request $request, ValidatorInterface $validator): Response
+    public function updateProfil(EntityManagerInterface $manager, Request $request, ValidatorInterface $validator): Response
     {
 
         $user = $this->getUser();
-        if(!$user){return $this->json("no user connected", 400);}
-  $data = json_decode($request->getContent(), true);
-   if ($data) {
+        if (!$user) {
+            return $this->json("no user connected", 400);
+        }
+        $data = json_decode($request->getContent(), true);
+        if ($data) {
 
             $user->setUsername($data['username'] ?? $user->getUsername());
             $user->setEmail($data['email'] ?? $user->getEmail());
@@ -260,7 +269,9 @@ if($form->isSubmitted() && $form->isValid()){
     public function newPassword(UserRepository $repository, UserPasswordHasherInterface $userPasswordHasher, Request $request, ValidatorInterface $validator, EntityManagerInterface $manager): Response
     {
         $user = $this->getUser();
-        if(!$user){return $this->json("no user connected", 400);}
+        if (!$user) {
+            return $this->json("no user connected", 400);
+        }
 
         // Récupérer les données JSON de la requête
         $data = json_decode($request->getContent(), true);

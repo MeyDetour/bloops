@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
 #[Vich\Uploadable]
@@ -51,8 +52,13 @@ class Image
 
 
 
-    public function __construct()
+    public function __construct(UploadedFile $file = null)
     {
+        if ($file) {
+            $this->imageName = uniqid() . '.' . $file->guessExtension(); // Créez un nom de fichier unique
+            $this->imageSize = $file->getSize(); // La taille du fichier
+            $this->mimeType = $file->getMimeType(); // Le type MIME du fichier
+        }
        }
 
     /**

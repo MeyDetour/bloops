@@ -4,7 +4,8 @@
 
 {% block body %}
     {% if app.user %}
-        <div id="profile" class="flex-col-between">
+        <div id="profile" class="flex-col-between"
+             data-follow-id-value="{{ user.id }}" {{ stimulus_controller('follow',{'page':'show'}) }}>
             <div class="profile__header">
                 <div class="user-info">
                     <div class="icon">
@@ -24,7 +25,7 @@
 
                         {% endif %}
                     </div>
-                    <div class="flex-col description" {{ stimulus_controller('follow') }}
+                    <div class="flex-col description"
                          data-follow-id-value="{{ user.id }}">
                         <h3>{{ user.username }}</h3>
                         <p class="sub-text">
@@ -47,7 +48,7 @@
                 </div>
             </div>
             <div class="flex-row-between profile__content">
-                {% if user != app.user %}
+                {% if user == app.user %}
                     <a href="{{ path('app_logout') }}" id="logoutBtn"><i class="bi bi-box-arrow-right"></i></a>
                 {% endif %}
                 <div class="flex-col left-side">
@@ -84,39 +85,15 @@
                         </div>
                     </div>
                     {% if app.user == user %}
-                        <div class="flex-col" style="margin-top: 40px;" {{ stimulus_controller('profil') }}>
-                            <h4>Your data</h4>
-                            <form action="" method="">
-                                <div id="inputError" style="color: red;" {{ stimulus_target('profil','error') }}></div>
 
-                                <div class="flex-row">
+                        <button class="btnViolet"><a
+                                    href="{{ path('user_update') }}">Modifier mes informations</a></button>
 
-                                    <label for="" class="flex-col">
-                                        Username
-                                        <input type="text" required
-                                               value="{{ app.user.username }}" {{ stimulus_target('profil','username') }}>
-
-                                    </label>
-                                    <label for="" class="flex-col">
-                                        Mail adress
-                                        <input type="email" required
-                                               value="{{ app.user.email }}" {{ stimulus_target('profil','email') }}>
-                                    </label>
-
-                                </div>
-
-                                <div class="flex-row  buttonContainer">
-                                    <span class="btnViolet" {{ stimulus_action('profil','validate','click')|stimulus_target('profil','save') }}>Save</span>
-                                    <span class="btnViolet" {{ stimulus_action('profil','goToUpdate','click')|stimulus_target('profil','update') }}>Modifier</span>
-                                    <span class="btnGrey"  {{ stimulus_action('profil','cancel','click')|stimulus_target('profil','cancel') }}>Reset</span>
-                                    <span class="btnViolet"><a href="{{ path('user_update') }}">Modifier mes informations</a></span>
-                                </div>
-                            </form>
-                        </div>
                     {% endif %}
                 </div>
                 <div class="v-devider"></div>
-                <div class="close-friends " {{ stimulus_controller('follow') }}data-follow-id-value="{{ user.id }}">
+                <div class="close-friends "
+                >
                     <div class="flex-row">
                         <h4 class="followers focus" {{ stimulus_action('follow','followers','click') }}  {{ stimulus_target('follow','followers') }} >
                             Followers</h4><h4
@@ -128,10 +105,10 @@
 
                     <div class="flex-col">
                         <div class="flex-row-between flex-wrap friendsContainer" data-follow-target="relationContainer">
+                            <span {{ stimulus_target('follow','message') }}></span>
 
 
                         </div>
-
                     </div>
                 </div>
             </div>

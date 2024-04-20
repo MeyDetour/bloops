@@ -9,14 +9,14 @@ import axios from "axios";
 */
 /* stimulusFetch: 'lazy' */
 export default class extends Controller {
-    static targets = ['error', 'email', 'validation', 'phone', 'errorPhone']
+    static targets = ['error', 'email', 'username','validation', 'phone', 'errorPhone']
 
     toValid() {
         axios.post('/user/email/taken', {"email": this.emailTarget.value}).then(response => {
             response = response.data
             if (response.message == 'taken') {
                 this.errorTarget.innerHTML = "Cette adresse n'est pas disponible"
-                this.emailTarget.value = ''
+
             }
             if (response.message == 'free') {
                 this.errorTarget.innerHTML = ""
@@ -28,6 +28,21 @@ export default class extends Controller {
         })
 
     }
+    toValidUsername(){
+        axios.post('/user/username/taken', {"username": this.usernameTarget.value}).then(response => {
+            response = response.data
+            if (response.message == 'taken') {
+                this.errorTarget.innerHTML = "Nom d'utilisqteur indisponible"
 
+            }
+            if (response.message == 'free') {
+                this.errorTarget.innerHTML = ""
+
+            }
+
+        }).catch(() => {
+            console.log('error')
+        })
+    }
 
 }

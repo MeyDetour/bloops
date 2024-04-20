@@ -1,4 +1,4 @@
-<div class="friendListContainer" {{ stimulus_controller('friend') }}>
+<div class="friendListContainer">
     <div class="flex-col ownProfil">
         <img class="imgFond" src="{{ asset('images/fondProfil.webp') }}" alt="">
 
@@ -64,75 +64,15 @@
             </div>
         </div>
 
-    </div><div class="flex-col friendProfilList">
-        <h1>People you’re friend with</h1>
-
-        <div class="flex-row profil">
-            <div class="message__icon">
-                {% if app.user.image %}
-                    {% include 'image.html.twig' with  {
-                        'route_name':'show_user',
-                        'imgClass':' ',
-                        'image':image,
-                        'param':{'id':app.user.id},
-                        'filter': 'ma_vignette',
-                        'aClass':' '} %}
-                {% else %}
-                    <a href="{{ path('show_user',{'id':app.user.id}) }}"
-                       class=" ">
-                        <img class=" "
-                             src="{{ asset('images/imgProfil.png') | imagine_filter('ma_vignette') }}"
-                             alt=""> </a>
-                {% endif %}
-
-            </div>
-            <div class="message__name">
-                <h3>{{ app.user.username }}</h3>
-                <div class="text-container text-container-cs">
-                                    <span class="text-content text-content-br">{{ app.user.description }}
-                              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et, voluptates?      </span>
-                    <span class="blur-overlay"></span>
-                </div>
-            </div>
-            <div class="icMessage">
-                <img src="{{ asset('images/poulpeMessage.png') }}" class="icMessageImage" alt="">
-            </div>
-
+    </div>
+    <div class="flex-col friendProfilList" {{  stimulus_controller('follow',{'page':'friendList'})}}  data-follow-id-value="{{ app.user.id }}">
+        <h1>Last news</h1>
+        <div class="flex-col" {{ stimulus_target('follow','requestContainer') }}>
         </div>
-
-
         <hr>
+        <h1>People you’re friend with</h1>
+        <div class="flex-row profil" {{ stimulus_target('follow','relationContainer') }}>
 
-        <div class="flex-row profil">
-            <div class="message__icon">
-                {% if app.user.image %}
-                    {% include 'image.html.twig' with  {
-                        'route_name':'show_user',
-                        'imgClass':' ',
-                        'image':image,
-                        'param':{'id':app.user.id},
-                        'filter': 'ma_vignette',
-                        'aClass':' '} %}
-                {% else %}
-                    <a href="{{ path('show_user',{'id':app.user.id}) }}"
-                       class=" ">
-                        <img class=" "
-                             src="{{ asset('images/imgProfil.png') | imagine_filter('ma_vignette') }}"
-                             alt=""> </a>
-                {% endif %}
-
-            </div>
-            <div class="message__name">
-                <h3>{{ app.user.username }}</h3>
-                <div class="text-container text-container-cs">
-                                    <span class="text-content text-content-br">{{ app.user.description }}
-                              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et, voluptates?      </span>
-                    <span class="blur-overlay"></span>
-                </div>
-            </div>
-            <div class="icMessage">
-                <img src="{{ asset('images/poulpeMessage.png') }}" class="icMessageImage" alt="">
-            </div>
 
         </div>
 

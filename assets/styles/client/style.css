@@ -115,6 +115,12 @@
 }
 
 
+/*=============FRIEND REQUEST=============*/
+.friendRequest {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 /*=============BLOOP LIKE=============*/
 .bloopBallonLiked  .bloopBallonLikedSvg{
     display: block;

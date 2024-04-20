@@ -7,11 +7,5 @@ import axios from "axios";
 /* stimulusFetch: 'lazy' */
 export default class extends Controller {
    static targets = []
-    connect() {
-         axios.post('/friend/list').then(response=>{
 
-         }).catch(()=>{
-             console.log('error')
-         })
-    }
 }
