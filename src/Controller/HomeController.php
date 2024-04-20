@@ -10,4 +10,14 @@ class HomeController extends AbstractController
 {
 
 
+    #[Route('/new', name: 'app_poster')]
+    public function showUser( ): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+
+        return $this->render('/client/add.html.twig');
+    }
 }

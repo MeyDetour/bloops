@@ -35,6 +35,12 @@ class Comment
     #[ORM\OneToMany(targetEntity: Like::class, mappedBy: 'comment' , orphanRemoval: true)]
     private Collection $likes;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $pin = null;
+
+    #[ORM\ManyToOne(inversedBy: 'comment')]
+    private ?Audio $audio = null;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -161,6 +167,30 @@ class Comment
                 $like->setComment(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isPin(): ?bool
+    {
+        return $this->pin;
+    }
+
+    public function setPin(?bool $pin): static
+    {
+        $this->pin = $pin;
+
+        return $this;
+    }
+
+    public function getAudio(): ?Audio
+    {
+        return $this->audio;
+    }
+
+    public function setAudio(?Audio $audio): static
+    {
+        $this->audio = $audio;
 
         return $this;
     }

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Bloop;
+use App\Repository\AudioRepository;
 use App\Repository\CommentRepository;
 use Carbon\Carbon;
 
@@ -22,7 +23,8 @@ class CommentController extends AbstractController
 {
 
     #[Route('/comment/new', name: 'new_comment')]
-    public function sendComment(EntityManagerInterface $manager, BloopRepository $bloopRepository, \Symfony\Component\HttpFoundation\Request $request): Response
+    #[Route('/comment/podcast/new', name: 'new_comment_podcast')]
+    public function sendComment(EntityManagerInterface $manager, BloopRepository $bloopRepository, AudioRepository $audioRepository, \Symfony\Component\HttpFoundation\Request $request): Response
 
     {
         if (!$this->getUser()) {
@@ -32,16 +34,26 @@ class CommentController extends AbstractController
         $data = json_decode($request->getContent(), true);
         if ($data) {
             $author = $this->getUser();
-            $bloopId = $data['idBloop'];
+            $bloopId = $data['idBloop'] ?? null ;
+            $podcastId = $data['idPodcast'] ?? null ;
             $content = $data['content'];
 
-            $bloop = $bloopRepository->find($bloopId);
-            if (!$bloop) {
-                return $this->json("bloop not found", 404);
-            }
             $comment = new Comment();
+            if($podcastId){
+                $podcast = $audioRepository->find($podcastId);
+                if (!$podcast) {
+                    return $this->json("Podcast not found", 404);
+                }
 
-            $comment->setBloop($bloop);
+                $comment->setAudio($podcast);
+            }
+            if($bloopId){
+                $bloop = $bloopRepository->find($bloopId);
+                if (!$bloop) {
+                    return $this->json("bloop not found", 404);
+                }
+                $comment->setBloop($bloop);
+            }
             $comment->setAuthor($author);
             $comment->setCreatedAt(new \DateTimeImmutable());
             $comment->setContent($content);

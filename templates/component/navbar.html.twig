@@ -13,7 +13,7 @@
         <a class="nav-link nav-flow {% if currentPath == '/' %} active {% endif %}  " aria-current="page"
            href="{{ path('app_bloop') }}">Your flow</a>
         <a class="nav-link nav-podcast {% if currentPath == '/podcast' %} active {% endif %}  " aria-current="page"
-           href="{{ path('app_audio') }}">Podcast</a>
+           href="{{ path('app_podcast') }}">Podcast</a>
         {% if app.user %}
             <a class="nav-link nav-account {% if currentPath == '/user/account' %} active {% endif %}  "
                aria-current="page"
@@ -24,7 +24,7 @@
         {% endif %}
 
         <a class="nav-link nav-new {% if currentPath == '/bloop/new' %} active {% endif %}  " aria-current="page"
-           href="{{ path('new_article') }}">+</a>
+           href="{{ path('app_poster') }}">+</a>
 
 
         {% if app.user %}

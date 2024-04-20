@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Audio;
 use App\Entity\Bloop;
 use App\Entity\Comment;
 use App\Entity\Image;
@@ -42,13 +43,17 @@ class ImageController extends AbstractController
         } elseif ($cp->getComment()) {
             return $this->redirectToRoute('comment_image', ['id' => $cp->getComment()->getId()]);
 
+        } elseif ($cp->getAudio()) {
+            return $this->redirectToRoute('bloop_id', ['id' => $cp->getAudio()->getId()]);
+
         } else {
             return $this->redirectToRoute('app_article');
         }
     }
 
+
     #[Route('/image/bloop/{id}/new', name: 'add_image_bloop')]
-    #[Route('/image/comment/{id}/new', name: 'add_image_comment')]
+    #[Route('/image/podcast/{id}/new', name: 'add_image_podcast')]
     public function create(ImageRepository $repository, Request $request, ImageRepository $imageRepository, $id, EntityManagerInterface $manager): Response
     {
         if (!$this->getUser()) {
@@ -64,10 +69,10 @@ class ImageController extends AbstractController
                 break;
 
 
-            case 'add_image_comment':
-                $entity = Comment::class;
-                $routeRedirect = 'comment_image';
-                $setter = 'setComment';
+            case 'add_image_podcast':
+                $entity = Audio::class;
+                $routeRedirect = 'podcast_file';
+                $setter = 'setAudio';
                 $param = ['id' => $id];
                 break;
         }

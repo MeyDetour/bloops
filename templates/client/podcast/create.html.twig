@@ -1,0 +1,102 @@
+{% set currentPath = path(app.request.attributes.get('_route'),
+    app.request.attributes.get('_route_params')) %}
+
+{% extends 'client/base.html.twig' %}
+
+{% block title %}Hello NemController!{% endblock %}
+{% block body %}
+    <div class="newBloopContainer">
+        <div class="buttonContainer">
+            <button class="btnViolet"><a href="{{ path( 'app_poster' ) }}">Retour</a></button>
+            {% if podcast is defined %}
+            <button class="btnGreen"><a href="{{ path( 'app_podcast' ) }}">Blooper</a>
+            {% endif %}</button>
+        </div>
+        <div class="newBloopContainerInner">
+        {#    <div class="newBloopContainerAddImageContainer {% if podcast is defined and currentPath == '/podcast/' ~ podcast.id ~ '/file/new' %}   active {% endif %} ">
+
+                {% if podcast is defined and currentPath == '/podcast/' ~ podcast.id ~ '/file/new' %}
+                    <div class="buttonContainer">
+
+                        <button type="submit" class="btnViolet"><a
+                                    href="{{ path('edit_podcast',{'id':podcast.id}) }}">Editer la description</a>
+                        </button>
+
+                    </div>
+                {% endif %}
+                <div class="newBloopImageContainer">
+
+                    {% if podcast is defined %}
+                        <div class="newBloopImageTop">
+                            {% if podcast is defined and podcast.image is defined %}
+                            {% set image = podcast.image ?? null %} #}{# Use the null coalescing operator to ensure that image is not undefined #}{#
+                            {% if image %}
+                                {% include 'component/imageFilter.html.twig' with  {
+                                        'route_name':'delete_image',
+                                        'imgClass':'',
+                                        'image':podcast.image,
+                                        'param':{'id':podcast.image.id},
+                                        'aClass':'newBloopFile',
+                                        'filter':'apercu_image'} %}
+
+                            {% endif %}
+                            {% endif %}
+
+                        </div>
+                        {% if podcast is defined and currentPath == '/podcast/' ~ podcast.id ~ '/file/new' %}
+
+                            <div class="newBloopFormsFile">
+                                {{ form_start(formImage,{'action':path('add_image_podcast',{'id': podcast.id})}) }}
+
+                                {{ form_widget(formImage.imageFile) }}
+                                <button type="submit" class="btnGrey" id="lieuValider">Ajouter l'image</button>
+
+
+                                {{ form_end(formImage) }}
+
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+
+            </div>#}
+            <div class="newBloopContainerContentContainer   {% if currentPath == '/podcast/new' %}  active  {% endif %} {% if currentPath starts with '/podcast/edit' and (podcast is defined or currentPath ends with '/' ~ podcast.id) %} active {% endif %}
+            ">
+
+
+                {{ form_start(form) }}
+                {% if currentPath == '/podcast/new' or (currentPath starts with '/podcast/edit' and (podcast is defined or currentPath ends with '/' ~ podcast.id)) %}
+
+                    <div class="validation">
+                        <span>Validez d'abord cette étape pour passer à la suivante</span>
+                        <button type="submit" class="btnGreen" id="lieuValider">Enregistrer</button>
+                    </div>
+                {% endif %}
+                <div class="inputContainer">
+                    {{ form_label(form.titre ) }}
+                    {{ form_widget(form.titre ) }}
+
+                </div>
+                <div class="inputContainer">
+                    {{ form_label(form.audioFile ) }}
+                    {{ form_widget(form.audioFile ) }}
+
+                </div>
+                <div class="inputContainer">
+                    {{ form_label(form.description ) }}
+                    {{ form_widget(form.description ) }}
+                </div>
+                <div class="inputContainerRow">
+                    {{ form_label(form.displayComment ) }}
+                    {{ form_widget(form.displayComment ) }}
+
+                </div>
+
+                    {{ form_end(form) }}
+            </div>
+
+
+        </div>
+    </div>
+
+{% endblock %}

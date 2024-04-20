@@ -1,0 +1,200 @@
+
+/*========================NEW BLOOP============================*/
+.newBloopContainer {
+    width: 100%;
+    padding: 7vh 2vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.newBloopContainer .validation {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    color: var(--goodGreenDark)
+}
+
+.newBloopContainer .buttonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttonContainer button {
+    margin-inline: 1vh;
+}
+
+.newBloopContainerInner {
+    width: 75%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+
+    margin-block: 2vh;
+    align-items: start;
+}
+
+.newBloopContainer .active {
+    border: 3px solid var(--goodGreen);
+    padding: 3vh;
+}
+
+/*================CONTENT=================*/
+
+
+.newBloopContainerContentContainer {
+    width: 100%;
+
+    margin-block: 2vh;
+    background-color: var(--light-grey);
+
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, .05),
+    inset 4px 4px 5px white;
+
+    padding: 18px 14px 18px 14px;
+    border-radius: 10px;
+}
+
+.newBloopContainerContentContainer form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-around;
+}
+
+.newBloopContainerContentContainer .inputContainerRow {
+    display: flex;
+    flex-direction: row;
+    margin-block: 5vh;
+    align-items: center;
+    gap: 10px
+}
+
+.newBloopContainerContentContainer .inputContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-block: 5vh;
+}
+
+
+.newBloopContainerContentContainer textarea , .newBloopContainerContentContainer input  {
+    border-radius: 5px;
+    border: 3px solid var(--light-grey2);
+    background: var(--light-grey);
+    color: var(--greyText);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding: 1vh;
+
+    min-height: 15vh;
+}
+.newBloopContainerContentContainer input{
+    min-height: fit-content !important;
+}
+.newBloopContainerContentContainer label, .adminLieuContainerAdd .fond > span {
+    color: var(--darkText);
+    font-size: 20px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 1vh;
+}
+
+/*================IMAGES=================*/
+.newBloopContainerAddImageContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    padding: 18px 14px 18px 14px;
+
+    margin-block: 2vh;
+    background-color: var(--light-grey);
+
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, .05),
+    inset 4px 4px 5px white;
+
+    border-radius: 10px;
+}
+
+.newBloopImageContainer {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 100%;
+    align-items: stretch;
+    width: 100%;
+}
+
+.newBloopImageTop {
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    height: 100%;
+    padding: 4vh;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    width: 70%;
+    border-radius: 5px;
+}
+
+.newBloopFormsFile {
+    display: flex;
+    width: 30%;
+    flex-direction: column;
+}
+
+.newBloopContainerAddImageContainer .newBloopFile {
+    width: 45%;
+    height: 20vh;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 5px;
+}
+
+.newBloopContainerAddImageContainer form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: end;
+    margin-block: 20px;
+    width: 100%;
+    height: 100%;
+}
+
+.newBloopContainerAddImageContainer img, .newBloopContainerAddImageContainer video {
+    width: 100%;
+    height: 100%;
+}
+
+
+.newBloopImageTop::-webkit-scrollbar {
+    width: 3px;
+}
+
+/* Track */
+.newBloopImageTop::-webkit-scrollbar-track {
+
+}
+
+/* Handle */
+.newBloopImageTop::-webkit-scrollbar-thumb {
+    background: var(--greyText);
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+.newBloopImageTop::-webkit-scrollbar-thumb:hover {
+    background: var(--greyText);
+}

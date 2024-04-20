@@ -7,18 +7,49 @@
         <div id="profile" class="flex-col-between">
             <div class="profile__header">
                 <div class="user-info">
-                    <div class="icon"></div>
-                    <div class="flex-col description">
+                    <div class="icon">
+                        {% if app.user.image %}
+                            {% include 'image.html.twig' with  {
+                                'route_name':'',
+                                'imgClass':'',
+                                'image':image,
+                                'param':null,
+                                'filter': 'ma_vignette',
+                                'aClass':'imageProfil'} %}
+                        {% else %}
+
+                            <img class="imageProfil"
+                                 src="{{ asset('images/imgProfil.png') | imagine_filter('ma_vignette') }}"
+                                 alt="">
+
+                        {% endif %}
+                    </div>
+                    <div class="flex-col description" {{ stimulus_controller('follow') }}
+                         data-follow-id-value="{{ user.id }}">
                         <h3>{{ user.username }}</h3>
                         <p class="sub-text">
                             {{ user.description }} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
                             commodi corporis eaque, facilis libero maiores perspiciatis quod repudiandae tempora
                             voluptatibus!
                         </p>
+                        {% if user != app.user %}
+                            {% if user.isFollowedBy(app.user) %}
+                                <button class="btnViolet" {{ stimulus_action('follow','unfollow','click') }}>
+                                    <a href="#">Unfollow</a></button>
+
+                            {% else %}
+                                <button class="btnViolet" {{ stimulus_action('follow','follow','click') }} ><a
+                                            href="#">Suivre</a>
+                                </button>
+
+                            {% endif %}{% endif %}
                     </div>
                 </div>
             </div>
             <div class="flex-row-between profile__content">
+                {% if user != app.user %}
+                    <a href="{{ path('app_logout') }}" id="logoutBtn"><i class="bi bi-box-arrow-right"></i></a>
+                {% endif %}
                 <div class="flex-col left-side">
                     <div class="flex-col statistics">
                         <h4>Statistics</h4>
@@ -31,7 +62,7 @@
                             </div>
                             <div class="flex-row profilStat">
                                 <h5> Followings </h5>
-                                <p class="data">  {{ user.following|length|format_BN }}</p>
+                                <p class="data">  {{ user.followings|length|format_BN }}</p>
 
                             </div>
 
@@ -52,131 +83,91 @@
 
                         </div>
                     </div>
-                    <div class="flex-col" style="margin-top: 40px;">
-                        <h4>Your data</h4>
-                        <form action="" method="">
-                            <div class="flex-row">
+                    {% if app.user == user %}
+                        <div class="flex-col" style="margin-top: 40px;" {{ stimulus_controller('profil') }}>
+                            <h4>Your data</h4>
+                            <form action="" method="">
+                                <div id="inputError" style="color: red;" {{ stimulus_target('profil','error') }}></div>
 
-                                <label for="" class="flex-col">
-                                    Username
-                                    <input type="text" required value="{{ app.user.username }}">
+                                <div class="flex-row">
 
-                                </label>
-                                <label for="" class="flex-col">
-                                    Mail adress
-                                    <input type="email" required value="{{ app.user.email }}">
-                                </label>
+                                    <label for="" class="flex-col">
+                                        Username
+                                        <input type="text" required
+                                               value="{{ app.user.username }}" {{ stimulus_target('profil','username') }}>
 
-                            </div>
+                                    </label>
+                                    <label for="" class="flex-col">
+                                        Mail adress
+                                        <input type="email" required
+                                               value="{{ app.user.email }}" {{ stimulus_target('profil','email') }}>
+                                    </label>
 
-                            <div class="flex-row  buttonContainer">
-                                <button type="submit" class="btnViolet">Save</button>
-                                <button type="reset" class="btnGrey">Reset</button>
-                            </div>
-                        </form>
-                    </div>
+                                </div>
+
+                                <div class="flex-row  buttonContainer">
+                                    <span class="btnViolet" {{ stimulus_action('profil','validate','click')|stimulus_target('profil','save') }}>Save</span>
+                                    <span class="btnViolet" {{ stimulus_action('profil','goToUpdate','click')|stimulus_target('profil','update') }}>Modifier</span>
+                                    <span class="btnGrey"  {{ stimulus_action('profil','cancel','click')|stimulus_target('profil','cancel') }}>Reset</span>
+                                    <span class="btnViolet"><a href="{{ path('user_update') }}">Modifier mes informations</a></span>
+                                </div>
+                            </form>
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="v-devider"></div>
-                <div class="close-friends">
-                    <h4>Your friends</h4>
+                <div class="close-friends " {{ stimulus_controller('follow') }}data-follow-id-value="{{ user.id }}">
+                    <div class="flex-row">
+                        <h4 class="followers focus" {{ stimulus_action('follow','followers','click') }}  {{ stimulus_target('follow','followers') }} >
+                            Followers</h4><h4
+                                class="followings" {{ stimulus_action('follow','followings','click') }} {{ stimulus_target('follow','followings') }} >
+                            Followings</h4>
+                        <h4 {{ stimulus_action('follow','friends','click') }} {{ stimulus_target('follow','friends') }}
+                                class="friends">Friends</h4>
+                    </div>
+
                     <div class="flex-col">
-                        <div class="flex-row-between">
-                            <div class="little-profile">
-                                <div class="icon"></div>
-                                <p>Username 1</p>
-                            </div>
-                            <div class="little-profile">
-                                <div class="icon"></div>
-                                <p>Username 1</p>
-                            </div>
-                            <div class="little-profile">
-                                <div class="icon"></div>
-                                <p>Username 1</p>
-                            </div>
+                        <div class="flex-row-between flex-wrap friendsContainer" data-follow-target="relationContainer">
+
+
                         </div>
-                        <div class="flex-row-between">
-                            <div class="little-profile">
-                                <div class="icon"></div>
-                                <p>Username 2</p>
-                            </div>
-                            <div class="little-profile">
-                                <div class="icon"></div>
-                                <p>Username 2</p>
-                            </div>
-                            <div class="little-profile">
-                                <div class="icon"></div>
-                                <p>Username 2</p>
-                            </div>
-                        </div>
-                        <div class="flex-row-between">
-                            <div class="little-profile">
-                                <div class="icon"></div>
-                                <p>Username 3</p>
-                            </div>
-                            <div class="little-profile">
-                                <div class="icon"></div>
-                                <p>Username 3</p>
-                            </div>
-                            <div class="little-profile">
-                                <div class="icon"></div>
-                                <p>Username 3</p>
-                            </div>
-                        </div>
-                        <div class="flex-row-between">
-                            <div class="little-profile">
-                                <div class="icon"></div>
-                                <p>Username 4</p>
-                            </div>
-                            <div class="little-profile">
-                                <div class="icon"></div>
-                                <p>Username 4</p>
-                            </div>
-                            <div class="little-profile">
-                                <div class="icon"></div>
-                                <p>Username 4</p>
-                            </div>
-                        </div>
-                        <div class="flex-row-between">
-                            <div class="little-profile">
-                                <div class="icon"></div>
-                                <p>Username 5</p>
-                            </div>
-                            <div class="little-profile">
-                                <div class="icon"></div>
-                                <p>Username 5</p>
-                            </div>
-                            <div class="little-profile">
-                                <div class="icon"></div>
-                                <p>Username 5</p>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
-
-            <div class="flex-row updateMdpContainer toggleUpdateMdp">
+            {% if app.user == user %}
+                <div class="flex-row profilContainer updateMdpContainer toggleUpdateMdp" {{ stimulus_controller('change-psw')|stimulus_controller('visibility') }}>
 
                     <div class="inputContainer">
                         <h4>Modification de mot de passe</h4>
-                        <div id="inputError" style="color: red;"></div>
+                        <div id="inputError"
+                             style="color: red;" {{ stimulus_target('change-psw','error')|stimulus_target('visibility','error') }}></div>
 
                         <div class="modificationInputs">
                             <div class="mdpInput">
                                 <h3>Ancien mot de passe</h3>
-                                <input type="password" name="lastMdp">
+                                <input type="password" name="lastMdp"
+                                       data-action="change->change-psw#lastFct focus->change-psw#lastFocus"
+                                       data-change-psw-target="last">
                             </div>
                             <div class="mdpInput">
                                 <h3>Nouveau mot de passe</h3>
-                                <input type="password" name="newMdp">
+                                <input type="password" name="newMdp" data-action="change->change-psw#passwordFct"
+                                       data-change-psw-target="psw" {{ stimulus_target('visibility','fieldPs') }}>
                                 <div class="password-icon">
-                                    <i class="bi bi-eye bi-eyeNewPassword "></i>
-                                    <i class="bi bi-eye-slash-fill bi-eyeNewPasswordFill"></i>
+                                    <i class="bi bi-eye bi-eyeNewPassword" {{ stimulus_target('visibility','eye0ps')|stimulus_action('visibility','eyeClose','click') }}></i>
+                                    <i class="bi bi-eye-slash-fill bi-eyeNewPasswordFill" {{ stimulus_target('visibility','eye1ps')|stimulus_action('visibility','eyeOpen','click') }}></i>
                                 </div>
                             </div>
                             <div class="mdpInput">
                                 <h3>Confirmation du mot de passe</h3>
-                                <input type="password" name="confirmNewMdp">
+                                <input type="password" name="confirmNewMdp" data-action="change->change-psw#verifyMatch"
+                                       data-change-psw-target="confirm" {{ stimulus_action('change-psw','confirmFocus','click') }}>
                             </div>
+                            <button type="submit" class="btnViolet" data-action="click->change-psw#confirmFct"
+                                    data-change-psw-target="valider">Save
+                            </button>
+
                         </div>
 
                     </div>
@@ -203,7 +194,7 @@
                                         <button type="button" class="success-button-main"><a
                                                     href="{{ path('app_logout') }}">Tester
                                                 le mot de passe</a></button>
-                                        <button type="button" onclick="closeSuccesPanel.call(this)"
+                                        <button type="button" data-action="click->change-psw#closePanel"
                                                 class="success-button-secondary">
                                             Fermer
                                         </button>
@@ -212,13 +203,10 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            {% endif %}
 
-
-
-            </div>
         </div>
     {% endif %}
-<script src="{{ asset('js/request.js') }}" defer></script>
-<script src="{{ asset('js/client/profil.js') }}" defer></script>
 
 {% endblock %}

@@ -8,6 +8,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\ORM\PersistentCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -17,6 +20,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -57,13 +61,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
 
 
-// User.php (Owning side)
-    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'followers')]
-    private Collection $followings;
-
-// User.php (Inverse side)
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'followings')]
-    private Collection $followers;
 
 
 
@@ -86,6 +83,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
+    #[ORM\OneToMany(targetEntity: Audio::class, mappedBy: 'author')]
+    private Collection $audio;
+
+
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'followings')]
+    #[JoinTable(name: "user_followings",
+        joinColumns: [new JoinColumn(name: "user_id", referencedColumnName: "id")],
+        inverseJoinColumns: [new JoinColumn(name: "following_user_id", referencedColumnName: "id")]
+    )]  private ?Collection $followings = null;
+
+    #[ORM\ManyToMany(targetEntity: User::class,  mappedBy: 'followings')]
+    private ?Collection $followers = null;
+
 
 
     public function __construct()
@@ -93,12 +103,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->comments = new ArrayCollection();
         $this->articles = new ArrayCollection();
         $this->likes = new ArrayCollection();
-        $this->followers = new ArrayCollection();
-        $this->followings = new ArrayCollection();
         $this->friendRequests = new ArrayCollection();
         $this->friendRequested = new ArrayCollection();
         $this->reports = new ArrayCollection();
         $this->reportTarget = new ArrayCollection();
+        $this->audio = new ArrayCollection();
+        $this->followings = new ArrayCollection();
+        $this->followers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -304,98 +315,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
 
 
-
-
-    public function addUser(self $user): static
-    {
-        if (!$this->users->contains($user)) {
-            $this->users->add($user);
-            $user->setFollowers($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(self $user): static
-    {
-        if ($this->users->removeElement($user)) {
-            // set the owning side to null (unless already changed)
-            if ($user->getFollowers() === $this) {
-                $user->setFollowers(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getFollowers(): ArrayCollection|Collection
-    {
-        return $this->followers;
-    }
-
-    public function setFollowers(?ArrayCollection $followers): static
-    {
-        $this->followers = $followers;
-
-        return $this;
-    }
-
-    public function addFollower(self $follower): static
-    {
-        if (!$this->followers->contains($follower)) {
-            $this->followers->add($follower);
-            $follower->setFollowers($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFollower(self $follower): static
-    {
-        if ($this->followers->removeElement($follower)) {
-            // set the owning side to null (unless already changed)
-            if ($follower->getFollowers() === $this) {
-                $follower->setFollowers(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getFollowing(): Collection
-    {
-        return $this->followings;
-    }
-
-    public function setFollowing(?ArrayCollection $followings): static
-    {
-        $this->followings = $followings;
-
-        return $this;
-    }
-
-    public function addFollowing(self $followings): static
-    {
-        if (!$this->followings->contains($followings)) {
-            $this->followings->add($followings);
-            $followings->setFollowing($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFollowing(self $followings): static
-    {
-        if ($this->followings->removeElement($followings)) {
-            // set the owning side to null (unless already changed)
-            if ($followings->getFollowing() === $this) {
-                $followings->setFollowing(null);
-            }
-        }
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, FriendRequest>
      */
@@ -540,5 +459,113 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * @return Collection<int, Audio>
+     */
+    public function getAudio(): Collection
+    {
+        return $this->audio;
+    }
+
+    public function addAudio(Audio $audio): static
+    {
+        if (!$this->audio->contains($audio)) {
+            $this->audio->add($audio);
+            $audio->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAudio(Audio $audio): static
+    {
+        if ($this->audio->removeElement($audio)) {
+            // set the owning side to null (unless already changed)
+            if ($audio->getAuthor() === $this) {
+                $audio->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+    public function isFollowedBy(User $user)
+    {
+        $isFollowedBy = false;
+        foreach ($this->followers as $follower){
+            if($follower == $user){
+                return true;
+            }
+        }
+        return $isFollowedBy;
+    }
+
+    public function getFollowings(): ?PersistentCollection
+    {
+        return $this->followings;
+    }
+
+    public function setFollowings(?Collection $follower): static
+    {
+        $this->followings = $follower;
+
+        return $this;
+    }
+
+    public function addFollowing(?User $following): static
+    {
+        if (!$this->followings->contains($following)) {
+            $this->followings->add($following);
+            $following->setFollowings(  $this->followings);
+        }
+
+        return $this;
+    }
+
+    public function removeFollowing(?User $following): static
+    {
+        if ($this->followings->removeElement($following)) {
+            // set the owning side to null (unless already changed)
+            if ($following->getFollowings() === $this) {
+                $following->setFollowings(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getFollowers(): ?Collection
+    {
+        return $this->followers;
+    }
+
+    public function setFollowers(?Collection $followers): static
+
+    {
+        $this->followers = $followers;
+
+        return $this;
+    }
+
+    public function addFollower(?User $follower): static
+    {
+        if (!$this->followers->contains($follower)) {
+            $this->followers->add($follower);
+            $follower->setFollowers( $this->followers);
+        }
+
+        return $this;
+    }
+
+    public function removeFollower(?User $follower): static
+    {
+        if ($this->followers->removeElement($follower)) {
+            // set the owning side to null (unless already changed)
+            if ($follower->getFollowers() === $this) {
+                $follower->setFollowers(null);
+            }
+        }
+
+        return $this;
+    }
 
 }

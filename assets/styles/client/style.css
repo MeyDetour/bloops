@@ -128,3 +128,31 @@
 .bloopBallon .bloopBallonSvg{
     display: block;
 }
+
+/*========================PROFIL CLIENT NEW==================*/
+.choiceFileContainer{
+    width: 100%;
+    height: 100%;
+    padding: 10vh 5vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 25px;
+}
+.choiceCard{
+    width: 350px;
+    height: 202px;
+    padding: 19px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-block: 2vh;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--simplet);
+    font-size: 20px;
+    /* background-color: var(--light-grey); */
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, .05), inset 4px 4px 5px white;
+    border-radius: 10px;
+}

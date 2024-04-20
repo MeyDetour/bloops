@@ -1,0 +1,64 @@
+{% set currentPath = path(app.request.attributes.get('_route'),
+    app.request.attributes.get('_route_params')) %}
+
+{% extends 'client/base.html.twig' %}
+
+{% block title %}Hello NemController!{% endblock %}
+{% block body %}
+    <div class="newBloopContainer">
+        {{ form_start(form) }}
+        <div class="buttonContainer">
+
+            <button class="btnGreen">Continuer</button>
+        </div>
+        <div class="newBloopContainerInner">
+            {% if user.image %}
+                {% include 'component/imageFilter.html.twig' with  {
+                    'route_name':'delete_image',
+                    'imgClass':'',
+                    'image':podcast.image,
+                    'param':{'id':podcast.image.id},
+                    'aClass':'newBloopFile',
+                    'filter':'apercu_image'} %}
+            {% else %}
+                <img class="imageProfil"
+                     src="{{ asset('images/imgProfil.png')  }}"
+                     alt="">
+            {% endif %}
+
+
+        </div>
+
+
+        <div class="inputContainer">
+            {{ form_label(form.username ) }}
+            {{ form_widget(form.username ) }}
+
+        </div>
+
+            <div class="inputContainer">
+                {{ form_label(form.email ) }}
+                {{ form_widget(form.email ) }}
+
+            </div>
+            <div class="inputContainer">
+                {{ form_label(form.audioFile ) }}
+                {{ form_widget(form.audioFile ) }}
+
+            </div>
+            <div class="inputContainer">
+                {{ form_label(form.description ) }}
+                {{ form_widget(form.description ) }}
+            </div>
+            <div class="inputContainerRow">
+                {{ form_label(form.displayComment ) }}
+                {{ form_widget(form.displayComment ) }}
+
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -15,10 +15,7 @@ class Image
 {
 
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+
 
     #[ORM\Id]
     #[ORM\Column]
@@ -48,6 +45,9 @@ class Image
 
     #[ORM\OneToOne(mappedBy: 'image', cascade: ['persist', 'remove'])]
     private ?User $owner = null;
+
+    #[ORM\ManyToOne(inversedBy: 'image')]
+    private ?Audio $audio = null;
 
 
 
@@ -79,7 +79,10 @@ class Image
     {
         return $this->imageFile;
     }
-
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
     public function setImageName(?string $imageName): void
     {
         $this->imageName = $imageName;
@@ -152,6 +155,18 @@ class Image
         }
 
         return null;
+    }
+
+    public function getAudio(): ?Audio
+    {
+        return $this->audio;
+    }
+
+    public function setAudio(?Audio $audio): static
+    {
+        $this->audio = $audio;
+
+        return $this;
     }
 
 

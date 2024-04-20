@@ -24,6 +24,9 @@ class Like
     #[ORM\JoinColumn(nullable: false)]
     private ?User $author = null;
 
+    #[ORM\ManyToOne(inversedBy: 'likes')]
+    private ?Audio $podcast = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -61,6 +64,18 @@ class Like
     public function setAuthor(?User $author): static
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getPodcast(): ?Audio
+    {
+        return $this->podcast;
+    }
+
+    public function setPodcast(?Audio $podcast): static
+    {
+        $this->podcast = $podcast;
 
         return $this;
     }

@@ -1,6 +1,4 @@
 import './bootstrap.js';
-import './js/request.js';
-import './js/client/overlay.js';
 /*
  * Welcome to your app's main JavaScript file!
  *

@@ -1,0 +1,12 @@
+{% extends './client/base.html.twig' %}
+
+
+{% block body %}
+
+    <div class="choiceFileContainer">
+        <a href="{{ path('new_bloop') }}" class="choiceCard">Poster un bloop</a>
+
+        <a href="{{ path('add_podcast') }}"  class="choiceCard">Poster un podcast</a>
+    </div>
+
+{% endblock %}

@@ -6,6 +6,7 @@ use App\Entity\Image;
 use App\Entity\User;
 use App\Form\ImageType;
 use App\Repository\UserRepository;
+use Cassandra\Type\UserType;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -75,28 +76,23 @@ class SecurityController extends AbstractController
 //===========================API============================
 
 //CHANGE USERNAME CLIENT (html: templates/client/user/show.html.twig , JS : assets/js/client/user.js , CSS :assets/styles/client/user.css )
-    #[Route('/user/update/username/{id}/{username}', name: 'user_update')]
-    public function updateUsername(User $user, string $username, EntityManagerInterface $manager): Response
+    #[Route('/own/profil/update', name: 'user_update')]
+    public function updateUsername( EntityManagerInterface $manager, Request $request): Response
     {
 
         $user = $this->getUser();
         if (!$user) {
             return $this->json("no user connected", 400);
         }
+        $form = $this->createForm(\App\Form\UserType::class, $user);
+        $form->handleRequest($request);
+if($form->isSubmitted() && $form->isValid()){
+    $manager->persist($user);
+    $manager->flush();
+    $this->redirectToRoute('show_user',['id'=>$user->getId()]);
+      return $this->render('client/user/edit.html.twig',['form'=>$form->createView()]);
 
-        if ($user) {
-            $user->setUsername($username);
-            $manager->persist($user);
-            $manager->flush();
-            $data = [
-                'user' => $user
-            ];
-            return $this->json($data);
-        }
-        $data = [
-            'user' => $user
-        ];
-        return $this->json($data);
+}
     }
 
 //VERYFIYNG IS EMAIL OR USERNAME IS TAKEN CLIENT (html: templates/client/security/base.html.twig , JS : assets/js/client/register.js , CSS :assets/styles/client/form.css)
@@ -127,8 +123,6 @@ class SecurityController extends AbstractController
     #[Route('/user/email/taken', name: 'is_email_taken')]
     public function isEmailTaken(UserRepository $repository, Request $request): Response
     {
-
-
         // Récupérer les données JSON de la requête
         $data = json_decode($request->getContent(), true);
 
@@ -147,7 +141,7 @@ class SecurityController extends AbstractController
         return $this->json(['message' => 'Aucune data trouvée']);
     }
 
-    #[Route('/user/get/information', name: 'is_email_taken')]
+    #[Route('/user/get/information', name: 'get_information')]
     public function showUser(UserRepository $repository, Request $request): Response
     {
         $user = $this->getUser();
@@ -195,7 +189,7 @@ class SecurityController extends AbstractController
 
 
 
-//=> UPDATE PASSWORD IN HELP PAGE OF PROFIL CLIENT (HTMH : templates/client/user/show.html.twig , JS :  , css : assets/styles/client/profil.css )
+//=> UPDATE PASSWORD IN   PROFIL CLIENT (HTMH : templates/client/user/show.html.twig , JS :  , css : assets/styles/client/profil.css )
     #[Route('user/last/password', name: 'verify_password')]
     public function isGoodPassword(UserRepository $repository, UserPasswordHasherInterface $userPasswordHasher, Request $request, ValidatorInterface $validator): Response
     {
@@ -209,12 +203,6 @@ class SecurityController extends AbstractController
         // Vérifier si les données sont bien reçues
         if ($data) {
 
-            $user = $repository->findOneBy(['id' => $data['id']]);
-
-            if (!$user) {
-                return $this->json(['message' => 'NO USER FOUND'
-                ]);
-            }
             $isValidPassword = $userPasswordHasher->isPasswordValid($user, $data['password']);
 
             if ($isValidPassword) {
@@ -229,19 +217,14 @@ class SecurityController extends AbstractController
 
         ]);
     }
-    #[Route('user/{id}/update', name: 'api_profil_update')]
-    public function updateProfil(User $user, EntityManagerInterface $manager, Request $request, ValidatorInterface $validator): Response
+    #[Route('user/profil/update/username/email', name: 'api_profil_update')]
+    public function updateProfil( EntityManagerInterface $manager, Request $request, ValidatorInterface $validator): Response
     {
 
         $user = $this->getUser();
         if(!$user){return $this->json("no user connected", 400);}
-
-        // Récupérer les données JSON de la requête
-        $data = json_decode($request->getContent(), true);
-
-        // Vérifier si les données sont bien reçues
-        if ($data) {
-            // Mettre à jour les propriétés de l'utilisateur
+  $data = json_decode($request->getContent(), true);
+   if ($data) {
 
             $user->setUsername($data['username'] ?? $user->getUsername());
             $user->setEmail($data['email'] ?? $user->getEmail());
@@ -263,7 +246,7 @@ class SecurityController extends AbstractController
             return $this->json([
                 'email' => $user->getEmail(),
                 'username' => $user->getUsername(),
-
+                'message' => 'ok'
             ]);
         }
 
@@ -285,12 +268,7 @@ class SecurityController extends AbstractController
         // Vérifier si les données sont bien reçues
         if ($data) {
 
-            $user = $repository->findOneBy(['id' => $data['id']]);
 
-            if (!$user || $this->getUser() != $user) {
-                return $this->json(['message' => 'Aucun utilisateur trouvé'
-                ]);
-            }
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,

@@ -1,0 +1,142 @@
+<div class="friendListContainer" {{ stimulus_controller('friend') }}>
+    <div class="flex-col ownProfil">
+        <img class="imgFond" src="{{ asset('images/fondProfil.webp') }}" alt="">
+
+        {# USERNAME AND IMAGE PDP #}
+        <div class="flex-row" id="usernameAndImg">
+            {% if app.user.image %}
+                {% include 'image.html.twig' with  {
+                    'route_name':'',
+                    'imgClass':'',
+                    'image':image,
+                    'param':null,
+                    'filter': 'ma_vignette',
+                    'aClass':'imageProfil'} %}
+            {% else %}
+
+                <img class="imageProfil"
+                     src="{{ asset('images/imgProfil.png') | imagine_filter('ma_vignette') }}"
+                     alt="">
+
+            {% endif %}
+
+            <span class="username"> {{ app.user.username }}</span>
+        </div>
+
+        <div class="flex-col body">
+            {# DESCRIPTION #}
+            <div class="flex-row">
+                <div class="text-container text-container-cs">
+                    <span class="text-content description text-content-br" {{ stimulus_target('text','description') }}>{{ app.user.description }}</span>
+                    <span class="blur-overlay" {{ stimulus_target('text',' blur') }}></span>
+                </div>
+            </div>
+
+
+            {# STATS WITH FOLLOWERS NB AND LIKE NB WITH SETTING #}
+            <div class="flex-row bottom">
+                <div class="flex-row">
+                    <div class="flex-row profilStat">
+                        {{ app.user.followers|length|format_BN }}
+                        <span>     Followers   </span>
+                    </div>
+                    <div class="flex-row profilStat">
+                        {{ app.user.likes|length }}
+                        <span>  likes  </span>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <button class="moreOptionBtn" data-bs-toggle="dropdown">
+                        <svg width="18" height="4" viewBox="0 0 18 4" fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2.75 3.875C2.25272 3.875 1.77581 3.67746 1.42417 3.32583C1.07254 2.97419 0.875 2.49728 0.875 2C0.875 1.50272 1.07254 1.02581 1.42417 0.674175C1.77581 0.322544 2.25272 0.125 2.75 0.125C3.24728 0.125 3.72419 0.322544 4.07583 0.674175C4.42746 1.02581 4.625 1.50272 4.625 2C4.625 2.49728 4.42746 2.97419 4.07583 3.32583C3.72419 3.67746 3.24728 3.875 2.75 3.875ZM9 3.875C8.50272 3.875 8.02581 3.67746 7.67417 3.32583C7.32254 2.97419 7.125 2.49728 7.125 2C7.125 1.50272 7.32254 1.02581 7.67417 0.674175C8.02581 0.322544 8.50272 0.125 9 0.125C9.49728 0.125 9.97419 0.322544 10.3258 0.674175C10.6775 1.02581 10.875 1.50272 10.875 2C10.875 2.49728 10.6775 2.97419 10.3258 3.32583C9.97419 3.67746 9.49728 3.875 9 3.875ZM15.25 3.875C14.7527 3.875 14.2758 3.67746 13.9242 3.32583C13.5725 2.97419 13.375 2.49728 13.375 2C13.375 1.50272 13.5725 1.02581 13.9242 0.674175C14.2758 0.322544 14.7527 0.125 15.25 0.125C15.7473 0.125 16.2242 0.322544 16.5758 0.674175C16.9275 1.02581 17.125 1.50272 17.125 2C17.125 2.49728 16.9275 2.97419 16.5758 3.32583C16.2242 3.67746 15.7473 3.875 15.25 3.875Z"
+                                  fill="#DA9EFF"/>
+                        </svg>
+                        More
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ path('show_user',{'id':app.user.id}) }}">Profil</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div><div class="flex-col friendProfilList">
+        <h1>People you’re friend with</h1>
+
+        <div class="flex-row profil">
+            <div class="message__icon">
+                {% if app.user.image %}
+                    {% include 'image.html.twig' with  {
+                        'route_name':'show_user',
+                        'imgClass':' ',
+                        'image':image,
+                        'param':{'id':app.user.id},
+                        'filter': 'ma_vignette',
+                        'aClass':' '} %}
+                {% else %}
+                    <a href="{{ path('show_user',{'id':app.user.id}) }}"
+                       class=" ">
+                        <img class=" "
+                             src="{{ asset('images/imgProfil.png') | imagine_filter('ma_vignette') }}"
+                             alt=""> </a>
+                {% endif %}
+
+            </div>
+            <div class="message__name">
+                <h3>{{ app.user.username }}</h3>
+                <div class="text-container text-container-cs">
+                                    <span class="text-content text-content-br">{{ app.user.description }}
+                              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et, voluptates?      </span>
+                    <span class="blur-overlay"></span>
+                </div>
+            </div>
+            <div class="icMessage">
+                <img src="{{ asset('images/poulpeMessage.png') }}" class="icMessageImage" alt="">
+            </div>
+
+        </div>
+
+
+        <hr>
+
+        <div class="flex-row profil">
+            <div class="message__icon">
+                {% if app.user.image %}
+                    {% include 'image.html.twig' with  {
+                        'route_name':'show_user',
+                        'imgClass':' ',
+                        'image':image,
+                        'param':{'id':app.user.id},
+                        'filter': 'ma_vignette',
+                        'aClass':' '} %}
+                {% else %}
+                    <a href="{{ path('show_user',{'id':app.user.id}) }}"
+                       class=" ">
+                        <img class=" "
+                             src="{{ asset('images/imgProfil.png') | imagine_filter('ma_vignette') }}"
+                             alt=""> </a>
+                {% endif %}
+
+            </div>
+            <div class="message__name">
+                <h3>{{ app.user.username }}</h3>
+                <div class="text-container text-container-cs">
+                                    <span class="text-content text-content-br">{{ app.user.description }}
+                              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et, voluptates?      </span>
+                    <span class="blur-overlay"></span>
+                </div>
+            </div>
+            <div class="icMessage">
+                <img src="{{ asset('images/poulpeMessage.png') }}" class="icMessageImage" alt="">
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>

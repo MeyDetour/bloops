@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Entity\Bloop;
 use App\Entity\Comment;
 use App\Entity\Like;
+use App\Repository\AudioRepository;
 use App\Repository\BloopRepository;
 use App\Repository\CommentRepository;
 use App\Repository\LikeRepository;
@@ -18,8 +19,9 @@ use Symfony\Component\Routing\Attribute\Route;
 class LikeController extends AbstractController
 {
     #[Route('/like/bloop/{id}', name: 'like_article')]
+    #[Route('/like/podcast/{id}', name: 'like_podcast')]
     #[Route('/like/comment/{id}', name: 'like_comment')]
-    public function like(Request $request, LikeRepository $likeRepository, EntityManagerInterface $manager, $id, CommentRepository $commentRepository, BloopRepository $bloopRepository): Response
+    public function like(Request $request, LikeRepository $likeRepository, AudioRepository $audioRepository , EntityManagerInterface $manager, $id, CommentRepository $commentRepository, BloopRepository $bloopRepository): Response
     {
         $user = $this->getUser();
         if(!$user){return $this->json("no user connected", 400);}
@@ -33,6 +35,10 @@ class LikeController extends AbstractController
             $comment =  $commentRepository->find($id);
             $mode= "comment";
         }
+        if($route == "like_podcast"){
+            $podcast =  $audioRepository->find($id);
+            $mode= "podcast";
+        }
         $search = [
             "author"=>$user
         ];
@@ -42,7 +48,9 @@ class LikeController extends AbstractController
         if($mode == "comment"){
             $search["comment"]=$comment;
         }
-
+        if($mode == "podcast"){
+            $search["podcast"]=$podcast;
+        }
         $like = $likeRepository->findOneBy($search);
 
         if(!$like){
@@ -54,6 +62,9 @@ class LikeController extends AbstractController
             if($mode=="comment"){
                 $like->setComment($comment);
             }
+            if($mode == "podcast"){
+                $like->setPodcast($podcast);
+            }
             $manager->persist($like);
             $isLiked = true;
 
@@ -61,23 +72,20 @@ class LikeController extends AbstractController
             $manager->remove($like);
             $isLiked = false;
         }
-
+//
         $manager->flush();
 
          if($mode=="bloop")
-        {
-            $countSearch= [
+        {$countSearch= [
                 "bloop"=>$bloop
             ];
         }
 
         if($mode=="comment")
-        {
-            $countSearch= [
-                "comment"=>$comment
-            ];
+        {$countSearch= [ "comment"=>$comment];}
+        if($mode == "podcast"){
+            $countSearch= [ "podcast"=>$podcast];
         }
-
         $count = $likeRepository->count($countSearch);
         $data = [
             "isLiked"=>$isLiked,
