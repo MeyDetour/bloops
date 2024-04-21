@@ -13,29 +13,28 @@ export default class extends Controller {
 
     connect() {
 
-            this.descriptionTargets.forEach((descriptionElement, index) => {
-                 if (descriptionElement.textContent.length > 340) {
+        this.descriptionTargets.forEach((descriptionElement, index) => {
+            if (descriptionElement.textContent.length > 340) {
 
-                    const blurElement = this.blurTargets[index];
-                    if (blurElement) {
-                        blurElement.style.display = 'block';
-                    } else {
-                        console.log('No next element sibling found for', descriptionElement);
-                    }
+                const blurElement = this.blurTargets[index];
+                if (blurElement) {
+                    blurElement.style.display = 'block';
+                } else {
+                    console.log('No next element sibling found for', descriptionElement);
                 }
-            })
-            this.descriptionBloopTargets.forEach((descriptionElement, index) => {
-                console.log(descriptionElement,descriptionElement.length)
-                if (descriptionElement.textContent.length > 800) {
-
-                    const blurElement = this.blurBloopTargets[index];
-                    if (blurElement) {
-                        blurElement.style.display = 'block';
-                    } else {
-                        console.log('No next element sibling found for', descriptionElement);
-                    }
+            }
+        })
+        this.descriptionBloopTargets.forEach((descriptionElement, index) => {
+            console.log(descriptionElement, descriptionElement.textContent.length)
+            if (descriptionElement.textContent.length > 800) {
+                const blurElement = this.blurBloopTargets[index]
+                if (blurElement) {
+                    blurElement.style.display = 'block'
+                } else {
+                    console.log('No corresponding blur element found for', descriptionElement)
                 }
-            })
+            }
+        })
 
     }
 }
