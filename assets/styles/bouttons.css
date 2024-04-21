@@ -1,0 +1,92 @@
+.btnViolet {
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    background: var(--prof);
+    color: var(--simplet);
+    outline: 0;
+    border: 0;
+    font-weight: 600;
+}
+.btnViolet:hover{
+    background: #c988f1;
+}
+.btnViolet a {
+    text-decoration: none;
+    color: var(--simplet);
+    font-weight: 600;
+}
+
+
+
+.btnGreen {
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    background: var(--goodGreen);
+    color: var(--goodGreenDark);
+    outline: 0;
+    border: 0;
+    font-weight: 600;
+}
+
+.btnGreen a {
+    text-decoration: none;
+    color: var(--goodGreenDark);
+    font-weight: 600;
+}
+
+.btnGrey {
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    background: var(--light-grey2);
+    color: var(--greyText);
+    outline: 0;
+    border: 0;
+    font-weight: 600;
+}
+
+.btnGrey a {
+    text-decoration: none;
+    color: var(--greyText);
+    font-weight: 600;
+}
+
+.btnRouge {
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    background: #ff9e9e;
+    color: #a24f4f;
+    outline: 0;
+    border: 0;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.btnRouge a {
+    text-decoration: none;
+    color: #a24f4f;
+    font-weight: 600;
+}
+
+
+.moreOptionBtn {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    text-decoration: none;
+    align-items: center;
+    width: fit-content;
+    padding: 8px 11px;
+    background: transparent;
+    border: 2px solid #DA9EFF;
+    color: var(--prof);
+    font-weight: 600;
+    line-height: 18.15px;
+    text-align: left;
+    border-radius: 5px;
+    font-size: 17px;
+    gap: 5px;
+}

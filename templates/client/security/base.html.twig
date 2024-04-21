@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% block stylesheets %}
+        <link rel="icon" type="image/png/webp" href="{{ asset('images/logo.png') }}"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+              crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+        <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+        <link rel="stylesheet" href="{{ asset('styles/client/form.css') }}">
+
+    {% endblock %}
+
+    {% block javascripts %}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+                crossorigin="anonymous"></script>
+
+         {% block importmap %}
+
+            {{ importmap('app') }}{% endblock %}
+    {% endblock %}
+</head>
+<body class="bodyRegister">
+{% block body %}
+    <div class="main">
+        <input type="checkbox" id="chk" aria-hidden="true">
+
+        <div class="signup">
+            {{ form_start(registrationForm,{'attr':{'data-controller':'client-security verify '}}) }}
+            <label for="chk" aria-hidden="true" >Sign up</label>
+            <span id="errorRegister" style="color:red;" {{ stimulus_target('verify','error') }}> </span>
+            <span id="errorRegister" style="color:red;" {{ stimulus_target('client-security','error') }}> </span>
+            {{ form_widget(registrationForm.username,{'attr':{'data-verify-target':'username','data-action':'change->verify#toValidUsername'}}) }}
+            {{ form_widget(registrationForm.email,{'attr':{'data-verify-target':'email','data-action':'change->verify#toValid'}}) }}
+
+        <div class="passwordContainer">
+            {{ form_widget(registrationForm.plainPassword,{'attr':{'data-client-security-target':'fieldPs'}}) }}
+            <i class="bi bi-eye eyeOpen " {{ stimulus_target('client-security','eye0ps')|stimulus_action('client-security','eyeClose','click')}}></i>
+            <i class="bi bi-eye-slash-fill eyeOff" {{ stimulus_target('client-security','eye1ps')|stimulus_action('client-security','eyeOpen','click')}}></i>
+
+        </div>
+            <button type="submit" data-action="click->client-security#verifyPassword">Sign up</button>
+            {{ form_end(registrationForm) }}
+        </div>
+
+        <div class="login">
+            <form action="{{ path('app_login') }}"  class="login-form" method="post">
+                <label for="chk" aria-hidden="true">Login</label>
+                <input type="text" name="email" placeholder="Email" required="">
+                <input type="password" name="password" placeholder="Password" >
+                <button type="submit">Login</button>
+                <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}"
+                >
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,102 @@
+{% extends '../client/base.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+{% block body %}
+
+    {#  bloop  #}
+    {{ article.title }}
+    {{ article.chapo }}
+    {{ article.createdAt | date('d-m-Y') }}
+    {{ article.note }}
+    {{ article.firstSubtitle }}
+    {{ article.firstParagraphe }}
+
+    {{ article.secondSubtitle }}
+    {{ article.secondParagraphe }}
+
+    {{ article.thirdSubtitle }}
+    {{ article.thirdParagraphe }}
+
+
+    {#  bloop author  #}
+    {% if article.author.image %}
+        <img class="imgPdp"
+             src="{{ vich_uploader_asset(article.author.image) | imagine_filter('petite_vignette') }}"
+             alt="">
+    {% else %}
+        <img class="imgPdp"
+             src="{{ asset('images/imgProfil.png') | imagine_filter('petite_vignette') }}" alt="">
+    {% endif %}
+    {{ article.author.username }}
+
+
+
+
+    {#  crud  #}
+    <a class="dropdown-item btn btn-primary" href="{{ path('delete_article',{'id': article.id}) }}">supprimer</a>
+    <a class="dropdown-item btn btn-primary" href="{{ path('edit_article',{'id': article.id}) }}">Editer</a>
+    <a class="dropdown-item btn btn-primary" href="{{ path('article_file',{'id':article.id}) }}">Ajouter un fichier</a>
+
+
+
+
+    {#  CATEGORIES  #}
+    {% for category in article.categories %}
+        <a href="{{ path('filter_category',{'id':category.id}) }}" class="">#{{ category.name }}</a>
+    {% endfor %}
+
+
+
+    {#  LIKE ARTICLE  #}
+    <a href="{{ path("like_article", {id:article.id}) }}" class=" btn btn1">
+        Like {{ article.likes|length }})
+        {% if app.user %}
+            <i class="bi bi-hand-thumbs-up{% if article.isLikedBy(app.user) %}-fill{% endif %}"></i>
+        {% endif %}
+    </a>
+
+
+    {#  COMENTAIRES  #}
+    {% if article.DisplayComments %}
+
+        {{ form_start(form,{'action':path('new_comment',{'id':article.id})}) }}
+        {{ form_row(form.content) }}
+        <button class="btn btn-success">Poster le commentaire</button>
+        {{ form_end(form) }}
+
+        {% for comment in article.comments %}
+
+            {{ comment.author.email }}
+            {{ comment.content }}
+            {{ comment.createdAt | date('d-m-Y') }}
+            <a href="{{ path("like_comment", {id:comment.id}) }}"
+               class=" btn btn-primary">
+                Like
+                {{ comment.likes|length }}
+                {% if app.user %}
+                    <i class="bi bi-hand-thumbs-up{% if comment.isLikedBy(app.user) %}-fill{% endif %}"></i>
+                {% endif %}
+            </a>
+            {% for image in comment.images %}
+                {% include 'component/image.html.twig' with  {
+                    'route_name':'',
+                    'imgClass':'imageAdded',
+                    'image':image,
+                    'param':{},
+                    'aClass':''} %}
+            {% endfor %}
+
+
+            <a class="btn btn-primary"
+               href="{{ path('delete_comment',{'id': comment.id}) }}">supprimer</a>
+            <a class="btn btn-primary" href="{{ path('comment_image',{'id': comment.id}) }}">ajouter
+                image</a>
+
+        {% endfor %}
+
+    {% endif %}
+
+    <script src="{{ asset('js/like.js') }}" defer></script>
+
+{% endblock %}

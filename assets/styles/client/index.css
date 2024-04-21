@@ -1,0 +1,310 @@
+.homePageContainer {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 37%;
+    top: 10%;
+    display: flex;
+    flex-direction: column;
+}
+
+@media only screen and (max-width: 850px) {
+    .homePageContainer{
+        position: relative;
+        top: initial;    width: 72vw;
+
+        margin-block: 4vh;
+        left: initial;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .homePageContainer{
+
+        width: 89vw;
+    }
+}@media only screen and (max-width: 500px) {
+    .homePageContainer {
+        width: 97vw;
+    }
+}
+
+/*===============================FRIEND LIST=========================*/
+.friendListContainer {
+    width: 26vw;
+    height: 100%;
+    position: fixed;
+    right: 0%;
+    top: 0%;
+}
+
+.friendRequest {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+    margin-block: 10px;
+}
+@media only screen and (max-width: 850px) {
+    .friendListContainer{
+        width: 0vw;
+        height: 100%;
+        position: fixed;
+        right: 0%;
+        top: 0%;
+        background: var(--light-grey);
+        transition: width 1s;
+        overflow: hidden;
+    }
+
+}
+
+/*=====================OWN =================*/
+.ownProfil {
+    width: 100%;
+    height: fit-content;
+    box-shadow: 4px 4px 5px 0px rgba(0, 0, 0, 0.14), 4px 4px 5px 0px #ffffffeb inset;
+    margin-bottom: 2vh;
+    border-radius: 20px;
+    position: relative;
+}
+
+.ownProfil .imgFond {
+    height: 43%;
+    width: 100%;
+    object-fit: cover;
+    max-height: 129px;
+/*
+    position: absolute;
+    top: 0%;
+    left: 0%;*/
+    border-radius: 20px 0px 0px 0px ;
+}
+.ownProfil .imageProfil{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    z-index: 1;
+    border: 7px solid var(--light-grey);
+
+}
+.ownProfil #usernameAndImg{
+    position: absolute;
+    top: 29%;
+    left: 3%;
+    align-items: flex-end;
+    gap: 15px;
+}
+
+.ownProfil .username {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24.2px;
+    text-align: left;
+    color: var(--darkText);
+    margin-bottom: 11px;
+}
+
+.ownProfil .description {
+    font-size: 15px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 18.15px;
+    text-align: left;
+    color: var(--greyText);
+}
+
+.ownProfil .body{   padding: 50px 20px 20px 20px;
+
+}
+.ownProfil .bottom{
+    justify-content: space-between;
+}
+.ownProfil .profilStat {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 21.78px;
+    color: var(--prof);
+    text-align: left;
+    align-items: center;
+}
+.ownProfil .profilStat span {
+    font-size: 16px !important;
+    font-weight: 400;
+    line-height: 14.52px;
+    margin-inline: 6px;
+    color: var(--greyText);
+
+}
+/*=============FRIEND REQUEST=============*/
+.imageProfil img{
+
+    border-radius: 50%;
+}
+#croixCloseRequest{
+    position: absolute;
+    right: 6%;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    font-size: 23px;
+    color: var(--simplet);
+}
+/*=====================FRIEND LIST =================*/
+/* width */
+.friendProfilList::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+.friendProfilList::-webkit-scrollbar-track {
+
+    border-radius: 10px;
+}
+
+/* Handle */
+.friendProfilList::-webkit-scrollbar-thumb {
+    background: #dcdcdc;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+.friendProfilList::-webkit-scrollbar-thumb:hover {
+    background: #d3d3d3;
+}
+
+.friendProfilList {
+    height: 68vh;
+    overflow-y: scroll;
+border-radius: 29px;
+    width: 100%;
+    padding: 22px 20px;
+    box-shadow: 4px 4px 5px 0px #0000000D, 4px 4px 5px 0px #FFFFFF inset;
+
+}
+.friendProfilList h1{
+ color: var(--darkText);
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 36.31px;
+    text-align: left;margin-bottom: 50px;
+}
+.friendProfilList .profil {
+position: relative;
+}
+.friendProfilList .message__header{
+    align-items: flex-start;
+}
+.friendProfilList .message__name h3{
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24.2px;
+    text-align: left;
+    color: var(--darkText);
+    margin-block: 2px;
+
+}.friendProfilList .message__name .text-content{
+     font-size: 15px;
+     font-weight: 400;
+     line-height: 14.52px;
+     text-align: left;
+color: var(--greyText);
+ }
+
+.friendProfilList  img{
+    width: 60px;
+    height: 60px;
+    display: block;
+    border-radius: 50%;
+}
+.friendProfilList .icMessage{
+    position: absolute;
+    right: 0%;
+    top: 17%;
+    font-size: 27px;
+    color: var(--simplet);
+}.icMessage .icMessageImage{
+    width: 40px;
+    height: auto;
+ }
+/*=====================TOGGLE SWITCH =================*/
+.toggleSwitchContainer {
+    align-items: center;
+    justify-content: flex-end;
+    width: 500px;
+}
+
+/* The switch - the box around the slider */
+.switch {
+    font-size: 17px;
+    position: relative;
+    display: inline-block;
+    margin-inline: 1vw;
+    width: 4.2em;
+
+    height: 2em;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--timide);
+    border: 1px solid var(--greyText);
+    transition: .4s;
+    border-radius: 32px;
+    outline: none;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 85%;
+    width: 37px;
+    border-radius: 20px;
+    outline: 2px solid var(--light-grey2);
+    left: 2px;
+    bottom: 2px;
+    background-color: var(--light-grey);
+    transition: transform .25s ease-in-out 0s;
+}
+
+.slider-icon {
+    opacity: 0;
+    height: 12px;
+    width: 12px;
+    stroke-width: 8;
+    position: absolute;
+    z-index: 999;
+    stroke: var(--simplet);
+    right: 60%;
+    top: 30%;
+    transition: right ease-in-out .3s, opacity ease-in-out .15s;
+}
+
+input:checked + .slider {
+    background-color: var(--simplet);
+}
+
+input:checked + .slider .slider-icon {
+    opacity: 1;
+    right: 20%;
+}
+
+input:checked + .slider:before {
+    transform: translateX(1.5em);
+    outline-color: var(--prof);
+}
+
+
+

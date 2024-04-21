@@ -1,0 +1,196 @@
+.overlay {
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    padding-top: 7vh;
+    padding-bottom: 13vh;
+    z-index: 5;
+    /*opacity: 0;*/
+    overflow-y: scroll;
+    background: #808080c2;
+    transition: opacity 0.3s ease-out;
+}
+
+.backgroundOverlay {
+    background-color: var(--light-grey);
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, .05),
+    inset 4px 4px 5px white;
+    border-radius: 20px;
+    width: 50%;
+    padding: 2vh;
+}
+
+.overlayButtonContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.overlayContent {
+    padding: 2vh;
+}
+
+.overlay .overlaySection {    margin-block: 5px;
+    width: 50%;
+    background-color: var(--light-grey);
+
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, .05),
+    inset 4px 4px 5px white;
+    border-radius: 20px;
+    color: var(--darkText);
+    padding: 2vh;
+}
+.arrowLeft, .arrowRight{
+    position: absolute;
+    bottom: -22px;
+    font-size: 43px;
+    color: var(--prof);
+    z-index: 3;
+    backdrop-filter: blur(5px);
+    border-radius: 50%;
+    padding: 0;
+    margin: 0;
+}
+.arrowLeft{
+    left: 42%;
+}
+.arrowRight{
+    right: 42%;
+}
+/*==========REPORT============*/
+.overlay .object {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.overlay h1 {
+    font-weight: 600;
+    font-size: 20px;
+    color: var(--darkText);
+}
+
+.overlay .errorContainer span {
+    color: var(--darkText);
+    font-weight: 700;
+    font-size: 21px;
+}
+
+.overlay .errorContainer {
+    width: 50%;
+    text-align: center;
+
+    background: #e87e7e !important;
+    border: 3px solid #a24f4f !important;
+
+    display: none;
+    min-height: 10vh;
+
+    margin-block: 5px;
+
+
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, .05),
+    inset 4px 4px 5px #daadad;
+    border-radius: 20px;
+    color: var(--darkText);
+    padding: 2vh;
+}
+.show-error {
+    display: flex !important; /* Now you can use !important */
+}
+.overlay input, .overlay select, .overlay textarea {
+    border-radius: 5px;
+    border: 2.5px solid var(--light-grey2);
+    background: var(--light-grey);
+    color: var(--greyText);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding: 1vh;
+    width: 100%;
+    resize: none;
+}
+
+/*=====================COMMENT OVERLAY====================*/
+.overlay .inputComment {
+    background: transparent !important;
+    box-shadow: none !important;
+    align-items: center;
+    justify-content: center;
+    padding: 0 !important;      position: fixed;
+    bottom: 0vh;
+    left: 0;
+    width: 100vw;
+    height: 10vh;
+    z-index: 2;
+    backdrop-filter: blur(4px);
+}
+
+.overlay .inputComment .bi {
+    font-size: 39px;
+    color: var(--light-grey);
+    margin-inside: 15px
+}
+
+.overlay .inputComment input {
+    height: 55px;
+    width: 50%;
+    border-radius: 13px;
+    background-color: var(--light-grey);/*
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, .05),*/
+}
+.overlay .imageOverlayBloop , .overlay .videoOverlayBloop{
+    width: auto;
+    height: auto;
+    max-height: 58vh;
+    max-width: 100%;
+}
+.overlay .file-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position: relative;
+}
+
+@media only screen and (max-width: 850px) {
+    .backgroundOverlay {
+        width: 84%;
+    }
+    .overlay .errorContainer {
+        width: 84%;}
+    .overlay .inputComment input {
+        height: 75px;
+        width: 86%;}
+    .overlay .overlaySection {
+        width: 84%;
+    }
+    .inputComment{
+        width: 100vw !important;
+    }
+    .arrowLeft, .arrowRight {
+       display: none;
+    }
+
+    }
+
+@media only screen and (max-width: 600px) {
+    .backgroundOverlay {
+        width: 95%;
+    }
+    .overlay .errorContainer {
+        width: 95%;}
+    .overlay .inputComment input {
+        width: 95%;}
+    .overlay .overlaySection {
+        width: 95%;
+    }
+
+}
+

@@ -1,0 +1,17 @@
+<div class="overlay" {{ stimulus_target('overlay','overlay') }}>
+    <div class="backgroundOverlay" >
+
+        <div class="overlayButtonContainer">
+            <button class="btnViolet" id="overlayOff" {{stimulus_action('overlay','closeOverlay','click')}} >Retour</button>
+
+        </div>
+
+        <div class="overlayContent"{{ stimulus_target('overlay','content') }}  >
+
+        </div>
+    </div>
+    <div class="errorContainer centered" {{ stimulus_target('overlay','errorContainer') }} >
+        <span {{ stimulus_target('overlay','error')}} id="overlayError"></span>
+    </div>
+
+</div>

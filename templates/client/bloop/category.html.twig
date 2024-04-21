@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello NemController!{% endblock %}
+{% form_theme formCategory 'bootstrap_5_layout.html.twig' %}
+{% form_theme formCategoryForArticles 'bootstrap_5_layout.html.twig' %}
+{% block body %}
+
+
+    {#   PRESENTE TOUTES LES CATEGORIES DISPONIBLES AVEC CHECKBOXS   #}
+    {{ form_start(formCategoryForArticles,{'action': path('new_category_article',{'id':article.id})}) }}
+    {{ form_row(formCategoryForArticles.categories) }}
+    <button class="btn btnBleu btn-success" type="submit">Valider</button>
+    {{ form_end(formCategoryForArticles) }}
+
+
+    {#   AJOUTE UNE CATEGORIE  #}
+    {{ form_start(formCategory,{'action': path('new_category_article',{'id':article.id})}) }}
+    {{ form_row(formCategory.name) }}
+    <button class="btn btnBleu btn-success">Ajouter la catégorie</button>
+    {{ form_end(formCategory) }}
+
+
+{% endblock %}

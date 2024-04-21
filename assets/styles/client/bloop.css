@@ -1,0 +1,315 @@
+/* Flex boxes */
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.flex-row-around {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.flex-row-between {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.flex-row-evenly {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-col-around {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.flex-col-between {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.flex-col-evenly {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.grid-center {
+    display: grid;
+    place-items: center;
+}
+
+.innerParent {
+    width: 100%;
+    height: 100%;
+}
+
+/* --- Flex boxes --- */
+
+/* Component styles */
+.message {
+    width: 500px;
+    max-height: fit-content;
+    padding: 15px;
+    margin-block: 1vh;
+    background-color: var(--light-grey);
+
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, .05),
+    inset 4px 4px 5px white;
+
+    border-radius: 10px;
+}
+
+.message__content {
+
+    Width: 100%;
+    Height: 80%;
+}
+
+.bi-three-dots-vertical {
+    font-size: 25px;
+    color: var(--greyText);
+}
+
+.message__icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 10px 0 0;
+
+    background: var(--light-grey);
+
+    border-radius: 60px;
+}
+
+.flowCorner {
+
+    border-radius: 10px 10px 10px 10px;
+}
+
+h3 {
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+p.sub-title {
+    font-size: 12px;
+    font-style: italic;
+    color: grey;
+}
+
+/* --- Component styles --- */
+
+.text-container, .text-container-cs {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+    padding-bottom: 15px;
+    word-break: break-word;
+    /* overflow: hidden; */
+    overflow-x: hidden;
+    overflow-y: hidden;
+    word-wrap: break-word;
+
+    max-height: 350px;
+}
+
+.text-container-cs {
+    max-height: 100px !important;
+    overflow: hidden; /* Hide the content that goes beyond max-height */
+
+    transition: height 1s; /* Animate the max-height property over 0.5 seconds */
+
+}
+
+.text-content {
+
+    word-break: break-word;
+    /* overflow: hidden; */
+    overflow-x: hidden;
+    overflow-y: auto;
+    word-wrap: break-word;
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+}
+
+.blur-overlay {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 63%;
+    pointer-events: none;
+    display: none;
+    background: linear-gradient(to bottom, rgb(255 255 255 / 0%), var(--light-grey));
+}
+
+.file-container {
+    min-height: 70%;
+    max-height: fit-content;
+    width: 100%;
+}
+
+/*========================================AUDIO */
+.contentContainerPodcast {
+    height: fit-content;
+}
+
+.file-container-audio {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#playPauseBtn {
+    cursor: pointer;
+    border-radius: 50%;
+
+    border: 3px solid var(--simplet);
+    padding: 5px;
+}
+
+#playPauseBtn img {
+    width: 40px !important;
+    height: 40px !important;
+
+}
+
+#progressBar {
+    width: 100%;
+}
+
+#progressBar {
+    -webkit-appearance: none; /* Supprime l'apparence native */
+    appearance: none;
+    width: 100%; /* La largeur totale de la barre de progression */
+    height: 10px; /* L'épaisseur de la barre de progression */
+    border-radius: 20px;
+    background: #ddd; /* La couleur de fond de la barre de progression */
+    outline: none; /* Retire l'outline lors de la sélection */
+    opacity: 0.7; /* Rend la barre légèrement transparente */
+    transition: opacity .2s; /* Anime la transparence */
+}
+
+/* Personnalise l'apparence de la partie déjà parcourue */
+#progressBar::-webkit-slider-runnable-track {
+    background: transparent; /* La couleur de la partie déjà parcourue */
+}
+
+#progressBar::-moz-range-track {
+    background: transparent; /* Firefox: La couleur de la partie déjà parcourue */
+}
+
+/* Personnalise l'apparence du pouce (le curseur qu'on déplace) */
+#progressBar::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Supprime l'apparence native pour WebKit/Blink */
+    border: none; /* Supprime les bordures éventuelles */
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--simplet); /* Rend le pouce complètement transparent */
+}
+
+#progressBar::-moz-range-thumb {
+    /* Firefox: Cache le pouce */
+    border: 2px solid var(--prof);
+    width: 20px;
+
+    border-radius: 50%;
+    height: 20px;
+    background: var(--simplet);
+}
+
+/* Change la couleur de la partie déjà parcourue lorsque le slider est survolé */
+#progressBar:hover {
+    opacity: 1; /* Rend la barre de progression complètement opaque */
+}
+
+#playPauseBtn, #volumeControl {
+    margin: 0 10px;
+}
+
+#progressBar, #volumeControl {
+    width: 100%;
+}
+
+.soundVolumeContainer {
+    position: relative;
+}
+
+.file-container-audio img {
+    width: 53px;
+    border-radius: 50%;
+    padding: 4px;
+}
+
+#volumeControl {
+    width: 113px;
+    height: 15px;
+    display: none;
+    transform: rotateZ(270deg);
+    position: absolute;
+    bottom: 189%;
+    left: -79%;
+
+    -webkit-appearance: none; /* Supprime l'apparence native */
+    appearance: none;
+    border-radius: 20px;
+    background: #ddd; /* La couleur de fond de la barre de progression */
+    outline: none; /* Retire l'outline lors de la sélection */
+    opacity: 0.7; /* Rend la barre légèrement transparente */
+}
+
+.bloopVideo, .bloopImage {
+    object-fit: cover;
+    object-position: top;
+}
+
+@media only screen and (max-width: 850px) {
+    .message {
+        width: 100%;
+    }
+
+    .bloopBallonLikedSvg, .bloopBallonSvg {
+        width: 37px;
+        height: 43px;
+    }
+
+    #iconeMessageSvg {
+        height: 39px;
+        width: 26px;
+    }
+    .bi-three-dots-vertical {
+        font-size: 36px;
+    }
+    p.sub-title {
+        font-size: 15px;
+    }
+    .soundVolumeContainer {
+       display: none;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+
+}
