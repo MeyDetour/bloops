@@ -29,9 +29,7 @@
                          data-follow-id-value="{{ user.id }}">
                         <h3>{{ user.username }}</h3>
                         <p class="sub-text">
-                            {{ user.description }} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
-                            commodi corporis eaque, facilis libero maiores perspiciatis quod repudiandae tempora
-                            voluptatibus!
+                            {{ user.description }}
                         </p>
                         {% if user == app.user %}
                             <a href="{{ path('app_logout') }}" id="logoutBtn"><i class="bi bi-box-arrow-right"></i></a>
@@ -54,9 +52,7 @@
             <div class="profil__name_descripton-mobil">
                 <h3>{{ user.username }}</h3>
                 <p class="sub-text">
-                    {{ user.description }} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
-                    commodi corporis eaque, facilis libero maiores perspiciatis quod repudiandae tempora
-                    voluptatibus!
+                    {{ user.description }}
                 </p>
                 {% if user == app.user %}
                     <a href="{{ path('app_logout') }}" id="logoutBtn"><i class="bi bi-box-arrow-right"></i></a>
