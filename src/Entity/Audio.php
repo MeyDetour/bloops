@@ -35,9 +35,7 @@ class Audio
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\ManyToOne(inversedBy: 'podcast')]
-    #[ORM\JoinColumn(nullable: true)] // Rend la relation nullable
-    private ?Bloop $article = null;
+
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $titre = null;
@@ -118,17 +116,7 @@ class Audio
         return $this->audioSize;
     }
 
-    public function getArticle(): ?Bloop
-    {
-        return $this->article;
-    }
 
-    public function setArticle(?Bloop $article): static
-    {
-        $this->article = $article;
-
-        return $this;
-    }
 
     public function getTitre(): ?string
     {
