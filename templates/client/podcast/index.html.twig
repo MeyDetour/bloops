@@ -4,7 +4,7 @@
 
 {% block body %}
 
-    <div class="homePageContainer" {{ stimulus_controller('text') }}>
+    <div class="homePageContainer" {{ stimulus_controller('text')|stimulus_controller('audio') }}>
 
         {% for pod in podcasts %}
             <div class="flex-row message">
@@ -45,7 +45,7 @@
                                 <span class="blur-overlay" {{ stimulus_target('text',' blur') }}></span>
                             </div>
 
-                        <div class="file-container file-container-audio" {{ stimulus_controller('audio') }}>
+                        <div class="file-container file-container-audio" >
 
                             <audio id="audio" {{ stimulus_target('audio','audio')|stimulus_action('audio','audio','timeupdate') }}>
                                 <source src="audios/{{ pod.audioName }}" type="audio/mp3">

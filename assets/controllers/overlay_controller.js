@@ -610,9 +610,10 @@ export default class extends Controller {
                                             <source src="audios/${audioName}" type="audio/mp3">
                                             Votre navigateur ne supporte pas l'élément audio.
                                         </audio>
-                                        <button class="btnRondViolet"
-                                                id="playPauseBtn" data-audio-target="pause" data-action="click->audio#playPauseBtn" >
-                                            <img src="/images/playPause.png" alt="" draggable="false"></button>
+                                        <button class="btnRondViolet" id="playPauseBtn" data-audio-target="play" data-action="click->audio#playPauseBtn" >
+                                            <img src="/images/playPause.png" alt="" draggable="false">
+                                            <i class="bi bi-pause-fill"  data-audio-target="pause"></i>
+                                        </button>
                                         <input type="range"
                                                id="progressBar" data-audio-target="progress" data-action="input->audio#progressBar"  
                                                value="0" max="100">
