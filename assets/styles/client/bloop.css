@@ -194,7 +194,9 @@ p.sub-title {
 #playPauseBtn i{
     width: 40px !important;
     height: 40px !important;
-
+    display: none;
+    color: var(--simplet);
+    font-size: 40px;
 }
 #playPauseBtn img {
     width: 40px !important;
