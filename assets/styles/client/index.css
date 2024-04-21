@@ -85,6 +85,8 @@
     border-radius: 50%;
     z-index: 1;
     border: 7px solid var(--light-grey);
+    background: var(--light-grey);
+}
 
 }
 .ownProfil #usernameAndImg{
