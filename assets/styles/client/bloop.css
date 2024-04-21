@@ -191,7 +191,11 @@ p.sub-title {
     border: 3px solid var(--simplet);
     padding: 5px;
 }
+#playPauseBtn i{
+    width: 40px !important;
+    height: 40px !important;
 
+}
 #playPauseBtn img {
     width: 40px !important;
     height: 40px !important;
