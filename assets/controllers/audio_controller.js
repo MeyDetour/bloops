@@ -10,7 +10,6 @@ export default class extends Controller {
     static targets = ['audio', 'pause', 'play', 'progress', 'progressAudio', 'icSound']
 
     connect() {
-
         this.progressAudioTarget.style.display = 'none'
         this.audioTargets.forEach(video => {
             this.observer.observe(video);
@@ -21,10 +20,12 @@ export default class extends Controller {
         if (this.audioTarget.paused) {
             this.audioTarget.play();
             this.playTarget.style.display = 'none'
+            this.pauseTarget.style.display = 'block'
 
         } else {
             this.audioTarget.pause();
-            this.pauseTarget.style.display = 'block'
+            this.pauseTarget.style.display = 'none'
+            this.playTarget.style.display = 'block'
         }
     };
 
