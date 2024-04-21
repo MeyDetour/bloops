@@ -14,7 +14,9 @@ class ImageType extends AbstractType
     {
         $builder
             ->add('imageFile', DropzoneType::class, [
+                'attr' => true,
                 'constraints' => [
+
                     new Image([
                         'mimeTypes' => [
                             'image/jpeg',
