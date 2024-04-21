@@ -122,7 +122,7 @@
                             </svg>
 
 
-                            <span {{ stimulus_target('like','likesCount') }}>{{ pod.likes|length|format_BN }} </span>
+                            <span {{ stimulus_target('like','likesCount') }}>{{ pod.likes|length}} </span>
                         </div>
                         {% if pod.displayComment %}
                             <div {{ stimulus_action('overlay','openOverlayCommentPodcast','click') }}    data-overlay-id-value="{{ pod.id }}" class="flex-col grid-center">
