@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\PersistentCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -59,6 +60,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Like::class, mappedBy: 'author', orphanRemoval: true)]
     private Collection $likes;
 
+    private ContainerInterface $container;
 
     #[ORM\OneToMany(targetEntity: FriendRequest::class, mappedBy: 'requester', orphanRemoval: true)]
     private Collection $friendRequests;
@@ -87,35 +89,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'followings')]
     private ?Collection $followers = null;
 
-    #[ORM\OneToOne(mappedBy: 'owner', cascade: ['persist', 'remove'])]
-    private ?Image $image = null;
-    public function serialize()
-    {
-        return serialize([
-            $this->id,
-            $this->username,
-            $this->email,
-            $this->description,
-            // et ainsi de suite pour les autres propriétés que vous souhaitez sérialiser
-            // excluez le $this->imageFile ou tout autre propriété que vous ne voulez pas sérialiser
-        ]);
-    }
 
-    public function unserialize($serialized)
-    {
-        list(
-            $this->id,
-            $this->username,
-            $this->email,
-            $this->description,
-            // et ainsi de suite pour les autres propriétés
-            ) = unserialize($serialized, ['allowed_classes' => false]);
 
-        // Ne définissez pas $this->imageFile car il n'est pas sérialisé
-    }
-
-    public function __construct()
+    public function __construct(ContainerInterface $container)
     {
+        $this->container = $container;
         $this->comments = new ArrayCollection();
         $this->articles = new ArrayCollection();
         $this->likes = new ArrayCollection();
@@ -127,7 +105,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->followings = new ArrayCollection();
         $this->followers = new ArrayCollection();
     }
-
+    public function getImage()
+    {
+        $userImageService = $this->container->get('App\Service\UserImageService');
+        return $userImageService->getUserImage($this->getId());
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -380,17 +362,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getImageBackground(): ?Image
-    {
-        return $this->imageBackground;
-    }
 
-    public function setImageBackground(?Image $imageBackground): static
-    {
-        $this->imageBackground = $imageBackground;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Report>
@@ -540,26 +512,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getImage(): ?Image
-    {
-        return $this->image;
-    }
 
-    public function setImage(?Image $image): static
-    {
-        // unset the owning side of the relation if necessary
-        if ($image === null && $this->image !== null) {
-            $this->image->setOwner(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($image !== null && $image->getOwner() !== $this) {
-            $image->setOwner($this);
-        }
-
-        $this->image = $image;
-
-        return $this;
-    }
 
 }

@@ -20,7 +20,14 @@ class ImageRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Image::class);
     }
-
+    public function findImageByUserId(int $userId): ?Image
+    {
+        return $this->createQueryBuilder('i')
+            ->where('i.owner = :userId')
+            ->setParameter('userId', $userId)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
     //    /**
     //     * @return Image[] Returns an array of Image objects
     //     */
