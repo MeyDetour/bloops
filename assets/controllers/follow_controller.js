@@ -73,6 +73,7 @@ let elt = event.currentTarget
                     'PODCAST': 'a liké votre podcast.',
                     'FOLLOW': 'vous suit maintenant !',
                 }
+
                 content += `      
                         <div class=" friendRequest">
                                 <div class="message__icon">
