@@ -13,7 +13,6 @@ export default class extends Controller {
     static targets = ['confirm', 'last', 'psw', 'error','valider']
 
     connect() {
-        console.log('connect')
         this.validerTarget.style.display='none'
     }
 
@@ -31,7 +30,6 @@ export default class extends Controller {
     }
 
     lastFct() {
-        console.log('last')
 
         axios.post('/user/last/password', {'password': this.lastTarget.value}).then(response => {
             response = response.data

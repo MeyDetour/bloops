@@ -46,7 +46,6 @@ export default class extends Controller {
     }
 
     toggle() {
-        console.log(this.statusValue)
         if (this.statusValue === 'open') {
             this.toClose()
         } else {

@@ -71,7 +71,7 @@ export default class extends Controller {
         console.log('lastevent : ', event)
         bloopId = element.dataset.overlayIdValue;
         let bloopAuthorId = element.dataset.overlayBloopAuthorIdValue;
-        console.log(bloopId, bloopAuthorId)
+
         this.openOverlay()
         axios.post('user/get/current').then(response => {
             current_user = response.data
@@ -610,8 +610,8 @@ export default class extends Controller {
                                             <source src="audios/${audioName}" type="audio/mp3">
                                             Votre navigateur ne supporte pas l'élément audio.
                                         </audio>
-                                        <button class="btnRondViolet" id="playPauseBtn" data-audio-target="play" data-action="click->audio#playPauseBtn" >
-                                            <img src="/images/playPause.png" alt="" draggable="false">
+                                        <button class="btnRondViolet" id="playPauseBtn" data-audio-target="playPause" data-action="click->audio#playPauseBtn" >
+                                            <img src="/images/playPause.png" data-audio-target="play" alt="" draggable="false">
                                             <i class="bi bi-pause-fill"  data-audio-target="pause"></i>
                                         </button>
                                         <input type="range"
@@ -705,8 +705,7 @@ export default class extends Controller {
 
             //to render full text
             this.textTargets.forEach(function (el) {
-                console.log(el)
-                console.log(el.textContent.length)
+
                 if (el.textContent.length > 400) {
                     if (el.nextElementSibling) { // Ensure that there is an element sibling
                         el.nextElementSibling.style.display = 'block'; // This will show the next element sibling

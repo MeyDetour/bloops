@@ -24,7 +24,7 @@ export default class extends Controller {
     }
     toggle(element,{isLiked, count}){
         this.likesCountTarget.textContent = count
-        console.log({isLiked, count})
+
         if (isLiked) {
             this.element.classList.add('bloopBallonLiked')
             this.element.classList.remove('bloopBallon')

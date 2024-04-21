@@ -7,7 +7,7 @@ import axios from 'axios';
 /* stimulusFetch: 'lazy' */
 export default class extends Controller {
 
-    static targets = ['audio', 'pause', 'play', 'progress', 'progressAudio', 'icSound']
+    static targets = ['audio', 'pause', 'play','playPause', 'progress', 'progressAudio', 'icSound']
 
     connect() {
 
