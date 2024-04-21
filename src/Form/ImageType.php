@@ -14,9 +14,7 @@ class ImageType extends AbstractType
     {
         $builder
             ->add('imageFile', DropzoneType::class, [
-                'attr' => [
-                    'required'=> true,
-                ]  ,
+
                 'constraints' => [
 
                     new Image([

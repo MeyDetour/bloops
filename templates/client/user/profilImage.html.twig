@@ -39,8 +39,10 @@
             <a class="btnGrey" href="{{ path('user_update') }}">Revenir en arriere</a>
 
             <button class="btnGreen" {{ stimulus_action('profil','validate','click')|stimulus_target('profil','update') }}>
-                Continuer
+                Valider
             </button>
+            <a class="btnGrey" href="{{ path('show_user',{'id':app.user}) }}">Terminé</a>
+
         </div>
         {{ form_end(form) }}
     </div>
