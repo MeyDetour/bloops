@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Bloop;
 use App\Entity\Audio;
 use App\Entity\Comment;
+use App\Entity\FriendRequest;
 use App\Entity\Image;
 use App\Entity\Nem;
 use App\Entity\Video;
@@ -81,6 +82,17 @@ class AudioController extends AbstractController
             $podcast->setCreatedAt(new \DateTimeImmutable());
             $podcast->setStatus('ACTIVE');
             $podcast->setAuthor($this->getUser());
+            $friendRequest = new FriendRequest();
+            $friendRequest->setStatus('ACTIVE');
+            $friendRequest->setType('AUDIO_POST');
+            $friendRequest->setVisible(true);
+            $friendRequest->setRequester($this->getUser());
+            $friendRequest->setRequested($this->getUser());
+            $friendRequest->setCreatedAt(new \DateTimeImmutable());
+
+
+            $manager->persist($friendRequest);
+
             $manager->persist($podcast);
             $manager->flush();
             return $this->redirectToRoute('podcast_file', ['id' => $podcast->getId()]);

@@ -215,7 +215,7 @@ class FollowController extends AbstractController
             if ($n >= 10) {
                 $manager->remove($request);
             } else {
-                if ($request->isVisible()) {
+                if ($request->isVisible() && ($request->getRequested() !== $request->getRequester())) {
                     $authorImageUrl = $request->getRequester()->getImage() ? $request->getRequester()->getImage()->getImageUrl() : 'images/imgProfil.png';
                     $requests[] = [
                         'requestId' => $request->getId(),
