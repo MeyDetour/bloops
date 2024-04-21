@@ -10,12 +10,37 @@ export default class extends Controller {
     static targets = ['audio', 'pause', 'play', 'progress', 'progressAudio', 'icSound']
 
     connect() {
+
         this.progressAudioTarget.style.display = 'none'
-        this.audioTargets.forEach(video => {
-            this.observer.observe(video);
+        this.observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.play().then(() => {
+
+                    }).catch(error => {
+                        console.error("Autoplay with sound is not allowed without user interaction.");
+                        entry.target.muted = true;
+                    });
+                } else {
+                    entry.target.pause();
+                }
+            });
+        }, {
+            rootMargin: '0px',
+            threshold: 0.5 // Trigger when 50% of the video is visible
+        });
+
+        this.audioTargets.forEach(audio => {
+            this.observer.observe(audio);
         });
     }
-
+    disconnect() {
+        if (this.observer) {
+            this.audioTargets.forEach(audio => {
+                this.observer.unobserve(audio);
+            });
+        }
+    }
     playPauseBtn() {
         if (this.audioTarget.paused) {
             this.audioTarget.play();
