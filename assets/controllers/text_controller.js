@@ -26,7 +26,7 @@ export default class extends Controller {
         })
         this.descriptionBloopTargets.forEach((descriptionElement, index) => {
             console.log(descriptionElement, descriptionElement.textContent.length)
-            if (descriptionElement.textContent.length > 800) {
+            if (descriptionElement.textContent.length > 700) {
                 const blurElement = this.blurBloopTargets[index]
                 if (blurElement) {
                     blurElement.style.display = 'block'
