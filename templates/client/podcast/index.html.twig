@@ -36,7 +36,7 @@
                     </div>
 
                     {# CONTENT #}
-                    <div class="message__content " {{ stimulus_action('overlay','openOverlayCommentPodcast','click') }} >
+                    <div class="message__content " {{ stimulus_action('overlay','openOverlayCommentPodcast','click') }}    data-overlay-id-value="{{ pod.id }}" >
                         <h4>{{ pod.titre }}</h4>
 
                         {# DESCRIPTION DU PSOT #}
