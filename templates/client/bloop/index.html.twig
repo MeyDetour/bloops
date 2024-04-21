@@ -65,7 +65,7 @@
                             {% if bloop.videos is empty and bloop.images is empty %}
                                 <div class="text-container">
                                     <span class="text-content" {{ stimulus_target('text','descriptionBloop') }}>{{ bloop.chapo }}</span>
-                                    <span class="blur-overlay" {{ stimulus_target('text',' blurBloop') }}></span>
+                                    <span class="blur-overlay blur-large-text" {{ stimulus_target('text',' blurBloop') }}></span>
                                 </div>
                             {% else %}
 

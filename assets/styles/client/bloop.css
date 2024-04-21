@@ -159,7 +159,10 @@ p.sub-title {
     display: none;
     background: linear-gradient(to bottom, rgb(255 255 255 / 0%), var(--light-grey));
 }
+.blur-large-text{
 
+    height: 30% !important;
+}
 .file-container {
     min-height: 70%;
     max-height: fit-content;
