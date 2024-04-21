@@ -24,7 +24,6 @@ export default class extends Controller {
                     }
                 }
             })
-        console.log(  this.descriptionBloopTargets)
             this.descriptionBloopTargets.forEach((descriptionElement, index) => {
                 console.log(descriptionElement,descriptionElement.length)
                 if (descriptionElement.textContent.length > 800) {
