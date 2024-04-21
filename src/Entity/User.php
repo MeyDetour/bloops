@@ -76,8 +76,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\OneToMany(targetEntity: Audio::class, mappedBy: 'author')]
-    private Collection $audio;
 
 
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'followings')]
@@ -91,7 +89,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToOne(mappedBy: 'owner', cascade: ['persist', 'remove'])]
     private ?Image $image = null;
+    public function serialize()
+    {
+        return serialize([
+            $this->id,
+            $this->username,
+            $this->email,
+            $this->description,
+            // et ainsi de suite pour les autres propriétés que vous souhaitez sérialiser
+            // excluez le $this->imageFile ou tout autre propriété que vous ne voulez pas sérialiser
+        ]);
+    }
 
+    public function unserialize($serialized)
+    {
+        list(
+            $this->id,
+            $this->username,
+            $this->email,
+            $this->description,
+            // et ainsi de suite pour les autres propriétés
+            ) = unserialize($serialized, ['allowed_classes' => false]);
+
+        // Ne définissez pas $this->imageFile car il n'est pas sérialisé
+    }
 
     public function __construct()
     {
