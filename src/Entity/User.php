@@ -104,18 +104,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->followings = new ArrayCollection();
         $this->followers = new ArrayCollection();
     }
-    public function __serialize(): array
-    {
-        return ['id' => $this->id];
 
-    }
-
-    public function __unserialize(array $data): void
-    {
-        $this->id = $data['id'];
-
-
-    }
     public function getId(): ?int
     {
         return $this->id;
