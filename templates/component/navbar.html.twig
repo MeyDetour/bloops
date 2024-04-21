@@ -7,10 +7,10 @@
         <h1 class="bloopsTitle">Bloops</h1>
     </div>
     <ul {{ stimulus_target('mobil','optionsNavbar') }}>
-        <a class="nav-link nav-home  {% if currentPath == '/d' %} active {% endif %} " aria-current="page"
-           href="#" >Home</a>
+        <a class="nav-link nav-home  {% if currentPath == '/' %} active {% endif %} " aria-current="page"
+           href="{{ path('app_home') }}" >Home</a>
 
-        <a class="nav-link nav-flow {% if currentPath == '/' %} active {% endif %}  " aria-current="page"
+        <a class="nav-link nav-flow {% if currentPath == '/bloop' %} active {% endif %}  " aria-current="page"
            href="{{ path('app_bloop') }}">Your flow</a>
         <a class="nav-link nav-podcast {% if currentPath == '/podcast' %} active {% endif %}  " aria-current="page"
            href="{{ path('app_podcast') }}">Podcast</a>
