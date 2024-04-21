@@ -8,32 +8,7 @@
     <div class="editProfilContainer centered" {{ stimulus_controller('profil',{'page':'editProfil'}) }}>
         {{ form_start(form) }}
 
-        <div class="inputContainer">
-            {% if app.user.image %}
-                {% include 'component/imageFilter.html.twig' with  {
-                    'route_name':'delete_image',
-                    'imgClass':'',
-                    'image':podcast.image,
-                    'param':{'id':podcast.image.id},
-                    'aClass':'newBloopFile',
-                    'filter':'apercu_image'} %}
-            {% else %}
-                <img class="imageProfil"
-                     src="{{ asset('images/imgProfil.png') }}"
-                     alt="" {{ stimulus_target('profil','imgDefaultProfil') }}>
-                <img id="imagePreview" {{ stimulus_target('profil','imagePreview') }} src="" alt="Aperçu de l'image" style="display: none;">
-            {% endif %}
 
-
-        </div>
-        <div id="inputError" style="color: red;" {{ stimulus_target('profil','error') }}></div>
-
-        <div class="inputContainer">
-
-            {{ form_widget(form.image ,{'attr':{'data-profil-target':'inputDropzone','data-action':'change->profil#preview'}} ) }}
-
-        </div>
-        <div class=" inputContainerRow">
             <div class="inputContainer">
                 <span>Nom d'utilisateur</span>
                 {{ form_widget(form.username,{'attr':{'data-profil-target':'username'}}  ) }}
@@ -44,7 +19,7 @@
                 {{ form_widget(form.email,{'attr':{'data-profil-target':'email'}} ) }}
 
             </div>
-        </div>
+
         <div class="inputContainer">
             <span>Une petite description ?</span>
             {{ form_widget(form.description,{'attr':{'data-profil-target':'description'}} ) }}

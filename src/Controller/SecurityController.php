@@ -86,15 +86,9 @@ class SecurityController extends AbstractController
         $form = $this->createForm(\App\Form\UserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $uploadedFile = $form->get('image')->getData(); // 'image' est le nom du champ de formulaire
-            if ($uploadedFile) {
-                $image = new Image($uploadedFile);
-                // Configurez l'entité Image comme nécessaire...
-                $user->setImage($image);
-            }
-            $manager->persist($user);
+           $manager->persist($user);
             $manager->flush();
-            return $this->redirectToRoute('show_user', ['id' => $user->getId()]);
+            return $this->redirectToRoute('user_update_image', ['id' => $user->getId()]);
 
         }
         return $this->render('client/user/edit.html.twig', ['form' => $form->createView()]);

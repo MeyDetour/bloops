@@ -7,6 +7,7 @@ use App\Entity\Bloop;
 use App\Entity\Comment;
 use App\Entity\Image;
 use App\Entity\Nem;
+use App\Entity\User;
 use App\Form\ImageType;
 use App\Repository\ImageRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -93,7 +94,23 @@ class ImageController extends AbstractController
         return $this->redirectToRoute($routeRedirect, $param);
 
     }
+    #[Route('/user/image/{id}', name: 'user_update_image')]
+    public function addImage(User $user , Request $request, EntityManagerInterface $manager): Response
 
+    {
+        $image = new Image();
+        $form = $this->createForm(\App\Form\ImageType::class, $image);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+           $image->setOwner($user);
+            $manager->persist($user);
+            $manager->flush();
+            return $this->redirectToRoute('show_user', ['id' => $user->getId()]);
+
+        }
+        return $this->render('client/user/profilImage.html.twig', ['form' => $form->createView(),'user'=>$user]);
+
+    }
     #[Route('/image/{id}', name: 'image_show')]
     public function showImage(Image $image)
     {

@@ -10,19 +10,17 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
 #[Vich\Uploadable]
 class Image
 {
 
 
-
-
     #[ORM\Id]
     #[ORM\Column]
     #[ORM\GeneratedValue]
     private ?int $id = null;
-
     // ... other fields
 
     // NOTE: This is not a mapped field of entity metadata, just a simple property.
@@ -51,15 +49,15 @@ class Image
     private ?Audio $audio = null;
 
 
-
     public function __construct(UploadedFile $file = null)
     {
+        $this->imageFile = $file;
         if ($file) {
             $this->imageName = uniqid() . '.' . $file->guessExtension(); // Créez un nom de fichier unique
             $this->imageSize = $file->getSize(); // La taille du fichier
-            $this->mimeType = $file->getMimeType(); // Le type MIME du fichier
+            $this->updatedAt = new \DateTimeImmutable();
         }
-       }
+    }
 
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
@@ -85,10 +83,12 @@ class Image
     {
         return $this->imageFile;
     }
+
     public function getId(): ?int
     {
         return $this->id;
     }
+
     public function setImageName(?string $imageName): void
     {
         $this->imageName = $imageName;
@@ -154,6 +154,7 @@ class Image
 
         return $this;
     }
+
     public function getImageUrl(): ?string
     {
         if ($this->imageName) {

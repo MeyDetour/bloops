@@ -1,0 +1,45 @@
+{% set currentPath = path(app.request.attributes.get('_route'),
+    app.request.attributes.get('_route_params')) %}
+
+{% extends 'client/base.html.twig' %}
+
+{% block title %}Hello NemController!{% endblock %}
+{% block body %}
+    <div class="editProfilContainer centered" {{ stimulus_controller('profil',{'page':'editProfil'}) }}>
+        {{ form_start(form) }}
+
+        <div class="inputContainer">
+            {% if app.user.image %}
+                {% include 'component/imageFilter.html.twig' with  {
+                    'route_name':'',
+                    'imgClass':'',
+                    'image':app.user.image,
+                    'param':null,
+                    'aClass':'newBloopFile',
+                    'filter':'apercu_image'} %}
+            {% else %}
+                <img class="imageProfil"
+                     src="{{ asset('images/imgProfil.png') }}"
+                     alt="" {{ stimulus_target('profil','imgDefaultProfil') }}>
+                <img id="imagePreview" {{ stimulus_target('profil','imagePreview') }} src="" alt="Aperçu de l'image" style="display: none;">
+            {% endif %}
+
+
+        </div>
+        <div id="inputError" style="color: red;" {{ stimulus_target('profil','error') }}></div>
+
+        <div class="inputContainer">
+
+            {{ form_widget(form.imageFile ,{'attr':{'data-profil-target':'inputDropzone','data-action':'change->profil#preview'}} ) }}
+
+        </div>
+         <div class="buttonContainer">
+            <button class="btnGreen" ><a href="{{ path('user_update',{'id':user.id}) }}">Revenir en arriere</a></button>
+
+             <button class="btnGreen"  {{ stimulus_action('profil','validate','click')|stimulus_target('profil','update') }}>
+                 <a href="{{ path('show_user',{'id':user.id}) }}">Continuer</a></button>
+        </div>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

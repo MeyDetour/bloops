@@ -10,10 +10,10 @@
                 <div class="user-info">
                     <div class="icon">
                         {% if app.user.image %}
-                            {% include 'image.html.twig' with  {
+                            {% include 'component/image.html.twig' with  {
                                 'route_name':'',
                                 'imgClass':'',
-                                'image':image,
+                                'image':app.user.image,
                                 'param':null,
                                 'filter': 'ma_vignette',
                                 'aClass':'imageProfil'} %}

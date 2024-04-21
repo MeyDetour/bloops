@@ -15,6 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+
 #[AllowDynamicProperties] #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
@@ -71,8 +72,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: FriendRequest::class, mappedBy: 'requested', orphanRemoval: true)]
     private Collection $friendRequested;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Image $imageBackground = null;
 
     #[ORM\OneToMany(targetEntity: Report::class, mappedBy: 'author', orphanRemoval: true)]
     private Collection $reports;

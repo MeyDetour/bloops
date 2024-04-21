@@ -21,7 +21,7 @@
     {{ article.thirdParagraphe }}
 
     {% for image in article.images %}
-        {% include 'imageFilter.html.twig' with  {
+        {% include 'component/imageFilter.html.twig' with  {
             'route_name':'delete_image',
             'imgClass':'imageAdded',
             'image':image,
@@ -32,7 +32,7 @@
 
     {% if article.videos is not empty %}
         {% for video in article.videos %}
-            {% include 'video.html.twig' with  {
+            {% include 'component/video.html.twig' with  {
                 'route_name':'',
                 'videoClass':'imageAdded ',
                 'video':video,
@@ -43,7 +43,7 @@
 
     {% if article.audio is not empty %}
         {% for audio in article.audio %}
-            {% include 'audio.html.twig' with  {
+            {% include 'component/audio.html.twig' with  {
                 'route_name':'',
                 'audioClass':'imageAdded',
                 'audio':audio,

@@ -5,10 +5,10 @@
         {# USERNAME AND IMAGE PDP #}
         <div class="flex-row" id="usernameAndImg">
             {% if app.user.image %}
-                {% include 'image.html.twig' with  {
+                {% include 'component/imageFilter.html.twig' with  {
                     'route_name':'',
                     'imgClass':'',
-                    'image':image,
+                    'image': app.user.image,
                     'param':null,
                     'filter': 'ma_vignette',
                     'aClass':'imageProfil'} %}
@@ -72,7 +72,7 @@
         <hr>
         <h1>People you’re friend with</h1>
         <div class="flex-row profil" {{ stimulus_target('follow','relationContainer') }}>
-
+            <span {{ stimulus_target('follow','message') }}></span>
 
         </div>
 

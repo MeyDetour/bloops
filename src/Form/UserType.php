@@ -20,21 +20,7 @@ class UserType extends AbstractType
         $builder
             ->add('email',EmailType::class)
            ->add('username',TextType::class)
-            ->add('description',TextAreaType::class)
-            ->add('image', DropzoneType::class, [
-                'constraints' => [
-                    new \Symfony\Component\Validator\Constraints\Image([
-                        'mimeTypes' => [
-                            'image/jpeg',
-                            'image/png',
-                            'image/gif',
-                            'image/webp',
-                        ],
-                        'mimeTypesMessage' => 'Please upload a valid image file (JPEG, PNG, GIF)',
-                    ]),
-                ]]);
-
-        ;
+            ->add('description',TextAreaType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

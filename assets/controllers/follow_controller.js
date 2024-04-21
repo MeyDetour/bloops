@@ -29,7 +29,17 @@ export default class extends Controller {
                 console.error(error);
             });
     }
-
+    followback(event) {
+        let id = event.currentTarget.dataset.followIdValue
+        axios.post('/follow/user', {'id': id}).then(response => {
+            response = response.data
+           event.currentTarget.style.display='none'
+        })
+            .catch(error => {
+                // Traiter l'erreur ici
+                console.error(error);
+            });
+    }
     unfollow() {
         axios.post('/unfollow/user', {'id': this.idValue}).then(response => {
             response = response.data
@@ -67,7 +77,7 @@ export default class extends Controller {
                     <div class="message__name">
                         <span><b>${username}</b>  ${actions[typeAction]}</span>
                     </div>
-                   
+                   <button class="btnViolet" data-action="click->follow#followback"   data-follow-id-value="${id}">Follow back!</button>
 
                 </div>`
                 this.requestContainerTarget.innerHTML = content
@@ -157,7 +167,8 @@ clear(){
         }
         axios.post('/friends/get', {'id': this.idValue}).then(response => {
             if(response.data.length===0){
-                this.clear()
+
+                    this.clear()
                 this.messageTarget.textContent ="Vous n'avez aucun ami"
             }else{
                 this.render(response)

@@ -13,7 +13,7 @@
         {{ comment.createdAt | date('d-m-Y') }}
         {{ article.title }}
         {% for image in comment.images %}
-            {% include 'image.html.twig' with  {
+            {% include 'component/image.html.twig' with  {
                 'route_name':'',
                 'imgClass':'imageAdded',
                 'image':image,
