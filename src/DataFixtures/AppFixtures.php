@@ -16,12 +16,7 @@ class AppFixtures extends Fixture
     {
         $faker = Factory::create();
 
-        $categoryList = ['Animaux','AnimauxTropsMignons','Chats','POLITIQUE','VOYAGE'];
-        for($i = 0 ; $i< count($categoryList)  ; $i++){
-            $category = new Category();
-           $category->setName($categoryList[$i]);
-            $manager->persist($category);
-        }
+
         $user = new User();
         $user->setEmail('meydetour@gmail.com');
         $user->setPassword('$2y$13$1XA.j4pbJQ/0tGCOSYOjpOkXJM9tUKFt8Kts2wGBPhwCgLqiKjk72' );
