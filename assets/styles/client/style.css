@@ -9,6 +9,14 @@
 
 
 /*=========================NAVBAR=========================*/
+.main-navbar {
+    width: 22vw;
+    height: 100%;
+    padding: 7vh 0vw;
+    position: fixed;
+
+}
+
 .main-navbar .logoContainer {
     display: flex;
     flex-direction: row;
@@ -30,13 +38,6 @@
     font-weight: 700;
 }
 
-.main-navbar {
-    width: 22vw;
-    height: 100%;
-    padding: 7vh 0vw;
-    position: fixed;
-
-}
 
 .contentContainer {
     padding-left: 25vw;
@@ -106,6 +107,151 @@
     width: 186px !important;
 }
 
+.nav-burger  , .nav-burger-friends{
+    display: none;
+    width: 82px;
+    height: 70px;
+    position: fixed;
+    bottom: 3%;
+    font-size: 39px;
+    left: 0%;
+    color: var(--simplet);
+    z-index: 3;
+}
+.nav-burger-friends{
+    bottom: 15%;
+}
+@media only screen and (max-width: 850px) {
+    .contentContainer {
+        display: flex;
+        padding-left: 0;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        height: fit-content;
+    }
+.friendListContainer{
+    display: none;
+}
+    .nav-burger {
+        display: flex;
+    }
+
+    .main-navbar {
+        width: 100vw;
+        height: 100vh;
+        z-index: 1;
+display: none;
+        padding: 4vh 0vw;
+    }
+
+    .main-navbar .imgNavbar {
+        width: 15%;
+    }
+
+    .nav-home {
+        width: 80vw !important;
+    }
+
+    .nav-flow {
+        width: 70vw !important;
+    }
+
+    .nav-podcast {
+        width: 60vw !important;
+    }
+
+    .nav-account {
+        width: 50vw !important;
+    }
+
+    .nav-new {
+        width: 40vw !important;
+    }
+
+}
+@media only screen and (max-width: 540px) {
+    .nav-home ,  .nav-flow  ,  .nav-podcast  , .nav-account ,   .nav-new  ,  .nav-link {
+        width: 80% !important;
+    }
+    .nav-burger  , .nav-burger-friends{
+        width: 82px !important;
+        height: 70px !important;
+        border-radius: 15px;
+        bottom: 2%;
+
+    }
+    .nav-burger{
+        left: 2%;
+    }
+    .nav-burger-friends{left: 21%};
+
+}
+@media only screen and (max-width: 360px) {
+    .nav-home ,  .nav-flow  ,  .nav-podcast  , .nav-account ,   .nav-new  ,  .nav-link {
+        width: 100% !important;
+        border-radius: 0;
+    }
+    .nav-link   {
+        justify-content: center;
+    }  .nav-burger  , .nav-burger-friends{
+           width: 82px !important;
+           height: 70px !important;
+
+
+       }
+
+}
+/*=========================NAVBAR RESPONSIV =========================*/
+:root {
+    --menu-circle-background-color: #4557bb;
+    --menu-hamburger-background-color: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --menu-circle-background-color: #45526b;
+        --menu-hamburger-background-color: #ebecef;
+    }
+}
+
+.navbarMobil, .menu_activated {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    z-index: 9998;
+}
+
+.navbarMobil .menu_activated {
+    color: #ebecef;
+    block-size: 100%;
+}
+
+.navbarMobil .menu__nav {
+    box-sizing: border-box;
+    inline-size: 100%;
+    display: flex;
+    align-items: flex-end;
+    z-index: 2;
+}
+
+.navbarMobil .menu__toggle {
+    box-sizing: border-box;
+    position: relative;
+    isolation: isolate;
+}
+
+.navbarMobil .uia-hamburger, .uia-hamburger::before, .uia-hamburger::after, .uia-hamburger__label {
+    position: absolute;
+}
+
+/* Apply transitions and animations as necessary */
+
+:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 5px;
+}
 
 /*========================DROPDOWN=======================*/
 
@@ -115,23 +261,25 @@
 }
 
 
-
 /*=============BLOOP LIKE=============*/
-.bloopBallonLiked  .bloopBallonLikedSvg{
-    display: block;
-}
-.bloopBallonLiked  .bloopBallonSvg{
-    display: none;
-}
-.bloopBallon .bloopBallonLikedSvg{
-    display: none;
-}
-.bloopBallon .bloopBallonSvg{
+.bloopBallonLiked .bloopBallonLikedSvg {
     display: block;
 }
 
-/*========================PROFIL CLIENT NEW==================*/
-.choiceFileContainer{
+.bloopBallonLiked .bloopBallonSvg {
+    display: none;
+}
+
+.bloopBallon .bloopBallonLikedSvg {
+    display: none;
+}
+
+.bloopBallon .bloopBallonSvg {
+    display: block;
+}
+
+/*========================CHOICE FOR NEW BLOOP==================*/
+.choiceFileContainer {
     width: 100%;
     height: 100%;
     padding: 10vh 5vw;
@@ -140,7 +288,8 @@
     justify-content: flex-start;
     gap: 25px;
 }
-.choiceCard{
+
+.choiceCard {
     width: 350px;
     height: 202px;
     padding: 19px;
@@ -156,4 +305,11 @@
     /* background-color: var(--light-grey); */
     box-shadow: 4px 4px 5px rgba(0, 0, 0, .05), inset 4px 4px 5px white;
     border-radius: 10px;
+}
+@media only screen and (max-width: 600px) {
+.choiceFileContainer{
+    flex-wrap: wrap;
+}
+    .choiceCard {
+        width: 100%;}
 }

@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\UX\Dropzone\Form\DropzoneType;
 
 class UserType extends AbstractType
@@ -20,7 +21,17 @@ class UserType extends AbstractType
         $builder
             ->add('email',EmailType::class)
            ->add('username',TextType::class)
-            ->add('description',TextAreaType::class);
+            ->add('description',TextAreaType::class, [
+                'constraints' => [
+                    new Length([
+                        'max' => 400,
+                        'maxMessage' => 'Votre description ne peut pas dépasser 400 caractères.',
+                    ]),
+                ],
+                'attr' => [
+                    'maxlength' => 400, // Attribut HTML pour limiter la saisie
+                ],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

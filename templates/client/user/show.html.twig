@@ -9,11 +9,11 @@
             <div class="profile__header">
                 <div class="user-info">
                     <div class="icon">
-                        {% if app.user.image %}
+                        {% if user.image %}
                             {% include 'component/image.html.twig' with  {
                                 'route_name':'',
                                 'imgClass':'',
-                                'image':app.user.image,
+                                'image':user.image,
                                 'param':null,
                                 'filter': 'ma_vignette',
                                 'aClass':'imageProfil'} %}
@@ -33,41 +33,51 @@
                             commodi corporis eaque, facilis libero maiores perspiciatis quod repudiandae tempora
                             voluptatibus!
                         </p>
+                        {% if user == app.user %}
+                            <a href="{{ path('app_logout') }}" id="logoutBtn"><i class="bi bi-box-arrow-right"></i></a>
+                        {% endif %}
                         {% if user != app.user %}
                             {% if user.isFollowedBy(app.user) %}
                                 <button class="btnViolet" {{ stimulus_action('follow','unfollow','click') }}>
-                                    <a href="#">Unfollow</a></button>
+                                    <a href="{{ path('show_user',{'id':user.id}) }}">Unfollow</a></button>
 
                             {% else %}
                                 <button class="btnViolet" {{ stimulus_action('follow','follow','click') }} ><a
-                                            href="#">Suivre</a>
+                                            href="{{ path('show_user',{'id':user.id}) }}">Suivre</a>
                                 </button>
 
-                            {% endif %}{% endif %}
+                            {% endif %}
+                        {% endif %}
                     </div>
                 </div>
             </div>
-            <div class="flex-row-between profile__content">
+            <div class="profil__name_descripton-mobil">
+                <h3>{{ user.username }}</h3>
+                <p class="sub-text">
+                    {{ user.description }} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
+                    commodi corporis eaque, facilis libero maiores perspiciatis quod repudiandae tempora
+                    voluptatibus!
+                </p>
                 {% if user == app.user %}
                     <a href="{{ path('app_logout') }}" id="logoutBtn"><i class="bi bi-box-arrow-right"></i></a>
                 {% endif %}
-                <div class="flex-col left-side">
+            </div>
+
+            <div class="flex-row-between profile__content">
+
+                <div class="flex-col left-side" {{ stimulus_controller('stats') }} data-stats-user-id-value="{{ user.id }}">
                     <div class="flex-col statistics">
                         <h4>Statistics</h4>
                         <div class="flex-row statistics__content">
-
                             <div class="flex-row profilStat">
                                 <h5> Followers </h5>
                                 <p class="data">  {{ user.followers|length|format_BN }}</p>
-
                             </div>
                             <div class="flex-row profilStat">
                                 <h5> Followings </h5>
                                 <p class="data">  {{ user.followings|length|format_BN }}</p>
 
                             </div>
-
-
                         </div>
                         <div class="flex-row statistics__content">
 
@@ -79,21 +89,35 @@
                             <div class="flex-row profilStat">
                                 <h5> Posts </h5>
                                 <p class="data"> {{ user.bloops|length }}</p>
-
                             </div>
+                        </div>
+                        <div class="flex-col statistics__content">
+                            <div class="flex-row statistiques-header" >
+                                <h4 class="titleStatistique" {{ stimulus_target('stats','title') }}></h4>
+                                <div class="buttonBidirectionnelCalendrier">
+                                    <button data-action="click->stats#getLastMonthly"><i class="bi bi-chevron-compact-left"></i></button>
+                                    <button data-action="click->stats#statsOfOneMonth"><i class="bi bi-arrow-clockwise"></i></button>
+                                    <button data-action="click->stats#getNextMonthly"><i class="bi bi-chevron-compact-right"></i></button>
+
+                                </div>
+                            </div>
+                            <canvas id="myChart" {{ stimulus_target('stats','chart') }}></canvas>
 
                         </div>
+                        <div class="flex-row statistics__content">
+                              {% if app.user == user %}
+
+                                <button class="btnViolet"><a
+                                            href="{{ path('user_update') }}">Modifier mes informations</a></button>
+
+                            {% endif %}
+                        </div>
                     </div>
-                    {% if app.user == user %}
 
-                        <button class="btnViolet"><a
-                                    href="{{ path('user_update') }}">Modifier mes informations</a></button>
-
-                    {% endif %}
                 </div>
                 <div class="v-devider"></div>
-                <div class="close-friends "
-                >
+                <hr class="h-devider">
+                <div class="close-friends ">
                     <div class="flex-row">
                         <h4 class="followers focus" {{ stimulus_action('follow','followers','click') }}  {{ stimulus_target('follow','followers') }} >
                             Followers</h4><h4
@@ -106,8 +130,6 @@
                     <div class="flex-col">
                         <div class="flex-row-between flex-wrap friendsContainer" data-follow-target="relationContainer">
                             <span {{ stimulus_target('follow','message') }}></span>
-
-
                         </div>
                     </div>
                 </div>

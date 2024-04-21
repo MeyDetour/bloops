@@ -51,12 +51,11 @@ class LikeController extends AbstractController
             $friendRequest = $friendRequestRepository->findOneBy(['requested' => $bloop->getAuthor(), 'requester' => $this->getUser(), 'type' => 'BLOOP']);
             if ($friendRequest) {
                 $manager->remove($friendRequest);
-
             }
             $friendRequest = new FriendRequest();
             $friendRequest->setStatus('ACTIVE');
-            $friendRequest->setStatus('BLOOP');
-            $friendRequest->setRequester($this->getUser());
+            $friendRequest->setType('BLOOP');
+
             $friendRequest->setRequested($bloop->getAuthor());
         }
         if ($mode == "comment") {
@@ -68,8 +67,8 @@ class LikeController extends AbstractController
             }
             $friendRequest = new FriendRequest();
             $friendRequest->setStatus('ACTIVE');
-            $friendRequest->setStatus('COMMENT');
-            $friendRequest->setRequester($this->getUser());
+            $friendRequest->setType('COMMENT');
+
             $friendRequest->setRequested($comment->getAuthor());
         }
         if ($mode == "podcast") {
@@ -81,11 +80,15 @@ class LikeController extends AbstractController
             }
             $friendRequest = new FriendRequest();
             $friendRequest->setStatus('ACTIVE');
-            $friendRequest->setStatus('PODCAST');
-            $friendRequest->setRequester($this->getUser());
+            $friendRequest->setType('PODCAST');
             $friendRequest->setRequested($podcast->getAuthor());
 
         }
+
+        $friendRequest->setRequester($this->getUser());
+        $friendRequest->setVisible(true);
+        $friendRequest->setCreatedAt(new \DateTimeImmutable());
+        $manager->persist($friendRequest);
 
         $like = $likeRepository->findOneBy($search);
         if (!$like) {
@@ -107,7 +110,7 @@ class LikeController extends AbstractController
             $manager->remove($like);
             $isLiked = false;
         }
-//
+
         $manager->flush();
 
         if ($mode == "bloop") {

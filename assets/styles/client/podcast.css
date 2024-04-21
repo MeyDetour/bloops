@@ -1,12 +1,4 @@
-.homePageContainer {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 37%;
-    top: 10%;
-    display: flex;
-    flex-direction: column;
-}
+
 .message__content h4 {
     font-size: 1rem;
 }

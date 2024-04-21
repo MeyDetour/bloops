@@ -32,16 +32,15 @@
             {{ importmap('app') }}{% endblock %}
     {% endblock %}
 </head>
-<body  {{ stimulus_controller('overlay') }}  >
-<div class="mainContainer ">
+<body  {{ stimulus_controller('mobil')|stimulus_controller('overlay') }} data-mobil-status-value="close"  data-mobil-status-friends-value="close"  >
+<div class="mainContainer " >
     {% include './component/navbar.html.twig' %}
     {% include './component/overlay.html.twig' %}
-    <div class="contentContainer">
+    <div class="contentContainer" {{ stimulus_target('mobil','contentContainer') }}>
         {% block body %}{% endblock %}
     </div>
 </div>
 
 
-<script src="{{ asset('js/request.js') }}" defer></script>
 </body>
 </html>

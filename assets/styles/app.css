@@ -22,6 +22,10 @@
 
     --dormeur : #F6EDFB;
     --roncheux : #8B42FF;
+
+
+    --menu-circle-background-color: #4557bb;
+    --menu-hamburger-background-color: #fff;
 }
 ::selection{
     background: var(--roncheux);

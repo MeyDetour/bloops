@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
@@ -42,22 +43,13 @@ class Image
     #[ORM\ManyToOne(inversedBy: 'images')]
     private ?Comment $comment = null;
 
-    #[ORM\OneToOne(mappedBy: 'image', cascade: ['persist', 'remove'])]
-    private ?User $owner = null;
 
     #[ORM\ManyToOne(inversedBy: 'image')]
     private ?Audio $audio = null;
 
+    #[ORM\OneToOne(inversedBy: 'image', cascade: ['persist'])]
+    private ?User $owner = null;
 
-    public function __construct(UploadedFile $file = null)
-    {
-        $this->imageFile = $file;
-        if ($file) {
-            $this->imageName = uniqid() . '.' . $file->guessExtension(); // Créez un nom de fichier unique
-            $this->imageSize = $file->getSize(); // La taille du fichier
-            $this->updatedAt = new \DateTimeImmutable();
-        }
-    }
 
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
@@ -133,27 +125,6 @@ class Image
         return $this;
     }
 
-    public function getOwner(): ?User
-    {
-        return $this->owner;
-    }
-
-    public function setOwner(?User $owner): static
-    {
-        // unset the owning side of the relation if necessary
-        if ($owner === null && $this->owner !== null) {
-            $this->owner->setImage(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($owner !== null && $owner->getImage() !== $this) {
-            $owner->setImage($this);
-        }
-
-        $this->owner = $owner;
-
-        return $this;
-    }
 
     public function getImageUrl(): ?string
     {
@@ -172,6 +143,18 @@ class Image
     public function setAudio(?Audio $audio): static
     {
         $this->audio = $audio;
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): static
+    {
+        $this->owner = $owner;
 
         return $this;
     }

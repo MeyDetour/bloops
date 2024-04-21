@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Bloop;
 use App\Entity\Image;
 use App\Entity\User;
+use App\Entity\Video;
+use App\Form\BloopType;
 use App\Form\ImageType;
+use App\Form\VideoType;
 use App\Repository\UserRepository;
 use Cassandra\Type\UserType;
 use Doctrine\ORM\EntityManager;
@@ -32,31 +36,14 @@ class SecurityController extends AbstractController
     }
 
 
-    #[Route('/user/image', name: 'add_user_image')]
-    public function addUserImage(Request $request, EntityManagerInterface $manager): Response
-    {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('app_login');
-        }
-        $image = new Image();
-        $formImage = $this->createForm(ImageType::class, $image);
-        $formImage->handleRequest($request);
-        if ($formImage->isSubmitted() && $formImage->isValid()) {
-            $image->setOwner($this->getUser());
-            $manager->persist($image);
-            $manager->flush();
-            return $this->redirectToRoute('user_account');
-        }
-        return $this->render('image/create.html.twig',
-            ['formImage' => $formImage->createView()]);
-    }
+
 
 
     #[Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils, Request $request): Response
     {
         if ($this->getUser()) {
-            return $this->redirectToRoute('app_bloop');
+            return $this->redirectToRoute('app_login');
         }
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -76,25 +63,38 @@ class SecurityController extends AbstractController
 
 //CHANGE USERNAME CLIENT (html: templates/client/user/show.html.twig , JS : assets/js/client/user.js , CSS :assets/styles/client/user.css )
     #[Route('/user/profil/update', name: 'user_update')]
-    public function updateUsername(EntityManagerInterface $manager, Request $request): Response
+    public function updateProfil(EntityManagerInterface $manager, Request $request): Response
     {
 
         $user = $this->getUser();
         if (!$user) {
-            return $this->json("no user connected", 400);
+            return $this->redirectToRoute('app_login');
         }
         $form = $this->createForm(\App\Form\UserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
            $manager->persist($user);
             $manager->flush();
-            return $this->redirectToRoute('user_update_image', ['id' => $user->getId()]);
+            return $this->redirectToRoute('user_file');
 
         }
         return $this->render('client/user/edit.html.twig', ['form' => $form->createView()]);
 
     }
+    #[Route('/user/file/new', name: 'user_file')]
+    public function addFileUser( EntityManagerInterface $manager, Request $request): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
 
+        $image = new Image();
+
+        $formImage = $this->createForm(ImageType::class, $image);
+        return $this->render('client/user/profilImage.html.twig',
+            ['form' => $formImage->createView(),
+               ]);
+    }
 //VERYFIYNG IS EMAIL OR USERNAME IS TAKEN CLIENT (html: templates/client/security/base.html.twig , JS : assets/js/client/register.js , CSS :assets/styles/client/form.css)
 
     #[Route('/user/username/taken', name: 'is_username_taken')]
@@ -218,46 +218,7 @@ class SecurityController extends AbstractController
         ]);
     }
 
-    #[Route('user/profil/update/username/email', name: 'api_profil_update')]
-    public function updateProfil(EntityManagerInterface $manager, Request $request, ValidatorInterface $validator): Response
-    {
 
-        $user = $this->getUser();
-        if (!$user) {
-            return $this->json("no user connected", 400);
-        }
-        $data = json_decode($request->getContent(), true);
-        if ($data) {
-
-            $user->setUsername($data['username'] ?? $user->getUsername());
-            $user->setEmail($data['email'] ?? $user->getEmail());
-
-            // Valider les modifications
-            $errors = $validator->validate($user);
-            if (count($errors) > 0) {
-                // Traiter les erreurs de validation, par exemple, en retournant un message d'erreur
-                $errorsString = (string)$errors;
-
-                return $this->json(['message' => 'Validation failed', 'errors' => $errorsString], Response::HTTP_BAD_REQUEST);
-            }
-
-            // Enregistrer les modifications dans la base de données
-            $manager->persist($user);
-            $manager->flush();
-
-            // Retourner une réponse
-            return $this->json([
-                'email' => $user->getEmail(),
-                'username' => $user->getUsername(),
-                'message' => 'ok'
-            ]);
-        }
-
-        return $this->json(['message' => 'Aucune data trouvée',
-
-        ]);
-
-    }
 
     #[Route('user/new/password', name: 'api_new_password')]
     public function newPassword(UserRepository $repository, UserPasswordHasherInterface $userPasswordHasher, Request $request, ValidatorInterface $validator, EntityManagerInterface $manager): Response

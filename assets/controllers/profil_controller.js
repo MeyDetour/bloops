@@ -9,14 +9,14 @@ let emailBV = null
 let usernameBV = null
 let descriptionBV = null
  export default class extends Controller {
-    static targets = ['error', 'username', 'email',   'description','imgDefaultProfil','imagePreview','inputDropzone']
-static values={'page':String}
+    static targets = ['error', 'username', 'email','counter',   'description','imgDefaultProfil','imagePreview','inputDropzone']
+static values={'page':String , 'hasImage':Boolean}
     connect() {
 
              usernameBV = this.usernameTarget.value
         descriptionBV = this.descriptionTarget.value
             emailBV = this.emailTarget.value
-
+        this.updateCounter();
 
     }
 preview(event){
@@ -27,8 +27,13 @@ preview(event){
         reader.onload = (e) => {
 
           this.imagePreviewTarget.src = e.target.result;
-          this.imgDefaultProfilTarget.style.display = 'none';
-            this.imagePreviewTarget.style.display = 'block';
+            console.log(this.hasImageValue)
+          if(this.hasImageValue){
+              this.element.querySelector('.newProfilImage').style.display = 'none'
+          }else{
+              this.imgDefaultProfilTarget.style.display = 'none';
+          }
+          this.imagePreviewTarget.style.display = 'block';
         };
         reader.readAsDataURL(file);
     }
@@ -38,32 +43,19 @@ preview(event){
             response = response.data
             if (response.message !== 'free' && this.usernameTarget.value !== usernameBV ) {
                 this.errorTarget.innerHTML = 'Username indisponible : ' + this.usernameTarget.value
-                this.usernameTarget.value = usernameBV
+                this.usernameTarget.value = ''
             } else {
                 axios.post('/user/email/taken', {'email': this.emailTarget.value}).then(response2 => {
                     response2 = response2.data
                     if (response2.message !== 'free' && this.emailTarget.value !== emailBV ) {
                         this.errorTarget.innerHTML = 'Email indisponible : ' + this.emailTarget.value
-                        this.emailTarget.value = emailBV
+                        this.emailTarget.value =''
 
-                    } else {
-                        axios.post('/user/profil/update/username/email', {
-                            'username': this.usernameTarget.value,
-                            'email': this.emailTarget.value
-                        }).then(response3 => {
-                            response3 = response3.data
-                            if (response3.message !== 'ok') {
-                                this.errorTarget.innerHTML = 'erreur du server'
-                                this.reset()
-                            } else {
-                                this.emailTarget.value = response3.email
-                                this.usernameTarget.value = response3.username
-
-                            }
-                        }).catch((error => {
-                            this.errorTarget.innerHTML = 'Erreur : ' + error
-                        }))
                     }
+                    else{
+
+                    }
+
                 }).catch((error => {
                     this.errorTarget.innerHTML = 'Erreur : ' + error
                 }))
@@ -75,11 +67,19 @@ preview(event){
             this.errorTarget.innerHTML = 'Erreur : ' + error
         }))
     }
+     updateCounter() {
+         const count = this.descriptionTarget.value.length;
+         const maxChars = 400;
+         this.counterTarget.textContent = `${count}/${maxChars}`;
+     }
 
-    reset() {
+    reset(e) {
+        e.preventDefault()
         this.errorTarget.innerHTML = ''
         this.emailTarget.value = emailBV
+        this.descriptionTarget.value = descriptionBV
         this.usernameTarget.value = usernameBV
+        this.updateCounter()
 
     }
 

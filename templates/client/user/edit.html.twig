@@ -7,9 +7,10 @@
 {% block body %}
     <div class="editProfilContainer centered" {{ stimulus_controller('profil',{'page':'editProfil'}) }}>
         {{ form_start(form) }}
+        <span id="errorRegister" style="color:red;" {{ stimulus_target('profil','error') }}> </span>
 
 
-            <div class="inputContainer">
+        <div class="inputContainer">
                 <span>Nom d'utilisateur</span>
                 {{ form_widget(form.username,{'attr':{'data-profil-target':'username'}}  ) }}
 
@@ -21,15 +22,15 @@
             </div>
 
         <div class="inputContainer">
-            <span>Une petite description ?</span>
-            {{ form_widget(form.description,{'attr':{'data-profil-target':'description'}} ) }}
+            <span>Une petite description ?</span><span id="descriptionCounter" data-profil-target="counter">0/400</span>
+            {{ form_widget(form.description,{'attr':{'data-profil-target':'description','data-action':'input->profil#updateCounter'}} ) }}
         </div>
         <div class="buttonContainer">
 
             <button class="btnGrey"  {{ stimulus_action('profil','reset','click')|stimulus_target('profil','update') }}>Restaurer</button>
-            <button class="btnGreen"  {{ stimulus_action('profil','validate','click')|stimulus_target('profil','update') }}>Continuer</button>
+            <button class="btnGreen" type="submit"  {{ stimulus_action('profil','validate','click')|stimulus_target('profil','update') }}>Continuer</button>
         </div>
-    </div>
+
 
     {{ form_end(form) }}
     </div>

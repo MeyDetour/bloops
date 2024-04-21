@@ -55,7 +55,7 @@ class ImageController extends AbstractController
 
     #[Route('/image/bloop/{id}/new', name: 'add_image_bloop')]
     #[Route('/image/podcast/{id}/new', name: 'add_image_podcast')]
-    public function create(ImageRepository $repository, Request $request, ImageRepository $imageRepository, $id, EntityManagerInterface $manager): Response
+    public function create(ImageRepository $repository, Request $request, $id, EntityManagerInterface $manager): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
@@ -69,7 +69,6 @@ class ImageController extends AbstractController
                 $param = ['id' => $id];
                 break;
 
-
             case 'add_image_podcast':
                 $entity = Audio::class;
                 $routeRedirect = 'podcast_file';
@@ -77,8 +76,6 @@ class ImageController extends AbstractController
                 $param = ['id' => $id];
                 break;
         }
-
-
         $image = new Image();
         $form = $this->createForm(ImageType::class, $image);
 
@@ -88,29 +85,44 @@ class ImageController extends AbstractController
             $image->$setter($toAddedAnImage);
             $manager->persist($image);
             $manager->flush();
-
         };
         //  return $this->redirectToRoute($routeRedirectFormSubmitted, $param);
         return $this->redirectToRoute($routeRedirect, $param);
 
     }
-    #[Route('/user/image/{id}', name: 'user_update_image')]
-    public function addImage(User $user , Request $request, EntityManagerInterface $manager): Response
 
+    #[Route('/image/user/{id}/new', name: 'add_image_user')]
+    public function addImageUser(EntityManagerInterface $manager, Request $request, $id): Response
     {
-        $image = new Image();
-        $form = $this->createForm(\App\Form\ImageType::class, $image);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-           $image->setOwner($user);
-            $manager->persist($user);
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+        $existingImage = $user->getImage();
+
+        if ($existingImage) {
+            $manager->remove($existingImage);
             $manager->flush();
-            return $this->redirectToRoute('show_user', ['id' => $user->getId()]);
 
         }
-        return $this->render('client/user/profilImage.html.twig', ['form' => $form->createView(),'user'=>$user]);
+        $image = new Image();
+        $form = $this->createForm(ImageType::class, $image);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $image->setOwner($user);
+            $user->setImage($image);
+
+            $manager->persist($image);
+
+
+        };
+        $manager->persist($user);
+        $manager->flush();
+        //  return $this->redirectToRoute($routeRedirectFormSubmitted, $param);
+        return $this->redirectToRoute('show_user',['id' => $user->getId()]);
 
     }
+
     #[Route('/image/{id}', name: 'image_show')]
     public function showImage(Image $image)
     {

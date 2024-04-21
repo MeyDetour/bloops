@@ -54,16 +54,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::TEXT, nullable: false)]
     private ?string $username = null;
 
-    #[ORM\OneToOne(inversedBy: 'owner', cascade: ['persist', 'remove'])]
-    private ?Image $image = null;
+
 
     #[ORM\OneToMany(targetEntity: Like::class, mappedBy: 'author', orphanRemoval: true)]
     private Collection $likes;
-
-
-
-
-
 
 
     #[ORM\OneToMany(targetEntity: FriendRequest::class, mappedBy: 'requester', orphanRemoval: true)]
@@ -90,11 +84,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[JoinTable(name: "user_followings",
         joinColumns: [new JoinColumn(name: "user_id", referencedColumnName: "id")],
         inverseJoinColumns: [new JoinColumn(name: "following_user_id", referencedColumnName: "id")]
-    )]  private ?Collection $followings = null;
+    )] private ?Collection $followings = null;
 
-    #[ORM\ManyToMany(targetEntity: User::class,  mappedBy: 'followings')]
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'followings')]
     private ?Collection $followers = null;
 
+    #[ORM\OneToOne(mappedBy: 'owner', cascade: ['persist', 'remove'])]
+    private ?Image $image = null;
 
 
     public function __construct()
@@ -135,13 +131,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
+     * @return list<string>
      * @see UserInterface
      *
-     * @return list<string>
      */
     public function getRoles(): array
     {
@@ -270,17 +266,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getImage(): ?Image
-    {
-        return $this->image;
-    }
 
-    public function setImage(?Image $image): static
-    {
-        $this->image = $image;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Like>
@@ -311,7 +297,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
 
 
     /**
@@ -461,15 +446,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function isFollowedBy(User $user)
     {
         $isFollowedBy = false;
-        foreach ($this->followers as $follower){
-            if($follower == $user){
+        foreach ($this->followers as $follower) {
+            if ($follower == $user) {
                 return true;
             }
         }
         return $isFollowedBy;
     }
 
-    public function getFollowings(): ?PersistentCollection
+    public function getFollowings(): ArrayCollection|Collection
     {
         return $this->followings;
     }
@@ -483,9 +468,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function addFollowing(?User $following): static
     {
-        if (!$this->followings->contains($following)) {
+        if (!$this->followings->contains($following) && $following != $this) {
             $this->followings->add($following);
-            $following->setFollowings(  $this->followings);
+            $following->addFollower($this);
         }
 
         return $this;
@@ -494,10 +479,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeFollowing(?User $following): static
     {
         if ($this->followings->removeElement($following)) {
-            // set the owning side to null (unless already changed)
-            if ($following->getFollowings() === $this) {
-                $following->setFollowings(null);
-            }
+           $following->followers->removeElement($this);
+
         }
 
         return $this;
@@ -518,9 +501,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function addFollower(?User $follower): static
     {
-        if (!$this->followers->contains($follower)) {
+        if (!$this->followers->contains($follower) && $follower != $this) {
             $this->followers->add($follower);
-            $follower->setFollowers( $this->followers);
+            $follower->addFollowing($this);
         }
 
         return $this;
@@ -529,11 +512,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeFollower(?User $follower): static
     {
         if ($this->followers->removeElement($follower)) {
-            // set the owning side to null (unless already changed)
-            if ($follower->getFollowers() === $this) {
-                $follower->setFollowers(null);
-            }
+            $follower->followings->removeElement($this);
+
         }
+
+        return $this;
+    }
+
+    public function getImage(): ?Image
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Image $image): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($image === null && $this->image !== null) {
+            $this->image->setOwner(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($image !== null && $image->getOwner() !== $this) {
+            $image->setOwner($this);
+        }
+
+        $this->image = $image;
 
         return $this;
     }

@@ -1,12 +1,12 @@
 {% set currentPath = path(app.request.attributes.get('_route'),
     app.request.attributes.get('_route_params')) %}
 
-<nav class="main-navbar">
-    <div class="logoContainer">
+<nav class="main-navbar " {{ stimulus_target('mobil','mainNavbar') }} >
+    <div class="logoContainer" {{ stimulus_target('mobil','logoContainer') }}>
         <img class="imgNavbar" src="{{ asset('images/logo.png') }}" alt="Logo de BLOOPS">
         <h1 class="bloopsTitle">Bloops</h1>
     </div>
-    <ul>
+    <ul {{ stimulus_target('mobil','optionsNavbar') }}>
         <a class="nav-link nav-home  {% if currentPath == '/d' %} active {% endif %} " aria-current="page"
            href="#" >Home</a>
 
@@ -41,3 +41,7 @@
 
 
 </nav>
+{% if currentPath == '/' or  currentPath == '/podcast'  %}
+<button class="nav-link nav-burger-friends" {{ stimulus_action('mobil','toggleFriends','click')|stimulus_target('mobil','friendOption')}} aria-current="page"><i class="bi bi-people-fill"></i></button>
+{% endif %}
+<button class="nav-link nav-burger" {{ stimulus_action('mobil','toggle','click')|stimulus_target('mobil','burgerOption')}} aria-current="page"><i class="bi bi-list"></i></button>

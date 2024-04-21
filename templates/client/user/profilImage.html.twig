@@ -5,24 +5,26 @@
 
 {% block title %}Hello NemController!{% endblock %}
 {% block body %}
-    <div class="editProfilContainer centered" {{ stimulus_controller('profil',{'page':'editProfil'}) }}>
-        {{ form_start(form) }}
+    <div class="editProfilContainer centered" {{ stimulus_controller('profil',{'page':'editProfil'}) }}
+         data-profil-has-image-value="{{ app.user.image ? 'true' : 'false' }}">
+        {{ form_start(form,{'action':path('add_image_user',{'id': app.user.id})}) }}
 
         <div class="inputContainer">
             {% if app.user.image %}
                 {% include 'component/imageFilter.html.twig' with  {
                     'route_name':'',
-                    'imgClass':'',
+                    'imgClass':'newProfilImage',
                     'image':app.user.image,
                     'param':null,
-                    'aClass':'newBloopFile',
+                    'aClass':'',
                     'filter':'apercu_image'} %}
             {% else %}
                 <img class="imageProfil"
                      src="{{ asset('images/imgProfil.png') }}"
                      alt="" {{ stimulus_target('profil','imgDefaultProfil') }}>
-                <img id="imagePreview" {{ stimulus_target('profil','imagePreview') }} src="" alt="Aperçu de l'image" style="display: none;">
             {% endif %}
+            <img id="imagePreview" {{ stimulus_target('profil','imagePreview') }} src="" alt="Aperçu de l'image"
+                 style="display: none;">
 
 
         </div>
@@ -33,11 +35,12 @@
             {{ form_widget(form.imageFile ,{'attr':{'data-profil-target':'inputDropzone','data-action':'change->profil#preview'}} ) }}
 
         </div>
-         <div class="buttonContainer">
-            <button class="btnGreen" ><a href="{{ path('user_update',{'id':user.id}) }}">Revenir en arriere</a></button>
+        <div class="buttonContainer">
+            <a class="btnGrey" href="{{ path('user_update') }}">Revenir en arriere</a>
 
-             <button class="btnGreen"  {{ stimulus_action('profil','validate','click')|stimulus_target('profil','update') }}>
-                 <a href="{{ path('show_user',{'id':user.id}) }}">Continuer</a></button>
+            <button class="btnGreen" {{ stimulus_action('profil','validate','click')|stimulus_target('profil','update') }}>
+                Continuer
+            </button>
         </div>
         {{ form_end(form) }}
     </div>

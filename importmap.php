@@ -30,4 +30,10 @@ return [
     'axios' => [
         'version' => '1.6.8',
     ],
+    'chart.js/auto' => [
+        'version' => '4.4.2',
+    ],
+    '@kurkle/color' => [
+        'version' => '0.3.2',
+    ],
 ];

@@ -6,13 +6,6 @@
 
 {% block body %}
 
-    {#    CHANGER JUSTE L AUDIO #}
-    {{ form_start(form) }}
-
-    {{ form_row(form.audioFile) }}
-    <button class="btn "><a href="{{ path('app_audio') }}">Retour</a></button>
-    <button type="submit" class="btn ">Ajouter le son</button>
-    {{ form_end(form , {'render_rest': false}) }}
 
 
 {% endblock %}
