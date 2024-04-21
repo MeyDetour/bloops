@@ -27,7 +27,7 @@ export default class extends Controller {
             })
 
             this.descriptionBloopTargets.forEach((descriptionElement, index) => {
-                if (descriptionElement.textContent.length > 900) {
+                if (descriptionElement.textContent.length > 800) {
 
                     const blurElement = this.blurBloopTargets[index];
                     if (blurElement) {
