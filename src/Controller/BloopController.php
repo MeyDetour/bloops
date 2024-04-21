@@ -6,6 +6,7 @@ use App\Entity\Bloop;
 use App\Entity\Audio;
 use App\Entity\Category;
 use App\Entity\Comment;
+use App\Entity\FriendRequest;
 use App\Entity\Image;
 use App\Entity\Video;
 use App\Form\ArticleCategoryType;
@@ -65,6 +66,21 @@ class BloopController extends AbstractController
             $bloop->setCreatedAt(new \DateTimeImmutable());
             $bloop->setAuthor($this->getUser());
             $bloop->setStatus('ACTIVE');
+
+            $friendRequest = new FriendRequest();
+            $friendRequest->setStatus('ACTIVE');
+            $friendRequest->setType('BLOOP_POST');
+            $friendRequest->setVisible(true);
+            $friendRequest->setRequester($this->getUser());
+            $friendRequest->setRequested($this->getUser());
+            $friendRequest->setCreatedAt(new \DateTimeImmutable());
+
+
+            $manager->persist($friendRequest);
+            $manager->persist($this->getUser());
+            $manager->flush();
+
+
             $manager->persist($bloop);
             $manager->flush();
 
