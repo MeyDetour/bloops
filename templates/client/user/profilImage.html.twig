@@ -41,7 +41,7 @@
             <button class="btnGreen" {{ stimulus_action('profil','validate','click')|stimulus_target('profil','update') }}>
                 Valider
             </button>
-            <a class="btnGrey" href="{{ path('show_user',{'id':app.user}) }}">Terminé</a>
+            <a class="btnGrey" href="{{ path('show_user',{'id':app.user.id}) }}">Terminé</a>
 
         </div>
         {{ form_end(form) }}

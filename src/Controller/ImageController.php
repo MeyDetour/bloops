@@ -120,7 +120,7 @@ class ImageController extends AbstractController
         $manager->persist($user);
         $manager->flush();
         //  return $this->redirectToRoute($routeRedirectFormSubmitted, $param);
-        return $this->redirectToRoute('user_file',['id' => $user->getId()]);
+        return $this->redirectToRoute('show_user',['id' => $user->getId() ]);
 
     }
 
