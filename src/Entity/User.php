@@ -12,7 +12,6 @@ use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\PersistentCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -60,7 +59,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Like::class, mappedBy: 'author', orphanRemoval: true)]
     private Collection $likes;
 
-    private ContainerInterface $container;
 
     #[ORM\OneToMany(targetEntity: FriendRequest::class, mappedBy: 'requester', orphanRemoval: true)]
     private Collection $friendRequests;
@@ -89,11 +87,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'followings')]
     private ?Collection $followers = null;
 
+    #[ORM\OneToOne(mappedBy: 'owner', cascade: ['persist', 'remove'])]
+    private ?Image $image = null;
 
 
-    public function __construct(ContainerInterface $container)
+    public function __construct()
     {
-        $this->container = $container;
         $this->comments = new ArrayCollection();
         $this->articles = new ArrayCollection();
         $this->likes = new ArrayCollection();
@@ -105,10 +104,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->followings = new ArrayCollection();
         $this->followers = new ArrayCollection();
     }
-    public function getImage()
+    public function __serialize(): array
     {
-        $userImageService = $this->container->get('App\Service\UserImageService');
-        return $userImageService->getUserImage($this->getId());
+        return ['id' => $this->id];
+
+    }
+
+    public function __unserialize(array $data): void
+    {
+        $this->id = $data['id'];
+
+
     }
     public function getId(): ?int
     {
@@ -362,7 +368,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getImageBackground(): ?Image
+    {
+        return $this->imageBackground;
+    }
 
+    public function setImageBackground(?Image $imageBackground): static
+    {
+        $this->imageBackground = $imageBackground;
+
+        return $this;
+    }
 
     /**
      * @return Collection<int, Report>
@@ -511,6 +527,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getImage(): ?Image
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Image $image): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($image === null && $this->image !== null) {
+            $this->image->setOwner(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($image !== null && $image->getOwner() !== $this) {
+            $image->setOwner($this);
+        }
+
+        $this->image = $image;
+
+        return $this;
+    }
+
 
 
 
