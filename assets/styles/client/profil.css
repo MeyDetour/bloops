@@ -358,9 +358,12 @@ input[type="reset"] {
 
         padding: 10px 30px;
     }
+
     #logoutBtn {
         right: 2%;
-        top: 11%;}
+        top: 11%;
+    }
+
     .profile__content {
         margin-top: 0vh;
         width: 97%;
@@ -408,9 +411,10 @@ input[type="reset"] {
     .editProfilContainer .inputContainer .dropzone-container {
         width: 100% !important;
     }
+
     .close-friends .friendsContainer {
         justify-content: flex-start;
-overflow-y: scroll;
+        overflow-y: scroll;
         width: 90vw;
         height: 26vh;
     }
@@ -458,6 +462,16 @@ overflow-y: scroll;
     #profile {
         width: 90vw;
     }
+
+    .profile__content .statistics__content {
+    {
+        margin: 17px 0 0 0px;
+        line-height: 20px;
+        justify-content: space-between;
+        width: 100%;
+        align-items: center;
+    }
+
 }
 
 
@@ -529,11 +543,13 @@ overflow-y: scroll;
         justify-content: space-around;
         align-items: center;
     }
+
     .password-icon {
         right: -14%;
         bottom: 7%;
         font-size: 31px;
     }
+
     #profile .inputContainer {
         width: 100%;
         display: flex;

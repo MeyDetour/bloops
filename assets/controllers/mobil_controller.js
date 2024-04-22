@@ -62,7 +62,11 @@ export default class extends Controller {
         this.element.style.overflowY = 'hidden'
         this.friendListContainerTarget.style.display = 'block'
         window.requestAnimationFrame(() => {
-            this.friendListContainerTarget.style.width = '88vw';
+            if (window.innerWidth <= 850) {
+
+                this.friendListContainerTarget.style.width = '100vw';
+            }
+                this.friendListContainerTarget.style.width = '88vw';
         });
         this.statusFriendsValue = 'open'
 

@@ -41,7 +41,7 @@
 
 
 </nav>
-{% if currentPath == '/' or  currentPath == '/podcast'  %}
+{% if currentPath == '/bloop' or  currentPath == '/podcast'  %}
 <button class="nav-link nav-burger-friends" {{ stimulus_action('mobil','toggleFriends','click')|stimulus_target('mobil','friendOption')}} aria-current="page"><i class="bi bi-people-fill"></i></button>
 {% endif %}
 <button class="nav-link nav-burger" {{ stimulus_action('mobil','toggle','click')|stimulus_target('mobil','burgerOption')}} aria-current="page"><i class="bi bi-list"></i></button>
