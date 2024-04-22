@@ -130,7 +130,7 @@
         align-items: center;
         height: fit-content;
     }
-.friendListContainer{
+.friendListContainer , .nav-burger-friends{
     display: none;
 }
     .nav-burger {
