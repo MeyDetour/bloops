@@ -187,9 +187,9 @@ class AudioController extends AbstractController
             $comments [] = [
                 'id' => $comment->getId(),
                 'author' => [
-                    'id' => $podcast->getAuthor()->getId(),
-                    'username' => $podcast->getAuthor()->getUsername(),
-                    'email' => $podcast->getAuthor()->getEmail(),
+                    'id' => $comment->getAuthor()->getId(),
+                    'username' => $comment->getAuthor()->getUsername(),
+                    'email' => $comment->getAuthor()->getEmail(),
                     'authorImage' => $authorImageUrl,
                 ],
                 'diffH'=>$diffInHours,

@@ -246,9 +246,9 @@ class BloopController extends AbstractController
             $comments [] = [
                 'id' => $comment->getId(),
                 'author' => [
-                    'id' => $bloop->getAuthor()->getId(),
-                    'username' => $bloop->getAuthor()->getUsername(),
-                    'email' => $bloop->getAuthor()->getEmail(),
+                    'id' => $comment->getAuthor()->getId(),
+                    'username' => $comment->getAuthor()->getUsername(),
+                    'email' => $comment->getAuthor()->getEmail(),
                     'authorImage' => $authorImageUrl,
                 ],
                 'diffH'=>$diffInHours,
