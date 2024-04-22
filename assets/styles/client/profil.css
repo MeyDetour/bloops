@@ -472,11 +472,10 @@ input[type="reset"] {
         align-items: center;
     }
 
+    }
 }
 
-
 /*===========================================INPUT UPDATE MDP==============*/
-
 .successfuly .inputContainer {
     display: none !important;
 }
@@ -655,7 +654,6 @@ input[type="reset"] {
 }
 
 /*==========================EDIT PROFIL==========*/
-
 .editProfilContainer {
     height: 100vh;
     width: 100%;
