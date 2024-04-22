@@ -26,6 +26,7 @@
         <a class="nav-link nav-new {% if currentPath == '/bloop/new' %} active {% endif %}  " aria-current="page"
            href="{{ path('app_poster') }}">+</a>
 
+{#
 
         {% if app.user %}
             {% if 'ROLE_ADMIN'in app.user.roles %}
@@ -35,7 +36,8 @@
 
             {% endif %}
         {% endif %}
-
+#}
+{{ currentPath }}
 
     </ul>
 
